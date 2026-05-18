@@ -7,354 +7,393 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-:root{
-    --primary:#7c9cff;
-    --secondary:#c8d8ff;
-    --accent:#8ee3c4;
-    --dark:#1f2937;
-    --light:#f5f7ff;
-    --white:#ffffff;
+:root {
+    --primary: #7c9cff;
+    --secondary: #c8d8ff;
+    --accent: #8ee3c4;
+    --dark: #1f2937;
+    --light: #f5f7ff;
+    --white: #ffffff;
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-    background: radial-gradient(circle at top left,#dfe9ff,#f7fbff);
-    color:var(--dark);
-    overflow-x:hidden;
+body {
+    background: radial-gradient(circle at top left, #dfe9ff, #f7fbff);
+    color: var(--dark);
+    overflow-x: hidden;
 }
 
 /* Decorative Background */
-.blur-circle{
-    position:fixed;
-    border-radius:50%;
-    filter:blur(90px);
-    z-index:-1;
-    opacity:0.5;
+.blur-circle {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    z-index: -1;
+    opacity: 0.5;
 }
 
-.circle1{
-    width:300px;
-    height:300px;
-    background:#b8c0ff;
-    top:-100px;
-    left:-100px;
+.circle1 {
+    width: 300px;
+    height: 300px;
+    background: #b8c0ff;
+    top: -100px;
+    left: -100px;
 }
 
-.circle2{
-    width:250px;
-    height:250px;
-    background:#8ee3c4;
-    bottom:0;
-    right:-80px;
+.circle2 {
+    width: 250px;
+    height: 250px;
+    background: #8ee3c4;
+    bottom: 0;
+    right: -80px;
 }
 
 /* Header */
-header{
-    width:100%;
-    position:fixed;
-    top:0;
-    left:0;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-    background:rgba(255,255,255,0.7);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid rgba(255,255,255,0.3);
-    z-index:1000;
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 1000;
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.logo-circle{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    background:linear-gradient(135deg,var(--primary),var(--accent));
+.logo-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
 }
 
-.logo h2{
-    color:var(--dark);
+.logo h2 {
+    color: var(--dark);
 }
 
-nav a{
-    text-decoration:none;
-    color:var(--dark);
-    margin-left:25px;
-    font-weight:500;
-    transition:0.3s;
+nav a {
+    text-decoration: none;
+    color: var(--dark);
+    margin-left: 25px;
+    font-weight: 500;
+    transition: 0.3s;
 }
 
-nav a:hover{
-    color:var(--primary);
+nav a:hover {
+    color: var(--primary);
 }
 
-.plus-link{
-    color:#ff9800;
-    font-weight:700;
+.plus-link {
+    color: #ff9800;
+    font-weight: 700;
 }
 
 /* Hero */
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:120px 8%;
-    gap:50px;
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 120px 8%;
+    gap: 50px;
 }
 
-.hero-text{
-    flex:1;
+.hero-text {
+    flex: 1;
 }
 
-.hero-text h1{
-    font-size:4rem;
-    margin-bottom:20px;
-    line-height:1.1;
+.hero-text h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    line-height: 1.1;
 }
 
-.hero-text p{
-    font-size:1.1rem;
-    color:#5f6b7a;
-    margin-bottom:35px;
-    max-width:600px;
+.hero-text p {
+    font-size: 1.1rem;
+    color: #5f6b7a;
+    margin-bottom: 35px;
+    max-width: 600px;
 }
 
-.btn{
-    display:inline-block;
-    padding:15px 35px;
-    border-radius:40px;
-    background:linear-gradient(135deg,var(--primary),#95aeff);
-    color:white;
-    text-decoration:none;
-    font-weight:600;
-    transition:0.4s;
-    box-shadow:0 0 25px rgba(124,156,255,0.4);
+.btn {
+    display: inline-block;
+    padding: 15px 35px;
+    border-radius: 40px;
+    background: linear-gradient(135deg, var(--primary), #95aeff);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.4s;
+    box-shadow: 0 0 25px rgba(124, 156, 255, 0.4);
+    border: none;
+    cursor: pointer;
 }
 
-.btn:hover{
-    transform:translateY(-5px) scale(1.03);
+.btn:hover {
+    transform: translateY(-5px) scale(1.03);
 }
 
-.hero-image{
-    flex:1;
-    display:flex;
-    justify-content:center;
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
-.phone{
-    width:320px;
-    height:620px;
-    border-radius:40px;
-    background:rgba(255,255,255,0.5);
-    backdrop-filter:blur(20px);
-    border:1px solid rgba(255,255,255,0.3);
-    padding:25px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.08);
-    position:relative;
+.phone {
+    width: 320px;
+    height: 620px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
-.phone::before{
-    content:'';
-    position:absolute;
-    width:120px;
-    height:20px;
-    background:#ddd;
-    border-radius:20px;
-    top:12px;
-    left:50%;
-    transform:translateX(-50%);
+.phone::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 20px;
+    background: #ddd;
+    border-radius: 20px;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.app-screen{
-    margin-top:40px;
+.app-screen {
+    margin-top: 40px;
 }
 
-.mood-row{
-    display:flex;
-    justify-content:space-between;
-    margin:25px 0;
+.mood-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0;
 }
 
-.mood{
-    width:55px;
-    height:55px;
-    border-radius:15px;
-    background:rgba(255,255,255,0.7);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:1.6rem;
-    transition:0.3s;
+.mood {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    transition: 0.3s;
 }
 
-.mood:hover{
-    transform:translateY(-5px);
+.mood:hover {
+    transform: translateY(-5px);
 }
 
-.small-card{
-    background:rgba(255,255,255,0.7);
-    border-radius:20px;
-    padding:18px;
-    margin-top:20px;
+.small-card {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    padding: 18px;
+    margin-top: 20px;
 }
 
 /* Sections */
-section{
-    padding:100px 8%;
+section {
+    padding: 100px 8%;
 }
 
-.section-title{
-    text-align:center;
-    margin-bottom:60px;
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
 }
 
-.section-title h2{
-    font-size:2.5rem;
-    margin-bottom:15px;
+.section-title h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
 }
 
-.section-title p{
-    color:#667085;
+.section-title p {
+    color: #667085;
 }
 
 /* Cards */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 
-.card{
-    background:rgba(255,255,255,0.65);
-    backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,0.4);
-    padding:35px;
-    border-radius:30px;
-    transition:0.4s;
-    box-shadow:0 10px 30px rgba(0,0,0,0.04);
+.card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 35px;
+    border-radius: 30px;
+    transition: 0.4s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
-.card:hover{
-    transform:translateY(-10px) scale(1.02);
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
 }
 
-.card h3{
-    margin:20px 0 10px;
+.card h3 {
+    margin: 20px 0 10px;
 }
 
-.icon{
-    width:70px;
-    height:70px;
-    border-radius:20px;
-    background:linear-gradient(135deg,var(--primary),var(--accent));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-size:2rem;
+.icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
 }
 
 /* Videos */
-.video-box{
-    height:220px;
-    border-radius:25px;
-    background:linear-gradient(135deg,#dbe7ff,#f3f7ff);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:1.3rem;
-    color:#667085;
-    margin-bottom:20px;
+.video-box {
+    height: 220px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #dbe7ff, #f3f7ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #667085;
+    margin-bottom: 20px;
+}
+
+/* Forms (Add Content) */
+.form-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 15px;
+    background: #f5f7ff;
+    font-size: 1rem;
+    outline: none;
+}
+
+.form-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 15px;
+    background: #f5f7ff;
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+}
+
+.add-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.add-panel {
+    display: none;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
 }
 
 /* Premium */
-.premium{
-    background:linear-gradient(135deg,#fff6df,#fffdf7);
+.premium {
+    background: linear-gradient(135deg, #fff6df, #fffdf7);
 }
 
-.price{
-    font-size:2rem;
-    color:#ff9800;
-    font-weight:700;
-    margin:15px 0;
+.price {
+    font-size: 2rem;
+    color: #ff9800;
+    font-weight: 700;
+    margin: 15px 0;
 }
 
-.badge{
-    display:inline-block;
-    padding:7px 15px;
-    background:#ff9800;
-    color:white;
-    border-radius:15px;
-    font-size:0.8rem;
-    font-weight:600;
+.badge {
+    display: inline-block;
+    padding: 7px 15px;
+    background: #ff9800;
+    color: white;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
 }
 
 /* Testimonials */
-.testimonial{
-    text-align:center;
+.testimonial {
+    text-align: center;
 }
 
-.avatar{
-    width:80px;
-    height:80px;
-    border-radius:50%;
-    background:linear-gradient(135deg,var(--primary),var(--accent));
-    margin:0 auto 20px;
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    margin: 0 auto 20px;
 }
 
 /* Footer */
-footer{
-    padding:50px 8%;
-    text-align:center;
-    background:#1d2433;
-    color:white;
+footer {
+    padding: 50px 8%;
+    text-align: center;
+    background: #1d2433;
+    color: white;
 }
 
-footer p{
-    opacity:0.8;
+footer p {
+    opacity: 0.8;
 }
 
 /* Animation */
-.reveal{
-    opacity:0;
-    transform:translateY(40px);
-    transition:1s;
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s;
 }
 
-.reveal.active{
-    opacity:1;
-    transform:translateY(0);
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Responsive */
-@media(max-width:950px){
-    .hero{
-        flex-direction:column;
-        text-align:center;
+@media(max-width: 950px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
     }
 
-    .hero-text h1{
-        font-size:3rem;
+    .hero-text h1 {
+        font-size: 3rem;
     }
 
-    nav{
-        display:none;
+    nav {
+        display: none;
     }
 }
 </style>
@@ -369,7 +408,6 @@ footer p{
         <div class="logo-circle"></div>
         <h2>MindGuard</h2>
     </div>
-
     <nav>
         <a href="#home">Головна</a>
         <a href="#features">Можливості</a>
@@ -383,37 +421,27 @@ footer p{
 <section class="hero" id="home">
     <div class="hero-text reveal">
         <h1>Твій простір спокою та підтримки</h1>
-        <p>
-            MindGuard — сучасна платформа психологічної підтримки,
-            яка допомагає контролювати емоційний стан,
-            зменшувати тривогу та відновлювати внутрішній баланс.
-        </p>
-
+        <p>MindGuard — сучасна платформа психологічної підтримки, яка допомагає контролювати емоційний стан, зменшувати тривогу та відновлювати внутрішній баланс.</p>
         <a href="#features" class="btn">Розпочати шлях</a>
     </div>
-
     <div class="hero-image reveal">
         <div class="phone">
             <div class="app-screen">
                 <h3>Як ти сьогодні?</h3>
-
                 <div class="mood-row">
                     <div class="mood">😊</div>
                     <div class="mood">😌</div>
                     <div class="mood">😔</div>
                     <div class="mood">😴</div>
                 </div>
-
                 <div class="small-card">
                     <h4>Дихальна вправа</h4>
                     <p>5 хвилин релаксації для зменшення стресу.</p>
                 </div>
-
                 <div class="small-card">
                     <h4>Медитація дня</h4>
                     <p>Знайди внутрішню рівновагу та спокій.</p>
                 </div>
-
                 <div class="small-card">
                     <h4>Прогрес</h4>
                     <p>Ти вже 7 днів підтримуєш свій ментальний баланс 💙</p>
@@ -428,20 +456,17 @@ footer p{
         <h2>Можливості платформи</h2>
         <p>Все необхідне для психологічної підтримки в одному місці</p>
     </div>
-
     <div class="grid">
         <div class="card reveal">
             <div class="icon">🧠</div>
             <h3>Щоденник настрою</h3>
             <p>Відстежуй свій емоційний стан та аналізуй зміни настрою.</p>
         </div>
-
         <div class="card reveal">
             <div class="icon">🌿</div>
             <h3>Медитації</h3>
             <p>Практики дихання та розслаблення для боротьби зі стресом.</p>
         </div>
-
         <div class="card reveal">
             <div class="icon">💬</div>
             <h3>Підтримка фахівців</h3>
@@ -456,13 +481,25 @@ footer p{
         <p>Короткі практичні заняття для психологічного відновлення</p>
     </div>
 
-    <div class="grid">
+    <!-- Панель додавання відео -->
+    <div class="add-section reveal">
+        <button class="btn" onclick="togglePanel('add-video-panel')">+ Додати своє відео</button>
+        <div class="card add-panel" id="add-video-panel">
+            <h3>Нове відео</h3>
+            <input type="text" id="vid-icon" class="form-input" placeholder="Тематика (напр., 🎥 Арт-терапія)">
+            <input type="text" id="vid-title" class="form-input" placeholder="Назва відео">
+            <textarea id="vid-desc" class="form-textarea" placeholder="Опис відео"></textarea>
+            <button class="btn" onclick="addNewVideo()">Опублікувати відео</button>
+        </div>
+    </div>
+
+    <div class="grid" id="videos-grid">
+        <!-- Стандартні відео -->
         <div class="card reveal">
             <div class="video-box">🎥 Арт-терапія</div>
             <h3>Основи емоційного балансу</h3>
             <p>Навчись заспокоювати думки та контролювати тривогу.</p>
         </div>
-
         <div class="card reveal">
             <div class="video-box">🎧 Медитація</div>
             <h3>Вечірній релакс</h3>
@@ -476,24 +513,20 @@ footer p{
         <h2>MindGuard Plus ✨</h2>
         <p>Розширені можливості та персональна підтримка</p>
     </div>
-
     <div class="grid">
         <div class="card reveal">
             <span class="badge">ІНДИВІДУАЛЬНО</span>
             <h3>Консультація психолога</h3>
             <div class="price">500 грн</div>
             <p>Особиста 60-хвилинна онлайн-сесія з фахівцем.</p>
-            <br>
-            <a href="#contact" class="btn">Замовити</a>
+            <br><a href="#contact" class="btn">Замовити</a>
         </div>
-
         <div class="card reveal">
             <span class="badge">ПІДПИСКА</span>
             <h3>Група підтримки</h3>
             <div class="price">250 грн/міс</div>
             <p>Вебінари, закритий чат та ексклюзивні практики.</p>
-            <br>
-            <a href="#contact" class="btn">Приєднатися</a>
+            <br><a href="#contact" class="btn">Приєднатися</a>
         </div>
     </div>
 </section>
@@ -504,23 +537,28 @@ footer p{
         <p>MindGuard уже допомагає людям знаходити внутрішній спокій</p>
     </div>
 
-    <div class="grid">
+    <!-- Панель додавання відгуку -->
+    <div class="add-section reveal">
+        <button class="btn" onclick="togglePanel('add-review-panel')">+ Залишити відгук</button>
+        <div class="card add-panel" id="add-review-panel">
+            <h3>Ваш відгук</h3>
+            <input type="text" id="rev-name" class="form-input" placeholder="Ваше ім'я">
+            <textarea id="rev-text" class="form-textarea" placeholder="Поділіться своїми враженнями..."></textarea>
+            <button class="btn" onclick="addNewReview()">Відправити</button>
+        </div>
+    </div>
+
+    <div class="grid" id="reviews-grid">
+        <!-- Стандартні відгуки -->
         <div class="card testimonial reveal">
             <div class="avatar"></div>
             <h3>Олена</h3>
-            <p>
-                “Після використання MindGuard я стала значно спокійнішою.
-                Медитації реально допомагають.”
-            </p>
+            <p>“Після використання MindGuard я стала значно спокійнішою. Медитації реально допомагають.”</p>
         </div>
-
         <div class="card testimonial reveal">
             <div class="avatar"></div>
             <h3>Андрій</h3>
-            <p>
-                “Дуже сучасний та зручний сервіс.
-                Найбільше сподобався щоденник настрою.”
-            </p>
+            <p>“Дуже сучасний та зручний сервіс. Найбільше сподобався щоденник настрою.”</p>
         </div>
     </div>
 </section>
@@ -530,44 +568,125 @@ footer p{
         <h2>Зв'яжіться з нами</h2>
         <p>Ми завжди готові допомогти</p>
     </div>
-
     <div class="card reveal" style="max-width:700px;margin:auto;text-align:center;">
-        <h3>Email підтримки</h3>
-        <br>
-        <p style="font-size:1.2rem;color:var(--primary);font-weight:600;">
-            mindguardproject@gmail.com
-        </p>
-        <br><br>
-
-        <textarea placeholder="Ваше повідомлення..."
-        style="width:100%;height:150px;padding:20px;border:none;border-radius:20px;background:#f5f7ff;resize:none;"></textarea>
-
-        <br><br>
-
+        <h3>Email підтримки</h3><br>
+        <p style="font-size:1.2rem;color:var(--primary);font-weight:600;">mindguardproject@gmail.com</p><br><br>
+        <textarea placeholder="Ваше повідомлення..." style="width:100%;height:150px;padding:20px;border:none;border-radius:20px;background:#f5f7ff;resize:none;"></textarea><br><br>
         <button class="btn">Надіслати</button>
     </div>
 </section>
 
 <footer>
-    <h2>MindGuard</h2>
-    <br>
-    <p>
-        © 2026 MindGuard Project — Робимо світ спокійнішим 💙
-    </p>
+    <h2>MindGuard</h2><br>
+    <p>© 2026 MindGuard Project — Робимо світ спокійнішим 💙</p>
 </footer>
 
 <script>
+// --- Анімація скролу ---
 const reveals = document.querySelectorAll('.reveal');
-
-window.addEventListener('scroll', () => {
+function checkReveal() {
     reveals.forEach(el => {
         const windowHeight = window.innerHeight;
         const revealTop = el.getBoundingClientRect().top;
-
         if(revealTop < windowHeight - 100){
             el.classList.add('active');
         }
     });
+}
+window.addEventListener('scroll', checkReveal);
+window.addEventListener('load', checkReveal); // Активуємо при завантаженні
+
+// --- Логіка відображення панелей ---
+function togglePanel(panelId) {
+    const panel = document.getElementById(panelId);
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+}
+
+// --- Логіка додавання відео ---
+function addNewVideo() {
+    const icon = document.getElementById('vid-icon').value || '▶️ Нове відео';
+    const title = document.getElementById('vid-title').value;
+    const desc = document.getElementById('vid-desc').value;
+
+    if(!title || !desc) {
+        alert("Будь ласка, заповніть назву та опис відео.");
+        return;
+    }
+
+    const videoObj = { icon, title, desc };
+    
+    // Зберігаємо в LocalStorage
+    let videos = JSON.parse(localStorage.getItem('mindguard_videos') || '[]');
+    videos.push(videoObj);
+    localStorage.setItem('mindguard_videos', JSON.stringify(videos));
+
+    // Додаємо на екран
+    renderVideo(videoObj);
+
+    // Очищаємо поля
+    document.getElementById('vid-icon').value = '';
+    document.getElementById('vid-title').value = '';
+    document.getElementById('vid-desc').value = '';
+    togglePanel('add-video-panel');
+}
+
+function renderVideo(video) {
+    const grid = document.getElementById('videos-grid');
+    const html = `
+        <div class="card reveal active">
+            <div class="video-box">${video.icon}</div>
+            <h3>${video.title}</h3>
+            <p>${video.desc}</p>
+        </div>
+    `;
+    grid.insertAdjacentHTML('beforeend', html);
+}
+
+// --- Логіка додавання відгуку ---
+function addNewReview() {
+    const name = document.getElementById('rev-name').value;
+    const text = document.getElementById('rev-text').value;
+
+    if(!name || !text) {
+        alert("Будь ласка, заповніть ім'я та текст відгуку.");
+        return;
+    }
+
+    const reviewObj = { name, text };
+
+    // Зберігаємо в LocalStorage
+    let reviews = JSON.parse(localStorage.getItem('mindguard_reviews') || '[]');
+    reviews.push(reviewObj);
+    localStorage.setItem('mindguard_reviews', JSON.stringify(reviews));
+
+    // Додаємо на екран
+    renderReview(reviewObj);
+
+    // Очищаємо поля
+    document.getElementById('rev-name').value = '';
+    document.getElementById('rev-text').value = '';
+    togglePanel('add-review-panel');
+}
+
+function renderReview(review) {
+    const grid = document.getElementById('reviews-grid');
+    const html = `
+        <div class="card testimonial reveal active">
+            <div class="avatar"></div>
+            <h3>${review.name}</h3>
+            <p>“${review.text}”</p>
+        </div>
+    `;
+    grid.insertAdjacentHTML('beforeend', html);
+}
+
+// --- Завантаження збережених даних ---
+window.addEventListener('DOMContentLoaded', () => {
+    const savedVideos = JSON.parse(localStorage.getItem('mindguard_videos') || '[]');
+    savedVideos.forEach(renderVideo);
+
+    const savedReviews = JSON.parse(localStorage.getItem('mindguard_reviews') || '[]');
+    savedReviews.forEach(renderReview);
 });
 </script>
 
