@@ -498,7 +498,7 @@ footer p {
     </div>
 
     <div class="grid" id="videos-container">
-        <!-- Статичні відео (будуть завжди) -->
+        <!-- Статичні відео -->
         <div class="card reveal">
             <div class="video-box">🎥 Арт-терапія</div>
             <h3>Основи емоційного балансу</h3>
@@ -593,7 +593,7 @@ footer p {
 </footer>
 
 <script>
-// --- ЕФЕКТ ПОЯВИ ПРИ СКРОЛІ (Для початкових блоків) ---
+// --- ЕФЕКТ ПОЯВИ ПРИ СКРОЛІ ---
 const reveals = document.querySelectorAll('.reveal');
 function scanElements() {
     reveals.forEach(el => {
@@ -611,7 +611,7 @@ window.addEventListener('load', scanElements);
 function toggleForm(formId) {
     const form = document.getElementById(formId);
     if (form.style.display === 'block') {
-        form.style.style.display = 'none';
+        form.style.display = 'none';
     } else {
         form.style.display = 'block';
     }
@@ -630,15 +630,12 @@ function submitVideo() {
 
     const newVideo = { icon: icon || "🎥 Відео", title, desc };
 
-    // Зберігання в локальну пам'ять (Браузер)
     let localVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
     localVideos.push(newVideo);
     localStorage.setItem('stored_vids', JSON.stringify(localVideos));
 
-    // Миттєвий вивід на екран
     appendVideoCard(newVideo);
 
-    // Очищення полів форми
     document.getElementById('v-title').value = '';
     document.getElementById('v-desc').value = '';
     toggleForm('video-form');
@@ -668,15 +665,12 @@ function submitReview() {
 
     const newReview = { name, text };
 
-    // Зберігання в локальну пам'ять (Браузер)
     let localReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
     localReviews.push(newReview);
     localStorage.setItem('stored_revs', JSON.stringify(localReviews));
 
-    // Миттєвий вивід на екран
     appendReviewCard(newReview);
 
-    // Очищення полів форми
     document.getElementById('r-name').value = '';
     document.getElementById('r-text').value = '';
     toggleForm('review-form');
@@ -694,7 +688,7 @@ function appendReviewCard(review) {
     container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- ЗАВАНТАЖЕННЯ ДАНИХ З ПАМ'ЯТІ ПРИ СТАРТІ СТОРІНКИ ---
+// --- ЗАВАНТАЖЕННЯ ДАНИХ З ПАМ'ЯТІ ПРИ СТАРТІ ---
 window.addEventListener('DOMContentLoaded', () => {
     const savedVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
     savedVideos.forEach(appendVideoCard);
