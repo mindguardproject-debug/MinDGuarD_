@@ -223,7 +223,7 @@ section {
 
 .section-title {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .section-title h2 {
@@ -285,41 +285,51 @@ section {
     margin-bottom: 20px;
 }
 
-/* Forms (Add Content) */
-.form-input {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 15px;
-    background: #f5f7ff;
-    font-size: 1rem;
-    outline: none;
-}
-
-.form-textarea {
-    width: 100%;
-    height: 100px;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 15px;
-    background: #f5f7ff;
-    font-size: 1rem;
-    resize: none;
-    outline: none;
-}
-
-.add-section {
+/* Форми створення контенту */
+.add-container {
     text-align: center;
     margin-bottom: 40px;
 }
 
-.add-panel {
-    display: none;
-    max-width: 600px;
+.form-card {
+    display: none; /* Заховані за замовчуванням */
+    max-width: 550px;
     margin: 20px auto;
     text-align: left;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--primary);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    background: #f8fafc;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+}
+
+textarea.form-control {
+    height: 100px;
+    resize: none;
 }
 
 /* Premium */
@@ -369,7 +379,7 @@ footer p {
     opacity: 0.8;
 }
 
-/* Animation */
+/* Animation CSS (Тільки для стартових елементів) */
 .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -379,22 +389,6 @@ footer p {
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* Responsive */
-@media(max-width: 950px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .hero-text h1 {
-        font-size: 3rem;
-    }
-
-    nav {
-        display: none;
-    }
 }
 </style>
 </head>
@@ -481,20 +475,30 @@ footer p {
         <p>Короткі практичні заняття для психологічного відновлення</p>
     </div>
 
-    <!-- Панель додавання відео -->
-    <div class="add-section reveal">
-        <button class="btn" onclick="togglePanel('add-video-panel')">+ Додати своє відео</button>
-        <div class="card add-panel" id="add-video-panel">
-            <h3>Нове відео</h3>
-            <input type="text" id="vid-icon" class="form-input" placeholder="Тематика (напр., 🎥 Арт-терапія)">
-            <input type="text" id="vid-title" class="form-input" placeholder="Назва відео">
-            <textarea id="vid-desc" class="form-textarea" placeholder="Опис відео"></textarea>
-            <button class="btn" onclick="addNewVideo()">Опублікувати відео</button>
+    <!-- Кнопка та форма для додавання відео -->
+    <div class="add-container reveal">
+        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео</button>
+        
+        <div class="card form-card" id="video-form">
+            <h3>Додати відеокурс</h3><br>
+            <div class="form-group">
+                <label>Іконка або Емодзі (наприклад: 🎥 Арт-терапія)</label>
+                <input type="text" id="v-icon" class="form-control" value="🎥 Відео">
+            </div>
+            <div class="form-group">
+                <label>Назва курсу</label>
+                <input type="text" id="v-title" class="form-control" placeholder="Введіть назву...">
+            </div>
+            <div class="form-group">
+                <label>Короткий опис</label>
+                <textarea id="v-desc" class="form-control" placeholder="Про що це відео..."></textarea>
+            </div>
+            <button class="btn" onclick="submitVideo()">Опублікувати</button>
         </div>
     </div>
 
-    <div class="grid" id="videos-grid">
-        <!-- Стандартні відео -->
+    <div class="grid" id="videos-container">
+        <!-- Статичні відео (будуть завжди) -->
         <div class="card reveal">
             <div class="video-box">🎥 Арт-терапія</div>
             <h3>Основи емоційного балансу</h3>
@@ -537,19 +541,26 @@ footer p {
         <p>MindGuard уже допомагає людям знаходити внутрішній спокій</p>
     </div>
 
-    <!-- Панель додавання відгуку -->
-    <div class="add-section reveal">
-        <button class="btn" onclick="togglePanel('add-review-panel')">+ Залишити відгук</button>
-        <div class="card add-panel" id="add-review-panel">
-            <h3>Ваш відгук</h3>
-            <input type="text" id="rev-name" class="form-input" placeholder="Ваше ім'я">
-            <textarea id="rev-text" class="form-textarea" placeholder="Поділіться своїми враженнями..."></textarea>
-            <button class="btn" onclick="addNewReview()">Відправити</button>
+    <!-- Кнопка та форма для додавання відгуку -->
+    <div class="add-container reveal">
+        <button class="btn" onclick="toggleForm('review-form')">+ Залишити свій відгук</button>
+        
+        <div class="card form-card" id="review-form">
+            <h3>Ваш відгук</h3><br>
+            <div class="form-group">
+                <label>Ваше ім'я</label>
+                <input type="text" id="r-name" class="form-control" placeholder="Як вас звати?">
+            </div>
+            <div class="form-group">
+                <label>Текст відгуку</label>
+                <textarea id="r-text" class="form-control" placeholder="Поділіться вашими враженнями від платформи..."></textarea>
+            </div>
+            <button class="btn" onclick="submitReview()">Відправити відгук</button>
         </div>
     </div>
 
-    <div class="grid" id="reviews-grid">
-        <!-- Стандартні відгуки -->
+    <div class="grid" id="reviews-container">
+        <!-- Статичні відгуки -->
         <div class="card testimonial reveal">
             <div class="avatar"></div>
             <h3>Олена</h3>
@@ -582,111 +593,114 @@ footer p {
 </footer>
 
 <script>
-// --- Анімація скролу ---
+// --- ЕФЕКТ ПОЯВИ ПРИ СКРОЛІ (Для початкових блоків) ---
 const reveals = document.querySelectorAll('.reveal');
-function checkReveal() {
+function scanElements() {
     reveals.forEach(el => {
         const windowHeight = window.innerHeight;
         const revealTop = el.getBoundingClientRect().top;
-        if(revealTop < windowHeight - 100){
+        if(revealTop < windowHeight - 80){
             el.classList.add('active');
         }
     });
 }
-window.addEventListener('scroll', checkReveal);
-window.addEventListener('load', checkReveal); // Активуємо при завантаженні
+window.addEventListener('scroll', scanElements);
+window.addEventListener('load', scanElements);
 
-// --- Логіка відображення панелей ---
-function togglePanel(panelId) {
-    const panel = document.getElementById(panelId);
-    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+// --- ВІДКРИТТЯ / ЗАКРИТТЯ ФОРМ ---
+function toggleForm(formId) {
+    const form = document.getElementById(formId);
+    if (form.style.display === 'block') {
+        form.style.style.display = 'none';
+    } else {
+        form.style.display = 'block';
+    }
 }
 
-// --- Логіка додавання відео ---
-function addNewVideo() {
-    const icon = document.getElementById('vid-icon').value || '▶️ Нове відео';
-    const title = document.getElementById('vid-title').value;
-    const desc = document.getElementById('vid-desc').value;
+// --- ФУНКЦІЇ ДЛЯ ДОДАВАННЯ ВІДЕО ---
+function submitVideo() {
+    const icon = document.getElementById('v-icon').value.trim();
+    const title = document.getElementById('v-title').value.trim();
+    const desc = document.getElementById('v-desc').value.trim();
 
-    if(!title || !desc) {
-        alert("Будь ласка, заповніть назву та опис відео.");
+    if (!title || !desc) {
+        alert("Будь ласка, заповніть назву та опис відео курсу!");
         return;
     }
 
-    const videoObj = { icon, title, desc };
-    
-    // Зберігаємо в LocalStorage
-    let videos = JSON.parse(localStorage.getItem('mindguard_videos') || '[]');
-    videos.push(videoObj);
-    localStorage.setItem('mindguard_videos', JSON.stringify(videos));
+    const newVideo = { icon: icon || "🎥 Відео", title, desc };
 
-    // Додаємо на екран
-    renderVideo(videoObj);
+    // Зберігання в локальну пам'ять (Браузер)
+    let localVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
+    localVideos.push(newVideo);
+    localStorage.setItem('stored_vids', JSON.stringify(localVideos));
 
-    // Очищаємо поля
-    document.getElementById('vid-icon').value = '';
-    document.getElementById('vid-title').value = '';
-    document.getElementById('vid-desc').value = '';
-    togglePanel('add-video-panel');
+    // Миттєвий вивід на екран
+    appendVideoCard(newVideo);
+
+    // Очищення полів форми
+    document.getElementById('v-title').value = '';
+    document.getElementById('v-desc').value = '';
+    toggleForm('video-form');
 }
 
-function renderVideo(video) {
-    const grid = document.getElementById('videos-grid');
-    const html = `
-        <div class="card reveal active">
+function appendVideoCard(video) {
+    const container = document.getElementById('videos-container');
+    const cardHtml = `
+        <div class="card" style="opacity:1; transform:none;">
             <div class="video-box">${video.icon}</div>
             <h3>${video.title}</h3>
             <p>${video.desc}</p>
         </div>
     `;
-    grid.insertAdjacentHTML('beforeend', html);
+    container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- Логіка додавання відгуку ---
-function addNewReview() {
-    const name = document.getElementById('rev-name').value;
-    const text = document.getElementById('rev-text').value;
+// --- ФУНКЦІЇ ДЛЯ ДОДАВАННЯ ВІДГУКІВ ---
+function submitReview() {
+    const name = document.getElementById('r-name').value.trim();
+    const text = document.getElementById('r-text').value.trim();
 
-    if(!name || !text) {
-        alert("Будь ласка, заповніть ім'я та текст відгуку.");
+    if (!name || !text) {
+        alert("Будь ласка, вкажіть ваше ім'я та напишіть відгук!");
         return;
     }
 
-    const reviewObj = { name, text };
+    const newReview = { name, text };
 
-    // Зберігаємо в LocalStorage
-    let reviews = JSON.parse(localStorage.getItem('mindguard_reviews') || '[]');
-    reviews.push(reviewObj);
-    localStorage.setItem('mindguard_reviews', JSON.stringify(reviews));
+    // Зберігання в локальну пам'ять (Браузер)
+    let localReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+    localReviews.push(newReview);
+    localStorage.setItem('stored_revs', JSON.stringify(localReviews));
 
-    // Додаємо на екран
-    renderReview(reviewObj);
+    // Миттєвий вивід на екран
+    appendReviewCard(newReview);
 
-    // Очищаємо поля
-    document.getElementById('rev-name').value = '';
-    document.getElementById('rev-text').value = '';
-    togglePanel('add-review-panel');
+    // Очищення полів форми
+    document.getElementById('r-name').value = '';
+    document.getElementById('r-text').value = '';
+    toggleForm('review-form');
 }
 
-function renderReview(review) {
-    const grid = document.getElementById('reviews-grid');
-    const html = `
-        <div class="card testimonial reveal active">
+function appendReviewCard(review) {
+    const container = document.getElementById('reviews-container');
+    const cardHtml = `
+        <div class="card testimonial" style="opacity:1; transform:none;">
             <div class="avatar"></div>
             <h3>${review.name}</h3>
             <p>“${review.text}”</p>
         </div>
     `;
-    grid.insertAdjacentHTML('beforeend', html);
+    container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- Завантаження збережених даних ---
+// --- ЗАВАНТАЖЕННЯ ДАНИХ З ПАМ'ЯТІ ПРИ СТАРТІ СТОРІНКИ ---
 window.addEventListener('DOMContentLoaded', () => {
-    const savedVideos = JSON.parse(localStorage.getItem('mindguard_videos') || '[]');
-    savedVideos.forEach(renderVideo);
+    const savedVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
+    savedVideos.forEach(appendVideoCard);
 
-    const savedReviews = JSON.parse(localStorage.getItem('mindguard_reviews') || '[]');
-    savedReviews.forEach(renderReview);
+    const savedReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+    savedReviews.forEach(appendReviewCard);
 });
 </script>
 
