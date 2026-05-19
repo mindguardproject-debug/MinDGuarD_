@@ -651,7 +651,7 @@ footer {
         <div class="card reveal">
             <div class="icon">🌿</div>
             <h3>Медитації</h3>
-            <p>Практики дихання та розслаблення для боротьби зі стресом.</p>
+            <p>Practices дихання та розслаблення для боротьби зі стресом.</p>
         </div>
         <div class="card reveal">
             <div class="icon">💬</div>
@@ -668,7 +668,7 @@ footer {
     </div>
 
     <div class="add-container reveal">
-        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео (Локально)</button>
+        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео</button>
         
         <div class="card form-card" id="video-form">
             <h3>Додати відео курс</h3><br>
@@ -699,6 +699,7 @@ footer {
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                     <strong>Джерело:</strong> Facebook<br>
                     <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
                 </p>
                 <br>
                 <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
@@ -711,6 +712,7 @@ footer {
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                     <strong>Джерело:</strong> Facebook<br>
                     <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
                 </p>
                 <br>
                 <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
@@ -719,10 +721,11 @@ footer {
             <div class="card">
                 <div class="icon" style="background: #FF0000; color: white;">▶</div>
                 <h3>Як позбутися тривожності, стресу та депресії?</h3>
-                <p>Цікаве та практичне відео, засноване на книзі докторки Еллен Вора «Анатомія тривоги». У ньому детально розбираються 6 прихованих тілесних причин, які викликають і підтримують щоденний стрес.</p>
+                <p>Цікаве та практичне відео, засноване на книзі докторки Еллен Вора «Анатомія тривоги». У ньому детально розбираються 6 прихованих тілесних причин, які викликають і підтримують щоденний стрес — від банального недосипання до браку контакту з природою.</p>
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                     <strong>Джерело:</strong> YouTube<br>
                     <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
                 </p>
                 <br>
                 <a href="https://youtu.be/TvDJKPuLZSE" target="_blank" class="btn">Дивитися на YouTube</a>
@@ -731,10 +734,11 @@ footer {
             <div class="card">
                 <div class="icon" style="background: #FF0000; color: white;">▶</div>
                 <h3>Як зупинити хронічний стрес?</h3>
-                <p>Ефективні наукові методи боротьби із затяжною психоемоційною втомою. Прості кроки для перезавантаження нервової системи та повернення контролю над своїм життям.</p>
+                <p>Ефективні наукові методи боротьби із затяжною психоемоційною втомою. Прості кроки для перезавантаження нервової системи та повернення контролю над своїм життям у складні часи.</p>
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                     <strong>Джерело:</strong> YouTube<br>
                     <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
                 </p>
                 <br>
                 <a href="https://youtu.be/y9wM_bVv_0o" target="_blank" class="btn">Дивитися на YouTube</a>
@@ -884,25 +888,29 @@ function moveSlider(containerId, direction) {
     const firstCard = container.querySelector('.card');
     if (!firstCard) return;
     
+    // Точна ширина однієї картки з урахуванням усіх відступів
     const cardWidth = firstCard.getBoundingClientRect().width;
     const gap = 25; 
     let step = cardWidth + gap;
     
+    // Якщо це ПК екран (3 картки), крутимо одразу на всю довжину екрана (3 картки)
     if (window.innerWidth >= 1024) {
         step = step * 3; 
     } else if (window.innerWidth >= 768) {
-        step = step * 2;
+        step = step * 2; // Планшет (2 картки)
     }
 
+    // Розраховуємо нове положення
     const targetScroll = container.scrollLeft + (step * direction);
     
+    // Плавне прокручування
     container.scrollTo({
         left: targetScroll,
         behavior: 'smooth'
     });
 }
 
-// --- ЩОДЕННИК НАСТРОЮ (Локально) ---
+// --- ЩОДЕННИК НАСТРОЮ ---
 let currentSelectedMood = '';
 
 function selectMood(mood, element) {
@@ -950,7 +958,7 @@ function renderMoodHistory() {
     `).join('');
 }
 
-// --- СЛУЖБА ПІДТРИМКИ (Локально) ---
+// --- ФУНКЦІОНАЛ ПІДТРИМКИ ---
 function sendSupportMessage() {
     const emailInput = document.getElementById('s-email');
     const messageInput = document.getElementById('s-message');
@@ -965,10 +973,23 @@ function sendSupportMessage() {
         return;
     }
 
+    if (!email.includes('@') || !email.includes('.')) {
+        alert("Будь ласка, введіть коректну адресу електронної пошти!");
+        return;
+    }
+
     submitBtn.innerText = "Надсилання...";
     submitBtn.disabled = true;
 
     setTimeout(() => {
+        const now = new Date();
+        const timestamp = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+        const newTicket = { email, message, time: timestamp };
+        let tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
+        tickets.push(newTicket);
+        localStorage.setItem('support_tickets', JSON.stringify(tickets));
+
         emailInput.value = '';
         messageInput.value = '';
         successMsg.style.display = 'block';
@@ -982,7 +1003,7 @@ function sendSupportMessage() {
     }, 1200);
 }
 
-// --- ДОДАННЯ ВІДЕО ЧЕРЕЗ ФОРМУ (Зберігається локально) ---
+// --- ДОДАННЯ ВІДЕО ---
 function submitVideo() {
     const url = document.getElementById('v-url').value.trim();
     const title = document.getElementById('v-title').value.trim();
@@ -1021,7 +1042,8 @@ function appendVideoCard(video) {
             <p>${video.desc}</p>
             <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                 <strong>Джерело:</strong> ${sourceName}<br>
-                <strong>Автор відео:</strong> Додано користувачем<br>
+                <strong>Автор відео:</strong> Безбар'єрність<br>
+                <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
             </p>
             <br>
             <a href="${video.url}" target="_blank" class="btn">Дивитися на ${sourceName}</a>
@@ -1030,7 +1052,7 @@ function appendVideoCard(video) {
     container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- ВІДГУКИ ЧЕРЕЗ ФОРМУ (Зберігається локально) ---
+// --- ВІДГУКИ ---
 function submitReview() {
     const name = document.getElementById('r-name').value.trim();
     const text = document.getElementById('r-text').value.trim();
@@ -1077,7 +1099,7 @@ function appendReviewCard(review) {
     container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// ЗАВАНТАЖЕННЯ ДАНИХ ПРИ ВІДКРИТТІ СТОРІНКИ
+// ЗАВАНТАЖЕННЯ ДАНИХ
 window.addEventListener('DOMContentLoaded', () => {
     renderMoodHistory();
 
