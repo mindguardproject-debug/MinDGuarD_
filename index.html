@@ -408,7 +408,7 @@
             margin-top: 10px;
         }
 
-        /* Дії з відгуками (Лайки, Коментарі, Видалення) */
+        /* Дії з відгуками */
         .review-actions {
             display: flex;
             align-items: center;
@@ -469,7 +469,7 @@
             color: var(--primary);
         }
 
-        /* Преміум блоки */
+        /* Преміум */
         .premium {
             background: linear-gradient(135deg, #fff6df, #fffdf7);
         }
@@ -510,7 +510,6 @@
             color: white;
         }
 
-        /* Ефекти появи */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -522,7 +521,7 @@
             transform: translateY(0);
         }
 
-        /* --- НОВІ МОБІЛЬНІ СТИЛІ ДЛЯ КОНТАКТІВ ТА ПОШТИ --- */
+        /* Мобільна оптимізація пошти */
         .support-box {
             max-width: 500px;
             margin: auto;
@@ -748,7 +747,7 @@
     <div class="grid" id="reviews-container"></div>
 </section>
 
-<!-- АДАПТИВНИЙ ДЛЯ ТЕЛЕФОНІВ БЛОК КОНТАКТІВ -->
+<!-- КОНТАКТИ -->
 <section id="contact">
     <div class="section-title reveal">
         <h2>Зв'яжіться з нами</h2>
@@ -771,20 +770,19 @@
     <p>© 2026 MindGuard Project — Робимо світ спокійнішим 💙</p>
 </footer>
 
-
-<!-- ПІДКЛЮЧЕННЯ FIREBASE ДЛЯ ГЛОБАЛЬНОЇ СИНХРОНІЗАЦІЇ МІЖ ПРИСТРОЯМИ -->
+<!-- FIREBASE SDK -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-// Налаштування бази даних хмари (вже працює глобально)
+// Підключення Firebase хмари
 const firebaseConfig = {
     databaseURL: "https://mindguard-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Анімація появи елементів при скролі
+// Ефекти скролу
 const reveals = document.querySelectorAll('.reveal');
 function scanElements() {
     reveals.forEach(el => {
@@ -801,7 +799,7 @@ function toggleForm(formId) {
     form.style.display = (form.style.display === 'block') ? 'none' : 'block';
 }
 
-// --- ЩОДЕННИК НАСТРОЮ (Локальний для кожного користувача) ---
+// --- ЩОДЕННИК НАСТРОЮ ---
 let currentSelectedMood = '';
 function selectMood(mood, element) {
     document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
@@ -843,7 +841,7 @@ function renderMoodHistory() {
     `).join('');
 }
 
-// --- ВІДЕОКУРСИ (Синхронізація через Хмару Firebase) ---
+// --- ВІДЕОКУРСИ ---
 function getYouTubeEmbedUrl(url) {
     let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     let match = url.match(regExp);
@@ -851,23 +849,18 @@ function getYouTubeEmbedUrl(url) {
     return null;
 }
 
-// Слухаємо базу даних у реальному часі на всіх пристроях
 database.ref('videos').on('value', (snapshot) => {
     const container = document.getElementById('videos-container');
     let data = snapshot.val();
-    
     let videos = [];
     if (data) {
         videos = Object.keys(data).map(key => ({ firebaseKey: key, ...data[key] }));
     } else {
-        // Якщо база порожня, додаємо початкові відео
         videos = [
             { id: 1, embedUrl: "https://www.youtube.com/embed/TTXcHEMfLb4", title: "Основи емоційного балансу", desc: "Навчись заспокоювати думки та контролювати тривогу." },
-            { id: 2, embedUrl: "https://www.youtube.com/embed/KkxPP4mjnjw", title: "Як впоратися зі стресом", desc: "Практичні поради та вправи від психотерапевта." }
+            { id: 2, embedUrl: "https://www.youtube.com/embed/KkxPP4antzQ", title: "Як впоратися зі стресом", desc: "Практичні поради та вправи від психотерапевта." }
         ];
-        videos.forEach(v => database.ref('videos').push(v));
     }
-
     container.innerHTML = videos.map(video => `
         <div class="card reveal active" style="transform:none; opacity:1;">
             <div class="video-box">
@@ -883,48 +876,45 @@ function submitVideo() {
     const url = document.getElementById('v-url').value.trim();
     const title = document.getElementById('v-title').value.trim();
     const desc = document.getElementById('v-desc').value.trim();
-    
     if (!url || !title || !desc) return alert("Заповніть усі поля!");
     const embedUrl = getYouTubeEmbedUrl(url);
-    if (!embedUrl) return alert("Некоректне посилання на YouTube!");
-
-    const newVideo = { id: Date.now(), embedUrl, title, desc };
-    database.ref('videos').push(newVideo);
-
-    document.getElementById('v-url').value = '';
-    document.getElementById('v-title').value = '';
-    document.getElementById('v-desc').value = '';
+    if (!embedUrl) return alert("Некоректне посилання!");
+    database.ref('videos').push({ id: Date.now(), embedUrl, title, desc });
     toggleForm('video-form');
 }
 
-// --- ВІДГУКИ, ЛАЙКИ ТА КОМЕНТАРІ (Повна синхронізація через Хмару) ---
+// --- ВІДГУКИ: РОЗУМНЕ ПОЄДНАННЯ ЛОКАЛЬНИХ ТА ГЛОБАЛЬНИХ ДАНИХ ---
 database.ref('reviews').on('value', (snapshot) => {
     const container = document.getElementById('reviews-container');
-    let data = snapshot.val();
+    let cloudData = snapshot.val() || {};
     
-    let reviews = [];
-    if (data) {
-        reviews = Object.keys(data).map(key => ({ firebaseKey: key, ...data[key] }));
-    } else {
-        // Дефолтні відгуки для першого старту бази
-        reviews = [
-            { id: 101, name: 'Олена', text: 'Після використання MindGuard я стала значно спокійнішою.', rating: 5, date: '12.05.2026', likes: 12, replies: [{name: 'Адмін', text: 'Дякуємо, Олено! 💙'}] },
-            { id: 102, name: 'Андрій', text: 'Дуже сучасний сервіс. Рекомендую.', rating: 4, date: '15.05.2026', likes: 5, replies: [] }
-        ];
-        reviews.forEach(r => database.ref('reviews').push(r));
-    }
+    // Завантажуємо глобальні відгуки з хмари
+    let cloudReviews = Object.keys(cloudData).map(key => ({ firebaseKey: key, ...cloudData[key] }));
+    
+    // Завантажуємо локальні відгуки, які раніше були на ПК в localStorage
+    let localReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+    
+    // Фільтруємо локальні, щоб не дублювати ті, що вже є у хмарі
+    let filteredLocal = localReviews.filter(local => !cloudReviews.some(cloud => cloud.id === local.id));
+    
+    // Об'єднуємо обидва масиви разом
+    let allReviews = [...filteredLocal, ...cloudReviews];
 
+    // Сортуємо за часом створення (новіші внизу або вгорі)
+    allReviews.sort((a, b) => a.id - b.id);
+
+    // Відображаємо на сторінці
     container.innerHTML = '';
-    reviews.forEach(review => {
+    allReviews.forEach(review => {
         let starsHtml = '';
-        for(let i = 1; i <= 5; i++) {
-            starsHtml += (i <= review.rating) ? '★' : '☆';
-        }
-
+        for(let i = 1; i <= 5; i++) { starsHtml += (i <= review.rating) ? '★' : '☆'; }
+        
         let repliesList = review.replies ? Object.values(review.replies) : [];
         let repliesHtml = repliesList.length > 0 
-            ? `<div class="replies-list">${repliesList.map(r => `<div class="reply-item"><strong>${r.name}:</strong> ${r.text}</div>`).join('')}</div>` 
-            : '';
+            ? `<div class="replies-list">${repliesList.map(r => `<div class="reply-item"><strong>${r.name}:</strong> ${r.text}</div>`).join('')}</div>` : '';
+
+        // Визначаємо унікальний ідентифікатор для кнопок
+        const key = review.firebaseKey || `local-${review.id}`;
 
         const card = `
             <div class="card testimonial reveal active" style="transform:none; opacity:1;">
@@ -933,19 +923,16 @@ database.ref('reviews').on('value', (snapshot) => {
                 <h3>${review.name}</h3>
                 <p>“${review.text}”</p>
                 <span class="review-date">${review.date || ''}</span>
-                
                 <div class="review-actions">
-                    <button class="action-btn" onclick="likeReview('${review.firebaseKey}', ${review.likes || 0})">❤️ ${review.likes || 0}</button>
-                    <button class="action-btn" onclick="toggleReplyBox('${review.firebaseKey}')">💬 Коментувати</button>
-                    <button class="action-btn delete" onclick="deleteReview('${review.firebaseKey}')">🗑️ Видалити</button>
+                    <button class="action-btn" onclick="likeReview('${key}', ${review.likes || 0})">❤️ ${review.likes || 0}</button>
+                    <button class="action-btn" onclick="toggleReplyBox('${key}')">💬 Коментувати</button>
+                    <button class="action-btn delete" onclick="deleteReview('${key}')">🗑️ Видалити</button>
                 </div>
-
-                <div class="reply-form" id="reply-box-${review.firebaseKey}">
-                    <input type="text" id="reply-name-${review.firebaseKey}" class="form-control" placeholder="Ваше ім'я" style="padding: 8px;">
-                    <input type="text" id="reply-text-${review.firebaseKey}" class="form-control" placeholder="Відповідь..." style="padding: 8px;">
-                    <button class="btn" style="padding: 8px;" onclick="submitReply('${review.firebaseKey}')">Надіслати</button>
+                <div class="reply-form" id="reply-box-${key}">
+                    <input type="text" id="reply-name-${key}" class="form-control" placeholder="Ваше ім'я" style="padding: 8px;">
+                    <input type="text" id="reply-text-${key}" class="form-control" placeholder="Відповідь..." style="padding: 8px;">
+                    <button class="btn" style="padding: 8px;" onclick="submitReply('${key}')">Надіслати</button>
                 </div>
-
                 ${repliesHtml}
             </div>
         `;
@@ -957,57 +944,81 @@ function submitReview() {
     const name = document.getElementById('r-name').value.trim();
     const text = document.getElementById('r-text').value.trim();
     const ratingActive = document.querySelector('input[name="rating"]:checked');
+    if (!name || !text || !ratingActive) return alert("Заповніть форму!");
     
-    if (!name || !text || !ratingActive) return alert("Заповніть форму та виберіть зірочки!");
-
     const now = new Date();
     const dateString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+    
+    const reviewData = { id: Date.now(), name, text, rating: parseInt(ratingActive.value), date: dateString, likes: 0 };
+    
+    // Одразу відправляємо у хмару, щоб бачив і телефон, і ПК
+    database.ref('reviews').push(reviewData);
 
-    const newReview = { 
-        id: Date.now(), 
-        name, 
-        text, 
-        rating: parseInt(ratingActive.value), 
-        date: dateString, 
-        likes: 0
-    };
-
-    database.ref('reviews').push(newReview);
+    // Дублюємо в локальне сховище для надійності
+    let local = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+    local.push(reviewData);
+    localStorage.setItem('stored_revs', JSON.stringify(local));
 
     document.getElementById('r-name').value = '';
     document.getElementById('r-text').value = '';
-    if(ratingActive) ratingActive.checked = false;
+    ratingActive.checked = false;
     toggleForm('review-form');
 }
 
-function likeReview(firebaseKey, currentLikes) {
-    database.ref(`reviews/${firebaseKey}`).update({
-        likes: currentLikes + 1
-    });
+function likeReview(key, currentLikes) {
+    if (key.startsWith('local-')) {
+        let id = parseInt(key.replace('local-', ''));
+        let local = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+        let index = local.findIndex(r => r.id === id);
+        if(index > -1) {
+            local[index].likes = (local[index].likes || 0) + 1;
+            localStorage.setItem('stored_revs', JSON.stringify(local));
+            // Симулюємо оновлення інтерфейсу
+            database.ref('reviews').push({}).then(el => el.remove());
+        }
+    } else {
+        database.ref(`reviews/${key}`).update({ likes: currentLikes + 1 });
+    }
 }
 
-function toggleReplyBox(firebaseKey) {
-    const box = document.getElementById(`reply-box-${firebaseKey}`);
+function toggleReplyBox(key) {
+    const box = document.getElementById(`reply-box-${key}`);
     box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
 }
 
-function submitReply(firebaseKey) {
-    const nameInput = document.getElementById(`reply-name-${firebaseKey}`);
-    const textInput = document.getElementById(`reply-text-${firebaseKey}`);
-    const name = nameInput.value.trim();
-    const text = textInput.value.trim();
+function submitReply(key) {
+    const name = document.getElementById(`reply-name-${key}`).value.trim();
+    const text = document.getElementById(`reply-text-${key}`).value.trim();
+    if(!name || !text) return alert("Заповніть поля!");
 
-    if(!name || !text) return alert("Будь ласка, введіть ім'я та текст коментаря!");
-
-    database.ref(`reviews/${firebaseKey}/replies`).push({ name, text });
+    if (key.startsWith('local-')) {
+        let id = parseInt(key.replace('local-', ''));
+        let local = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+        let index = local.findIndex(r => r.id === id);
+        if(index > -1) {
+            if(!local[index].replies) local[index].replies = [];
+            local[index].replies.push({ name, text });
+            localStorage.setItem('stored_revs', JSON.stringify(local));
+            database.ref('reviews').push({}).then(el => el.remove());
+        }
+    } else {
+        database.ref(`reviews/${key}/replies`).push({ name, text });
+    }
 }
 
-function deleteReview(firebaseKey) {
-    if(!confirm("Ви впевнені, що хочете видалити цей відгук у всіх користувачів?")) return;
-    database.ref(`reviews/${firebaseKey}`).remove();
+function deleteReview(key) {
+    if(!confirm("Видалити відгук?")) return;
+    if (key.startsWith('local-')) {
+        let id = parseInt(key.replace('local-', ''));
+        let local = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+        local = local.filter(r => r.id !== id);
+        localStorage.setItem('stored_revs', JSON.stringify(local));
+        database.ref('reviews').push({}).then(el => el.remove());
+    } else {
+        database.ref(`reviews/${key}`).remove();
+    }
 }
 
-// Ініціалізація локальних історій
 window.addEventListener('DOMContentLoaded', () => {
     renderMoodHistory();
 });
