@@ -8,35 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin:0;
-    font-family:Poppins;
-    background:#f5f7ff;
-    color:#1f2937;
-}
+body { font-family: Poppins; margin:0; background:#f5f7ff; }
+header, section { padding:20px; }
 
-header {
-    text-align:center;
-    padding:20px;
-    font-size:22px;
-    font-weight:700;
-}
-
-section {
-    padding:20px;
-}
-
-.grid {
-    display:grid;
-    gap:15px;
-}
-
-.card {
-    background:white;
-    padding:15px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.05);
-}
+.card { background:white; padding:15px; margin:10px 0; border-radius:15px; }
 
 .btn {
     background:#7c9cff;
@@ -51,102 +26,165 @@ input, textarea {
     width:100%;
     padding:10px;
     margin:5px 0;
-    border-radius:10px;
-    border:1px solid #ddd;
 }
-
-small {
-    color:#64748b;
+.video-box iframe {
+    width:100%;
+    height:200px;
 }
 </style>
 </head>
 
 <body>
 
-<header>MindGuard</header>
+<header>
+<h2>MindGuard</h2>
+</header>
 
-<!-- ================= VIDEOS (ONLY 2 CLEAN) ================= -->
+<!-- ================= VIDEOS ================= -->
 <section>
 <h2>Відео</h2>
 
-<div class="grid">
+<button class="btn" onclick="toggle('videoForm')">Додати відео</button>
 
-    <div class="card">
-        <h3>Практика емоційного відновлення</h3>
-        <p>Техніка для стабілізації емоційного стану.</p>
-
-        <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank">
-            ▶ Переглянути відео
-        </a>
-
-        <small>Джерело: Facebook (публічний матеріал)</small>
-    </div>
-
-    <div class="card">
-        <h3>Методи боротьби зі стресом</h3>
-        <p>Психологічні техніки для зниження стресу.</p>
-
-        <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank">
-            ▶ Переглянути відео
-        </a>
-
-        <small>Джерело: Facebook (публічний матеріал)</small>
-    </div>
-
+<div id="videoForm" style="display:none">
+<input id="vUrl" placeholder="YouTube URL">
+<input id="vTitle" placeholder="Назва">
+<textarea id="vDesc" placeholder="Опис"></textarea>
+<button class="btn" onclick="addVideo()">Додати</button>
 </div>
+
+<div id="videos"></div>
 </section>
 
 <!-- ================= REVIEWS ================= -->
 <section>
 <h2>Відгуки</h2>
 
-<div class="card">
-<input id="name" placeholder="Ім'я">
-<textarea id="text" placeholder="Відгук"></textarea>
+<button class="btn" onclick="toggle('reviewForm')">Залишити відгук</button>
+
+<div id="reviewForm" style="display:none">
+<input id="rName" placeholder="Ім'я">
+<textarea id="rText" placeholder="Відгук"></textarea>
 <button class="btn" onclick="addReview()">Надіслати</button>
 </div>
 
-<div id="reviews" class="grid"></div>
+<div id="reviews"></div>
 </section>
 
-<script>
+<!-- ================= FIREBASE ================= -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+getFirestore,
+collection,
+addDoc,
+onSnapshot,
+query,
+orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ===== LOCAL REVIEWS (REALTIME ON DEVICE) =====
 
-function loadReviews() {
-    let data = JSON.parse(localStorage.getItem("reviews") || "[]");
+// 🔥 ВСТАВ СЮДИ СВІЙ FIREBASE CONFIG
+const firebaseConfig = {
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_DOMAIN",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_BUCKET",
+messagingSenderId: "YOUR_ID",
+appId: "YOUR_APP_ID"
+};
 
-    let box = document.getElementById("reviews");
-    box.innerHTML = "";
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    data.slice().reverse().forEach(r => {
-        box.innerHTML += `
-        <div class="card">
-            <b>${r.name}</b>
-            <p>${r.text}</p>
-        </div>
-        `;
-    });
-}
 
-function addReview() {
-    let name = document.getElementById("name").value;
-    let text = document.getElementById("text").value;
+// ================= UI TOGGLE =================
+window.toggle = (id) => {
+document.getElementById(id).style.display =
+document.getElementById(id).style.display === "block"
+? "none"
+: "block";
+};
 
-    if(!name || !text) return;
 
-    let data = JSON.parse(localStorage.getItem("reviews") || "[]");
+// ================= ADD VIDEO =================
+window.addVideo = async () => {
+const url = document.getElementById("vUrl").value;
+const title = document.getElementById("vTitle").value;
+const desc = document.getElementById("vDesc").value;
 
-    data.push({name, text});
-    localStorage.setItem("reviews", JSON.stringify(data));
+const id = url.split("v=")[1] || url.split("/").pop();
 
-    document.getElementById("name").value = "";
-    document.getElementById("text").value = "";
+await addDoc(collection(db, "videos"), {
+embed: `https://www.youtube.com/embed/${id}`,
+title,
+desc,
+time: Date.now()
+});
 
-    loadReviews();
-}
+document.getElementById("vUrl").value = "";
+document.getElementById("vTitle").value = "";
+document.getElementById("vDesc").value = "";
+};
 
-loadReviews();
+
+// ================= ADD REVIEW =================
+window.addReview = async () => {
+const name = document.getElementById("rName").value;
+const text = document.getElementById("rText").value;
+
+await addDoc(collection(db, "reviews"), {
+name,
+text,
+time: Date.now()
+});
+
+document.getElementById("rName").value = "";
+document.getElementById("rText").value = "";
+};
+
+
+// ================= REALTIME VIDEOS =================
+const vQuery = query(collection(db, "videos"), orderBy("time", "desc"));
+
+onSnapshot(vQuery, (snap) => {
+const box = document.getElementById("videos");
+box.innerHTML = "";
+
+snap.forEach(doc => {
+const v = doc.data();
+
+box.innerHTML += `
+<div class="card">
+<div class="video-box">
+<iframe src="${v.embed}"></iframe>
+</div>
+<h3>${v.title}</h3>
+<p>${v.desc}</p>
+</div>
+`;
+});
+});
+
+
+// ================= REALTIME REVIEWS =================
+const rQuery = query(collection(db, "reviews"), orderBy("time", "desc"));
+
+onSnapshot(rQuery, (snap) => {
+const box = document.getElementById("reviews");
+box.innerHTML = "";
+
+snap.forEach(doc => {
+const r = doc.data();
+
+box.innerHTML += `
+<div class="card">
+<h3>${r.name}</h3>
+<p>${r.text}</p>
+</div>
+`;
+});
+});
 
 </script>
 
