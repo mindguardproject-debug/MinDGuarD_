@@ -611,7 +611,7 @@ footer {
 
 <section id="videos">
     <div class="section-title reveal">
-        <h2>Відеокурси</h2>
+        <h2>Відеокурси та ресурси</h2>
         <p>Короткі практичні заняття для психологічного відновлення</p>
     </div>
 
@@ -637,20 +637,32 @@ footer {
     </div>
 
     <div class="grid" id="videos-container">
+        <!-- Відео 1 (Facebook) з дотриманням академічної доброчесності -->
         <div class="card reveal">
-            <div class="video-box">
-                <iframe src="https://www.youtube.com/embed/TTXcHEMfLb4" allowfullscreen></iframe>
-            </div>
-            <h3>Основи емоційного балансу</h3>
-            <p>Навчись заспокоювати думки та контролювати тривогу за допомогою простих арт-технік.</p>
+            <div class="icon" style="background: #4267B2; color: white;">f</div>
+            <h3>Практика ментального спокою</h3>
+            <p>Корисні техніки для відновлення внутрішнього балансу та стабілізації емоційного фону.</p>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                <strong>Джерело:</strong> Спільнота Facebook<br>
+                <strong>Авторство контенту:</strong> MindGuard (Офіційна сторінка)<br>
+                <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+            </p>
+            <br>
+            <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
         </div>
 
+        <!-- Відео 2 (Facebook) з дотриманням академічної доброчесності -->
         <div class="card reveal">
-            <div class="video-box">
-                <iframe src="https://www.youtube.com/embed/KkxPP4mjnjw" allowfullscreen></iframe>
-            </div>
-            <h3>Як впоратися зі стресом</h3>
-            <p>Практичні поради та вправи від психотерапевта для кризових ситуацій.</p>
+            <div class="icon" style="background: #4267B2; color: white;">f</div>
+            <h3>Техніки стабілізації</h3>
+            <p>Практичні вправи та дієві поради від спеціалістів для подолання стресу в кризових ситуаціях.</p>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                <strong>Джерело:</strong> Спільнота Facebook<br>
+                <strong>Авторство контенту:</strong> MindGuard (Офіційна сторінка)<br>
+                <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+            </p>
+            <br>
+            <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
         </div>
     </div>
 </section>
@@ -830,7 +842,7 @@ function renderMoodHistory() {
     `).join('');
 }
 
-// --- ФУНКЦІОНАЛ ПІДТРИМКИ (НОВИЙ) ---
+// --- ФУНКЦІОНАЛ ПІДТРИМКИ ---
 function sendSupportMessage() {
     const emailInput = document.getElementById('s-email');
     const messageInput = document.getElementById('s-message');
@@ -845,13 +857,11 @@ function sendSupportMessage() {
         return;
     }
 
-    // Проста валідація пошти
     if (!email.includes('@') || !email.includes('.')) {
         alert("Будь ласка, введіть коректну адресу електронної пошти!");
         return;
     }
 
-    // Анімація процесу завантаження / надсилання
     submitBtn.innerText = "Надсилання...";
     submitBtn.disabled = true;
 
@@ -859,25 +869,22 @@ function sendSupportMessage() {
         const now = new Date();
         const timestamp = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-        // Зберігаємо звернення у локальну пам'ять
         const newTicket = { email, message, time: timestamp };
         let tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
         tickets.push(newTicket);
         localStorage.setItem('support_tickets', JSON.stringify(tickets));
 
-        // Очищення полів форми та фідбек користувачу
         emailInput.value = '';
         messageInput.value = '';
         successMsg.style.display = 'block';
         submitBtn.innerText = "Надіслати запит";
         submitBtn.disabled = false;
 
-        // Автоматично ховаємо плашку успіху через 7 секунд
         setTimeout(() => {
             successMsg.style.display = 'none';
         }, 7000);
 
-    }, 1200); // Симуляція затримки мережі
+    }, 1200);
 }
 
 // --- ЮТУБ ПЛЕЄР ---
