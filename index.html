@@ -668,7 +668,7 @@ footer {
     </div>
 
     <div class="add-container reveal">
-        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео</button>
+        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео (Локально)</button>
         
         <div class="card form-card" id="video-form">
             <h3>Додати відео курс</h3><br>
@@ -716,6 +716,48 @@ footer {
                 </p>
                 <br>
                 <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
+            </div>
+
+            <div class="card">
+                <div class="icon" style="background: #FF0000; color: white;">▶</div>
+                <h3>Як позбутися тривожності, стресу та депресії?</h3>
+                <p>Детальний розбір тілесних причин, які викликають і підтримують щоденний стрес та тривогу.</p>
+                <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/TvDJKPuLZSE" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> YouTube<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                </p>
+            </div>
+            
+            <div class="card">
+                <div class="icon" style="background: #FF0000; color: white;">▶</div>
+                <h3>Як допомогти собі при тривозі?</h3>
+                <p>Дієві поради та вправи для швидкого заспокоєння нервової системи у складних ситуаціях.</p>
+                <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/TTXcHEMfLb4" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> YouTube<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                </p>
+            </div>
+            
+            <div class="card">
+                <div class="icon" style="background: #FF0000; color: white;">▶</div>
+                <h3>Що таке панічна атака і як з нею впоратися?</h3>
+                <p>Практичні рекомендації від психологів щодо подолання гострих нападів паніки та відновлення.</p>
+                <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/KkxPP4mjnjw" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> YouTube<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                </p>
             </div>
 
         </div>
@@ -977,7 +1019,24 @@ function sendSupportMessage() {
     }, 1200);
 }
 
-// --- ДОДАННЯ ВІДЕО (ОНОВЛЕНО З КРАСИВИМ СТИЛЕМ) ---
+// --- ДОДАННЯ ВІДЕО ЧЕРЕЗ ФОРМУ (З АВТО-ПЛЕЄРОМ ДЛЯ YOUTUBE) ---
+function getYouTubeEmbedHtml(url) {
+    let videoId = '';
+    if (url.includes('youtu.be/')) {
+        videoId = url.split('youtu.be/')[1].split('?')[0];
+    } else if (url.includes('v=')) {
+        videoId = url.split('v=')[1].split('&')[0];
+    }
+    
+    if (videoId) {
+        return `
+        <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+        </div>`;
+    }
+    return null;
+}
+
 function submitVideo() {
     const url = document.getElementById('v-url').value.trim();
     const title = document.getElementById('v-title').value.trim();
@@ -1009,24 +1068,30 @@ function appendVideoCard(video) {
     const iconBg = isFb ? '#4267B2' : '#FF0000';
     const sourceName = isFb ? 'Facebook' : 'YouTube';
 
+    let mediaContent = '';
+    if (isFb) {
+        mediaContent = `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на Facebook</a>`;
+    } else {
+        const embedPlayer = getYouTubeEmbedHtml(video.url);
+        mediaContent = embedPlayer ? embedPlayer : `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на YouTube</a>`;
+    }
+
     const cardHtml = `
         <div class="card">
             <div class="icon" style="background: ${iconBg}; color: white;">${iconLetter}</div>
             <h3>${video.title}</h3>
             <p>${video.desc}</p>
+            ${mediaContent}
             <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                 <strong>Джерело:</strong> ${sourceName}<br>
-                <strong>Автор відео:</strong> Безбар'єрність<br>
-                <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                <strong>Автор відео:</strong> Додано користувачем<br>
             </p>
-            <br>
-            <a href="${video.url}" target="_blank" class="btn">Дивитися на ${sourceName}</a>
         </div>
     `;
     container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- ВІДГУКИ ---
+// --- ВІДГУКИ ЧЕРЕЗ ФОРМУ ---
 function submitReview() {
     const name = document.getElementById('r-name').value.trim();
     const text = document.getElementById('r-text').value.trim();
