@@ -34,7 +34,6 @@
             overflow-x: hidden;
         }
 
-        /* Декоративні фонові елементи */
         .blur-circle {
             position: fixed;
             border-radius: 50%;
@@ -59,7 +58,6 @@
             right: -80px;
         }
 
-        /* Шапка сайту */
         header {
             width: 100%;
             position: fixed;
@@ -114,7 +112,6 @@
             font-weight: 700;
         }
 
-        /* Головний екран */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -263,7 +260,6 @@
             margin-top: 2px;
         }
 
-        /* Секції */
         section {
             padding: 80px 8%;
         }
@@ -282,7 +278,6 @@
             color: #667085;
         }
 
-        /* Сітка карт */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -316,11 +311,11 @@
             font-size: 1.8rem;
         }
 
-        /* Відео контейнери */
+        /* Оновлені відео-контейнери для повної адаптивності на смартфонах */
         .video-box {
             position: relative;
             width: 100%;
-            padding-top: 56.25%;
+            padding-top: 56.25%; /* Співвідношення сторін 16:9 */
             border-radius: 20px;
             overflow: hidden;
             margin-bottom: 15px;
@@ -336,7 +331,6 @@
             border: none;
         }
 
-        /* Форми додавання */
         .add-container {
             text-align: center;
             margin-bottom: 30px;
@@ -372,7 +366,6 @@
             outline: none;
         }
 
-        /* Зоряний рейтинг */
         .stars-rating {
             display: flex;
             gap: 8px;
@@ -408,7 +401,6 @@
             margin-top: 10px;
         }
 
-        /* Дії з відгуками */
         .review-actions {
             display: flex;
             align-items: center;
@@ -469,7 +461,6 @@
             color: var(--primary);
         }
 
-        /* Преміум */
         .premium {
             background: linear-gradient(135deg, #fff6df, #fffdf7);
         }
@@ -510,18 +501,24 @@
             color: white;
         }
 
+        /* Плавна поява оптимізована для телефонів (якщо скрипт не встиг, блоки видимі) */
         .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: 0.8s;
-        }
-
-        .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: none;
+            transition: 0.6s;
+        }
+        
+        @media (min-width: 969px) {
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Мобільна оптимізація пошти */
         .support-box {
             max-width: 500px;
             margin: auto;
@@ -668,8 +665,8 @@
         <div class="card form-card" id="video-form">
             <h3>Додати відео курс</h3><br>
             <div class="form-group">
-                <label>Посилання на YouTube відео</label>
-                <input type="text" id="v-url" class="form-control" placeholder="https://youtu.be/...">
+                <label>Посилання на YouTube або Facebook відео</label>
+                <input type="text" id="v-url" class="form-control" placeholder="https://...">
             </div>
             <div class="form-group">
                 <label>Назва курсу</label>
@@ -714,7 +711,7 @@
 <section id="reviews">
     <div class="section-title reveal">
         <h2>Відгуки користувачів</h2>
-        <p>Глобальна спільнота MindGuard. Дані синхронізуються між усіма пристроями!</p>
+        <p>Глобальна спільнота MindGuard. Синхронізація між ПК та телефоном у реальному часі!</p>
     </div>
 
     <div class="add-container reveal">
@@ -747,7 +744,7 @@
     <div class="grid" id="reviews-container"></div>
 </section>
 
-<!-- КОНТАКТИ -->
+<!-- CONTACT SECTION -->
 <section id="contact">
     <div class="section-title reveal">
         <h2>Зв'яжіться з нами</h2>
@@ -775,14 +772,14 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-// Підключення Firebase хмари
+// Налаштування Firebase
 const firebaseConfig = {
     databaseURL: "https://mindguard-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Ефекти скролу
+// Анімація появи елементів
 const reveals = document.querySelectorAll('.reveal');
 function scanElements() {
     reveals.forEach(el => {
@@ -799,7 +796,7 @@ function toggleForm(formId) {
     form.style.display = (form.style.display === 'block') ? 'none' : 'block';
 }
 
-// --- ЩОДЕННИК НАСТРОЮ ---
+// --- ЩОДЕННИК НАСТРОЮ (Локальний для кожного пристрою) ---
 let currentSelectedMood = '';
 function selectMood(mood, element) {
     document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
@@ -841,30 +838,53 @@ function renderMoodHistory() {
     `).join('');
 }
 
-// --- ВІДЕОКУРСИ ---
-function getYouTubeEmbedUrl(url) {
-    let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    let match = url.match(regExp);
-    if (match && match[2].length == 11) return "https://www.youtube.com/embed/" + match[2];
+// --- РОЗУМНИЙ ПАРСЕР ВІДЕОПОСИЛАНЬ (YouTube + Facebook) ---
+function getEmbedUrl(url) {
+    // Перевірка на YouTube
+    let ytReg = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    let ytMatch = url.match(ytReg);
+    if (ytMatch && ytMatch[2].length == 11) {
+        return "https://www.youtube.com/embed/" + ytMatch[2];
+    }
+    
+    // Перевірка на Facebook Watch / Facebook Video
+    if (url.includes("facebook.com") || url.includes("fb.watch")) {
+        return "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(url) + "&show_text=0&width=560";
+    }
+    
     return null;
 }
 
+// СИНХРОНІЗАЦІЯ ВІДЕО КРОСПЛАТФОРМЕННО
 database.ref('videos').on('value', (snapshot) => {
     const container = document.getElementById('videos-container');
     let data = snapshot.val();
     let videos = [];
+    
     if (data) {
         videos = Object.keys(data).map(key => ({ firebaseKey: key, ...data[key] }));
     } else {
+        // Дефолтні відео, якщо база порожня (Твоє з Фейсбуку + Корисне від мене)
         videos = [
-            { id: 1, embedUrl: "https://www.youtube.com/embed/TTXcHEMfLb4", title: "Основи емоційного балансу", desc: "Навчись заспокоювати думки та контролювати тривогу." },
-            { id: 2, embedUrl: "https://www.youtube.com/embed/KkxPP4antzQ", title: "Як впоратися зі стресом", desc: "Практичні поради та вправи від психотерапевта." }
+            { 
+                id: 1, 
+                embedUrl: "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent("https://www.facebook.com/watch/?v=1346275919458117") + "&show_text=0&width=560", 
+                title: "Практика заземлення та фокусу", 
+                desc: "Твоє улюблене відео з Facebook для швидкого відновлення емоційного балансу." 
+            },
+            { 
+                id: 2, 
+                embedUrl: "https://www.youtube.com/embed/TTXcHEMfLb4", 
+                title: "Як працює наш стрес?", 
+                desc: "Анатомія тривожності та прості кроки, щоб допомогти нервовій системі під час паніки." 
+            }
         ];
     }
+    
     container.innerHTML = videos.map(video => `
         <div class="card reveal active" style="transform:none; opacity:1;">
             <div class="video-box">
-                <iframe src="${video.embedUrl}" allowfullscreen></iframe>
+                <iframe src="${video.embedUrl}" allowfullscreen scrolling="no" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
             </div>
             <h3>${video.title}</h3>
             <p>${video.desc}</p>
@@ -877,33 +897,34 @@ function submitVideo() {
     const title = document.getElementById('v-title').value.trim();
     const desc = document.getElementById('v-desc').value.trim();
     if (!url || !title || !desc) return alert("Заповніть усі поля!");
-    const embedUrl = getYouTubeEmbedUrl(url);
-    if (!embedUrl) return alert("Некоректне посилання!");
+    
+    const embedUrl = getEmbedUrl(url);
+    if (!embedUrl) return alert("Некоректне посилання! Підтримуються тільки YouTube та Facebook.");
+    
     database.ref('videos').push({ id: Date.now(), embedUrl, title, desc });
+    
+    document.getElementById('v-url').value = '';
+    document.getElementById('v-title').value = '';
+    document.getElementById('v-desc').value = '';
     toggleForm('video-form');
 }
 
-// --- ВІДГУКИ: РОЗУМНЕ ПОЄДНАННЯ ЛОКАЛЬНИХ ТА ГЛОБАЛЬНИХ ДАНИХ ---
+// --- СИНХРОНІЗАЦІЯ ВІДГУКІВ КРОСПЛАТФОРМЕННО (Чиста Хмара) ---
 database.ref('reviews').on('value', (snapshot) => {
     const container = document.getElementById('reviews-container');
     let cloudData = snapshot.val() || {};
     
-    // Завантажуємо глобальні відгуки з хмари
-    let cloudReviews = Object.keys(cloudData).map(key => ({ firebaseKey: key, ...cloudData[key] }));
-    
-    // Завантажуємо локальні відгуки, які раніше були на ПК в localStorage
-    let localReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
-    
-    // Фільтруємо локальні, щоб не дублювати ті, що вже є у хмарі
-    let filteredLocal = localReviews.filter(local => !cloudReviews.some(cloud => cloud.id === local.id));
-    
-    // Об'єднуємо обидва масиви разом
-    let allReviews = [...filteredLocal, ...cloudReviews];
+    let allReviews = Object.keys(cloudData).map(key => ({ firebaseKey: key, ...cloudData[key] }));
 
-    // Сортуємо за часом створення (новіші внизу або вгорі)
-    allReviews.sort((a, b) => a.id - b.id);
+    // Якщо відгуків у хмарі ще зовсім немає, показуємо заглушку
+    if(allReviews.length === 0) {
+        container.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:#64748b;">Тут поки немає відгуків. Будь першим, хто залишить свій відгук!</p>';
+        return;
+    }
 
-    // Відображаємо на сторінці
+    // Сортуємо: нові відгуки додаються на початок
+    allReviews.sort((a, b) => b.id - a.id);
+
     container.innerHTML = '';
     allReviews.forEach(review => {
         let starsHtml = '';
@@ -913,8 +934,7 @@ database.ref('reviews').on('value', (snapshot) => {
         let repliesHtml = repliesList.length > 0 
             ? `<div class="replies-list">${repliesList.map(r => `<div class="reply-item"><strong>${r.name}:</strong> ${r.text}</div>`).join('')}</div>` : '';
 
-        // Визначаємо унікальний ідентифікатор для кнопок
-        const key = review.firebaseKey || `local-${review.id}`;
+        const key = review.firebaseKey;
 
         const card = `
             <div class="card testimonial reveal active" style="transform:none; opacity:1;">
@@ -944,20 +964,15 @@ function submitReview() {
     const name = document.getElementById('r-name').value.trim();
     const text = document.getElementById('r-text').value.trim();
     const ratingActive = document.querySelector('input[name="rating"]:checked');
-    if (!name || !text || !ratingActive) return alert("Заповніть форму!");
+    if (!name || !text || !ratingActive) return alert("Заповніть форму повністю!");
     
     const now = new Date();
     const dateString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
     
     const reviewData = { id: Date.now(), name, text, rating: parseInt(ratingActive.value), date: dateString, likes: 0 };
     
-    // Одразу відправляємо у хмару, щоб бачив і телефон, і ПК
+    // Пряме збереження в базу даних (миттєва поява на всіх девайсах)
     database.ref('reviews').push(reviewData);
-
-    // Дублюємо в локальне сховище для надійності
-    let local = JSON.parse(localStorage.getItem('stored_revs') || '[]');
-    local.push(reviewData);
-    localStorage.setItem('stored_revs', JSON.stringify(local));
 
     document.getElementById('r-name').value = '';
     document.getElementById('r-text').value = '';
@@ -966,19 +981,7 @@ function submitReview() {
 }
 
 function likeReview(key, currentLikes) {
-    if (key.startsWith('local-')) {
-        let id = parseInt(key.replace('local-', ''));
-        let local = JSON.parse(localStorage.getItem('stored_revs') || '[]');
-        let index = local.findIndex(r => r.id === id);
-        if(index > -1) {
-            local[index].likes = (local[index].likes || 0) + 1;
-            localStorage.setItem('stored_revs', JSON.stringify(local));
-            // Симулюємо оновлення інтерфейсу
-            database.ref('reviews').push({}).then(el => el.remove());
-        }
-    } else {
-        database.ref(`reviews/${key}`).update({ likes: currentLikes + 1 });
-    }
+    database.ref(`reviews/${key}`).update({ likes: currentLikes + 1 });
 }
 
 function toggleReplyBox(key) {
@@ -991,32 +994,12 @@ function submitReply(key) {
     const text = document.getElementById(`reply-text-${key}`).value.trim();
     if(!name || !text) return alert("Заповніть поля!");
 
-    if (key.startsWith('local-')) {
-        let id = parseInt(key.replace('local-', ''));
-        let local = JSON.parse(localStorage.getItem('stored_revs') || '[]');
-        let index = local.findIndex(r => r.id === id);
-        if(index > -1) {
-            if(!local[index].replies) local[index].replies = [];
-            local[index].replies.push({ name, text });
-            localStorage.setItem('stored_revs', JSON.stringify(local));
-            database.ref('reviews').push({}).then(el => el.remove());
-        }
-    } else {
-        database.ref(`reviews/${key}/replies`).push({ name, text });
-    }
+    database.ref(`reviews/${key}/replies`).push({ name, text });
 }
 
 function deleteReview(key) {
-    if(!confirm("Видалити відгук?")) return;
-    if (key.startsWith('local-')) {
-        let id = parseInt(key.replace('local-', ''));
-        let local = JSON.parse(localStorage.getItem('stored_revs') || '[]');
-        local = local.filter(r => r.id !== id);
-        localStorage.setItem('stored_revs', JSON.stringify(local));
-        database.ref('reviews').push({}).then(el => el.remove());
-    } else {
-        database.ref(`reviews/${key}`).remove();
-    }
+    if(!confirm("Видалити цей відгук у всіх користувачів сайту?")) return;
+    database.ref(`reviews/${key}`).remove();
 }
 
 window.addEventListener('DOMContentLoaded', () => {
