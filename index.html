@@ -315,6 +315,79 @@ section {
     font-size: 1.8rem;
 }
 
+/* СТИЛІ ДЛЯ СЛАЙДЕРІВ (НОВІ) */
+.slider-outer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.slider-container {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    gap: 25px;
+    width: 100%;
+    padding: 15px 5px;
+}
+
+.slider-container .card {
+    flex: 0 0 100%; /* На мобільних — 1 картка */
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .slider-container .card {
+        flex: 0 0 calc(50% - 13px); /* Планшети — 2 картки */
+    }
+}
+
+@media (min-width: 1024px) {
+    .slider-container .card {
+        flex: 0 0 calc(33.333% - 17px); /* Комп'ютери — 3 картки */
+    }
+}
+
+.slider-arrow {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    color: var(--dark);
+}
+
+.slider-arrow:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.slider-arrow.prev { left: -25px; }
+.slider-arrow.next { right: -25px; }
+
+@media (max-width: 768px) {
+    .slider-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    .slider-arrow.prev { left: -10px; }
+    .slider-arrow.next { right: -10px; }
+}
+
 /* Videos */
 .video-box {
     position: relative;
@@ -622,10 +695,7 @@ footer {
             <h3>Додати відео курс</h3><br>
             <div class="form-group">
                 <label>Посилання на YouTube відео</label>
-   gin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
-                <strong>Джерело:</strong> Спільнота Facebook<br>
-                <strong>Авторство контенту:</strong> MindGuard (Офіційна сторінка)<br>
-                <small><em>*             <input type="text" id="v-url" class="form-control" placeholder="https://youtu.be/...">
+                <input type="text" id="v-url" class="form-control" placeholder="https://youtu.be/...">
             </div>
             <div class="form-group">
                 <label>Назва курсу</label>
@@ -639,37 +709,42 @@ footer {
         </div>
     </div>
 
-   <div class="grid" id="videos-container">
-        <!-- Відео 1 (Facebook) -->
-        <div class="card reveal">
-            <div class="icon" style="background: #4267B2; color: white;">f</div>
-            <h3>Практика ментального спокою</h3>
-            <p>Корисні техніки для відновлення внутрішнього балансу та стабілізації емоційного фону.</p>
-            <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
-                <strong>Джерело:</strong> Facebook<br>
-                <strong>Автор відео:</strong> Безбар'єрність<br>
-                <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
-            </p>
-            <br>
-            <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
-        </div>
+    <!-- ІНТЕРАКТИВНИЙ СЛАЙДЕР ВІДЕО -->
+    <div class="slider-outer reveal">
+        <button class="slider-arrow prev" onclick="moveSlider('videos-container', -1)">&#10094;</button>
+        <div class="slider-container" id="videos-container">
+            
+            <!-- Відео 1 (Facebook) -->
+            <div class="card">
+                <div class="icon" style="background: #4267B2; color: white;">f</div>
+                <h3>Практика ментального спокою</h3>
+                <p>Корисні техніки для відновлення внутрішнього балансу та стабілізації емоційного фону.</p>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> Facebook<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                </p>
+                <br>
+                <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
+            </div>
 
-        <!-- Відео 2 (Facebook) -->
-        <div class="card reveal">
-            <div class="icon" style="background: #4267B2; color: white;">f</div>
-            <h3>Техніки стабілізації</h3>
-            <p>Практичні вправи та дієві поради від спеціалістів для подолання стресу в кризових ситуаціях.</p>
-            <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
-                <strong>Джерело:</strong> Facebook<br>
-                <strong>Автор відео:</strong> Безбар'єрність<br>
-                <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
-            </p>
-            <br>
-            <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
+            <!-- Відео 2 (Facebook) -->
+            <div class="card">
+                <div class="icon" style="background: #4267B2; color: white;">f</div>
+                <h3>Техніки стабілізації</h3>
+                <p>Практичні вправи та дієві поради від спеціалістів для подолання стресу в кризових ситуаціях.</p>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> Facebook<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                </p>
+                <br>
+                <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
+            </div>
+
         </div>
+        <button class="slider-arrow next" onclick="moveSlider('videos-container', 1)">&#10095;</button>
     </div>
-</section>
-</section>
 </section>
 
 <section id="premium" class="premium">
@@ -728,21 +803,29 @@ footer {
         </div>
     </div>
 
-    <div class="grid" id="reviews-container">
-        <div class="card testimonial reveal">
-            <div class="avatar"></div>
-            <div class="review-stars">★★★★★</div>
-            <h3>Олена</h3>
-            <p>“Після використання MindGuard я стала значно спокійнішою. Медитації реально допомагають.”</p>
-            <span class="review-date">12.05.2026</span>
+    <!-- ІНТЕРАКТИВНИЙ СЛАЙДЕР ВІДГУКІВ -->
+    <div class="slider-outer reveal">
+        <button class="slider-arrow prev" onclick="moveSlider('reviews-container', -1)">&#10094;</button>
+        <div class="slider-container" id="reviews-container">
+            
+            <div class="card testimonial">
+                <div class="avatar"></div>
+                <div class="review-stars">★★★★★</div>
+                <h3>Олена</h3>
+                <p>“Після використання MindGuard я стала значно спокійнішою. Медитації реально допомагають.”</p>
+                <span class="review-date">12.05.2026</span>
+            </div>
+            
+            <div class="card testimonial">
+                <div class="avatar"></div>
+                <div class="review-stars">★★★★☆</div>
+                <h3>Андрій</h3>
+                <p>“Дуже сучасний та зручний сервіс. Найбільше сподобався щоденник настрою.”</p>
+                <span class="review-date">15.05.2026</span>
+            </div>
+
         </div>
-        <div class="card testimonial reveal">
-            <div class="avatar"></div>
-            <div class="review-stars">★★★★☆</div>
-            <h3>Андрій</h3>
-            <p>“Дуже сучасний та зручний сервіс. Найбільше сподобався щоденник настрою.”</p>
-            <span class="review-date">15.05.2026</span>
-        </div>
+        <button class="slider-arrow next" onclick="moveSlider('reviews-container', 1)">&#10095;</button>
     </div>
 </section>
 
@@ -797,6 +880,17 @@ window.addEventListener('load', scanElements);
 function toggleForm(formId) {
     const form = document.getElementById(formId);
     form.style.display = (form.style.display === 'block') ? 'none' : 'block';
+}
+
+// --- ЛОГІКА РОБОТИ СЛАЙДЕРІВ (НОВА) ---
+function moveSlider(containerId, direction) {
+    const container = document.getElementById(containerId);
+    const firstCard = container.querySelector('.card');
+    if (!firstCard) return;
+    
+    // Вираховуємо ширину однієї картки разом із відступом (gap = 25px)
+    const step = firstCard.offsetWidth + 25;
+    container.scrollBy({ left: step * direction, behavior: 'smooth' });
 }
 
 // --- РОБОТА ЗІ ЩОДЕННИКОМ НАСТРОЮ ---
@@ -934,7 +1028,7 @@ function submitVideo() {
 function appendVideoCard(video) {
     const container = document.getElementById('videos-container');
     const cardHtml = `
-        <div class="card" style="opacity:1; transform:none;">
+        <div class="card">
             <div class="video-box">
                 <iframe src="${video.embedUrl}" allowfullscreen></iframe>
             </div>
@@ -981,7 +1075,7 @@ function appendReviewCard(review) {
     }
 
     const cardHtml = `
-        <div class="card testimonial" style="opacity:1; transform:none;">
+        <div class="card testimonial">
             <div class="avatar"></div>
             <div class="review-stars">${starsHtml}</div>
             <h3>${review.name}</h3>
