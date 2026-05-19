@@ -8,26 +8,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-body{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
     font-family:Poppins;
-    background:#f5f7ff;
+}
+
+body{
+    background: radial-gradient(circle at top, #e8eeff, #f7fbff);
     color:#1f2937;
 }
 
 /* HEADER */
 header{
+    position:sticky;
+    top:0;
+    background:white;
+    padding:15px;
     text-align:center;
-    padding:20px;
-    font-size:24px;
     font-weight:700;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* LAYOUT */
+/* SECTIONS */
 section{
     padding:20px;
 }
 
+h2{
+    margin-bottom:15px;
+}
+
+/* GRID */
 .grid{
     display:grid;
     gap:15px;
@@ -38,7 +51,7 @@ section{
     background:white;
     padding:15px;
     border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    box-shadow:0 5px 15px rgba(0,0,0,0.06);
 }
 
 /* BUTTON */
@@ -55,12 +68,12 @@ section{
 input, textarea{
     width:100%;
     padding:10px;
-    margin:5px 0;
+    margin-top:8px;
     border-radius:10px;
     border:1px solid #ddd;
 }
 
-/* VIDEO LINK */
+/* VIDEO BUTTON */
 .video-btn{
     display:inline-block;
     margin-top:10px;
@@ -69,13 +82,12 @@ input, textarea{
     color:white;
     border-radius:10px;
     text-decoration:none;
-    font-weight:500;
 }
 
 /* RESPONSIVE */
-@media (min-width: 768px){
+@media(min-width:768px){
     .grid{
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:1fr 1fr;
     }
 }
 </style>
@@ -91,15 +103,14 @@ input, textarea{
 
 <div class="grid">
 
-    <!-- VIDEO 1 -->
     <div class="card">
         <h3>Практика емоційного відновлення</h3>
-        <p>Техніка для стабілізації емоційного стану та зниження тривожності.</p>
+        <p>Техніка стабілізації емоційного стану.</p>
 
         <a class="video-btn"
            href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr"
            target="_blank">
-            ▶ Відкрити відео у Facebook
+            ▶ Відкрити відео
         </a>
 
         <p style="font-size:12px;color:#64748b;margin-top:10px;">
@@ -107,15 +118,14 @@ input, textarea{
         </p>
     </div>
 
-    <!-- VIDEO 2 -->
     <div class="card">
         <h3>Методи боротьби зі стресом</h3>
-        <p>Базові психологічні техніки для щоденного життя.</p>
+        <p>Базові психологічні техніки для життя.</p>
 
         <a class="video-btn"
            href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr"
            target="_blank">
-            ▶ Відкрити відео у Facebook
+            ▶ Відкрити відео
         </a>
 
         <p style="font-size:12px;color:#64748b;margin-top:10px;">
@@ -132,7 +142,7 @@ input, textarea{
 
 <div class="card">
     <input id="name" placeholder="Ім'я">
-    <textarea id="text" placeholder="Ваш відгук"></textarea>
+    <textarea id="text" placeholder="Відгук"></textarea>
     <button class="btn" onclick="addReview()">Надіслати</button>
 </div>
 
@@ -141,7 +151,7 @@ input, textarea{
 
 <script>
 
-// ===== ВІДГУКИ (миттєве оновлення) =====
+// ===== ВІДГУКИ (реальний час на пристрої) =====
 
 function loadReviews(){
     let data = JSON.parse(localStorage.getItem("reviews") || "[]");
@@ -167,7 +177,7 @@ function addReview(){
 
     let data = JSON.parse(localStorage.getItem("reviews") || "[]");
 
-    data.push({name, text});
+    data.push({name,text});
     localStorage.setItem("reviews", JSON.stringify(data));
 
     document.getElementById("name").value = "";
@@ -176,7 +186,6 @@ function addReview(){
     loadReviews();
 }
 
-// старт
 loadReviews();
 
 </script>
