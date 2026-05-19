@@ -6,9 +6,6 @@
 <title>MindGuard — Простір психологічної підтримки</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
 <style>
 * {
     margin: 0;
@@ -671,7 +668,7 @@ footer {
     </div>
 
     <div class="add-container reveal">
-        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео</button>
+        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео (Локально)</button>
         
         <div class="card form-card" id="video-form">
             <h3>Додати відео курс</h3><br>
@@ -702,7 +699,6 @@ footer {
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                     <strong>Джерело:</strong> Facebook<br>
                     <strong>Автор відео:</strong> Безбар'єрність<br>
-                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
                 </p>
                 <br>
                 <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
@@ -715,10 +711,33 @@ footer {
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                     <strong>Джерело:</strong> Facebook<br>
                     <strong>Автор відео:</strong> Безбар'єрність<br>
-                    <small><em>*Матеріал використано з освітньою метою згідно з правилами academic доброчесності.</em></small>
                 </p>
                 <br>
                 <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
+            </div>
+
+            <div class="card">
+                <div class="icon" style="background: #FF0000; color: white;">▶</div>
+                <h3>Як позбутися тривожності, стресу та депресії?</h3>
+                <p>Цікаве та практичне відео, засноване на книзі докторки Еллен Вора «Анатомія тривоги». У ньому детально розбираються 6 прихованих тілесних причин, які викликають і підтримують щоденний стрес.</p>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> YouTube<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                </p>
+                <br>
+                <a href="https://youtu.be/TvDJKPuLZSE" target="_blank" class="btn">Дивитися на YouTube</a>
+            </div>
+
+            <div class="card">
+                <div class="icon" style="background: #FF0000; color: white;">▶</div>
+                <h3>Як зупинити хронічний стрес?</h3>
+                <p>Ефективні наукові методи боротьби із затяжною психоемоційною втомою. Прості кроки для перезавантаження нервової системи та повернення контролю над своїм життям.</p>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> YouTube<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                </p>
+                <br>
+                <a href="https://youtu.be/y9wM_bVv_0o" target="_blank" class="btn">Дивитися на YouTube</a>
             </div>
 
         </div>
@@ -840,13 +859,6 @@ footer {
 </footer>
 
 <script>
-// --- ІНІЦІАЛІЗАЦІЯ FIREBASE БАЗИ ДАНИХ ---
-const firebaseConfig = {
-    databaseURL: "ТУТ_МАЄ_БУТИ_ТВОЄ_ПОСИЛАННЯ_З_FIREBASE"
-};
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
 // --- СКРОЛЛ-АНІМАЦІЯ ---
 const reveals = document.querySelectorAll('.reveal');
 function scanElements() {
@@ -890,7 +902,7 @@ function moveSlider(containerId, direction) {
     });
 }
 
-// --- ЩОДЕННИК НАСТРОЮ (Local) ---
+// --- ЩОДЕННИК НАСТРОЮ (Локально) ---
 let currentSelectedMood = '';
 
 function selectMood(mood, element) {
@@ -938,7 +950,7 @@ function renderMoodHistory() {
     `).join('');
 }
 
-// --- СЛУЖБА ПІДТРИМКИ (Local + Хмара) ---
+// --- СЛУЖБА ПІДТРИМКИ (Локально) ---
 function sendSupportMessage() {
     const emailInput = document.getElementById('s-email');
     const messageInput = document.getElementById('s-message');
@@ -949,31 +961,28 @@ function sendSupportMessage() {
     const message = messageInput.value.trim();
 
     if (!email || !message) {
-        alert("Будь ласка, заповніть обидва поля!");
+        alert("Будь ласка, заповніть обидва поля (Email та повідомлення) для відправки запиту!");
         return;
     }
 
     submitBtn.innerText = "Надсилання...";
     submitBtn.disabled = true;
 
-    const now = new Date();
-    const timestamp = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-
-    const newTicket = { email, message, time: timestamp };
-    
-    // Відправляємо в Firebase
-    database.ref('tickets').push(newTicket).then(() => {
+    setTimeout(() => {
         emailInput.value = '';
         messageInput.value = '';
         successMsg.style.display = 'block';
         submitBtn.innerText = "Надіслати запит";
         submitBtn.disabled = false;
 
-        setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
-    });
+        setTimeout(() => {
+            successMsg.style.display = 'none';
+        }, 7000);
+
+    }, 1200);
 }
 
-// --- ДОДАННЯ ВІДЕО ЧЕРЕЗ ХМАРУ FIREBASE ---
+// --- ДОДАННЯ ВІДЕО ЧЕРЕЗ ФОРМУ (Зберігається локально) ---
 function submitVideo() {
     const url = document.getElementById('v-url').value.trim();
     const title = document.getElementById('v-title').value.trim();
@@ -985,16 +994,16 @@ function submitVideo() {
     }
 
     const newVideo = { url, title, desc };
+    let localVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
+    localVideos.push(newVideo);
+    localStorage.setItem('stored_vids', JSON.stringify(localVideos));
 
-    // Зберігаємо безпосередньо в Firebase
-    database.ref('videos').push(newVideo).then(() => {
-        document.getElementById('v-url').value = '';
-        document.getElementById('v-title').value = '';
-        document.getElementById('v-desc').value = '';
-        toggleForm('video-form');
-    }).catch(err => {
-        alert("Помилка бази даних! Перевірте правильність налаштувань посилання на Firebase.");
-    });
+    appendVideoCard(newVideo);
+
+    document.getElementById('v-url').value = '';
+    document.getElementById('v-title').value = '';
+    document.getElementById('v-desc').value = '';
+    toggleForm('video-form');
 }
 
 function appendVideoCard(video) {
@@ -1012,8 +1021,7 @@ function appendVideoCard(video) {
             <p>${video.desc}</p>
             <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                 <strong>Джерело:</strong> ${sourceName}<br>
-                <strong>Автор відео:</strong> Безбар'єрність<br>
-                <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                <strong>Автор відео:</strong> Додано користувачем<br>
             </p>
             <br>
             <a href="${video.url}" target="_blank" class="btn">Дивитися на ${sourceName}</a>
@@ -1022,7 +1030,7 @@ function appendVideoCard(video) {
     container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- ВІДГУКИ ЧЕРЕЗ ХМАРУ FIREBASE ---
+// --- ВІДГУКИ ЧЕРЕЗ ФОРМУ (Зберігається локально) ---
 function submitReview() {
     const name = document.getElementById('r-name').value.trim();
     const text = document.getElementById('r-text').value.trim();
@@ -1038,14 +1046,16 @@ function submitReview() {
     const dateString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
 
     const newReview = { name, text, rating: ratingValue, date: dateString };
+    let localReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+    localReviews.push(newReview);
+    localStorage.setItem('stored_revs', JSON.stringify(localReviews));
 
-    // Зберігаємо у Firebase відгуки
-    database.ref('reviews').push(newReview).then(() => {
-        document.getElementById('r-name').value = '';
-        document.getElementById('r-text').value = '';
-        ratingActive.checked = false;
-        toggleForm('review-form');
-    });
+    appendReviewCard(newReview);
+
+    document.getElementById('r-name').value = '';
+    document.getElementById('r-text').value = '';
+    ratingActive.checked = false;
+    toggleForm('review-form');
 }
 
 function appendReviewCard(review) {
@@ -1067,21 +1077,15 @@ function appendReviewCard(review) {
     container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// СИНХРОНІЗАЦІЯ ДАНИХ З ХМАРОЮ В РЕАЛЬНОМУ ЧАСІ
+// ЗАВАНТАЖЕННЯ ДАНИХ ПРИ ВІДКРИТТІ СТОРІНКИ
 window.addEventListener('DOMContentLoaded', () => {
     renderMoodHistory();
 
-    // Слухаємо хмару на нові відео
-    database.ref('videos').on('child_added', (snapshot) => {
-        const videoData = snapshot.val();
-        appendVideoCard(videoData);
-    });
+    const savedVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
+    savedVideos.forEach(appendVideoCard);
 
-    // Слухаємо хмару на нові відгуки
-    database.ref('reviews').on('child_added', (snapshot) => {
-        const reviewData = snapshot.val();
-        appendReviewCard(reviewData);
-    });
+    const savedReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+    savedReviews.forEach(appendReviewCard);
 });
 </script>
 
