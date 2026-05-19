@@ -315,7 +315,7 @@ section {
     font-size: 1.8rem;
 }
 
-/* СТИЛІ ДЛЯ СЛАЙДЕРІВ (НОВІ) */
+/* Слайдери ковзання */
 .slider-outer {
     position: relative;
     display: flex;
@@ -333,24 +333,24 @@ section {
 }
 
 .slider-container .card {
-    flex: 0 0 100%; /* На мобільних — 1 картка */
+    flex: 0 0 100%;
     box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
     .slider-container .card {
-        flex: 0 0 calc(50% - 13px); /* Планшети — 2 картки */
+        flex: 0 0 calc(50% - 13px);
     }
 }
 
 @media (min-width: 1024px) {
     .slider-container .card {
-        flex: 0 0 calc(33.333% - 17px); /* Комп'ютери — 3 картки */
+        flex: 0 0 calc(33.333% - 17px);
     }
 }
 
 .slider-arrow {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 50%;
     width: 50px;
@@ -650,8 +650,7 @@ footer {
                 <div class="mood-history">
                     <h4>Історія станів</h4>
                     <div id="history-list">
-                        <!-- Записи з пам'яті -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -709,12 +708,10 @@ footer {
         </div>
     </div>
 
-    <!-- ІНТЕРАКТИВНИЙ СЛАЙДЕР ВІДЕО -->
     <div class="slider-outer reveal">
         <button class="slider-arrow prev" onclick="moveSlider('videos-container', -1)">&#10094;</button>
         <div class="slider-container" id="videos-container">
             
-            <!-- Відео 1 (Facebook) -->
             <div class="card">
                 <div class="icon" style="background: #4267B2; color: white;">f</div>
                 <h3>Практика ментального спокою</h3>
@@ -728,7 +725,6 @@ footer {
                 <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
             </div>
 
-            <!-- Відео 2 (Facebook) -->
             <div class="card">
                 <div class="icon" style="background: #4267B2; color: white;">f</div>
                 <h3>Техніки стабілізації</h3>
@@ -803,7 +799,6 @@ footer {
         </div>
     </div>
 
-    <!-- ІНТЕРАКТИВНИЙ СЛАЙДЕР ВІДГУКІВ -->
     <div class="slider-outer reveal">
         <button class="slider-arrow prev" onclick="moveSlider('reviews-container', -1)">&#10094;</button>
         <div class="slider-container" id="reviews-container">
@@ -829,7 +824,6 @@ footer {
     </div>
 </section>
 
-<!-- ОНОВЛЕНИЙ РОЗДІЛ ПІДТРИМКИ -->
 <section id="contact">
     <div class="section-title reveal">
         <h2>Зв'яжіться з нами</h2>
@@ -882,18 +876,25 @@ function toggleForm(formId) {
     form.style.display = (form.style.display === 'block') ? 'none' : 'block';
 }
 
-// --- ЛОГІКА РОБОТИ СЛАЙДЕРІВ (НОВА) ---
+// --- ЛОГІКА РОБОТИ СЛАЙДЕРІВ ---
 function moveSlider(containerId, direction) {
     const container = document.getElementById(containerId);
     const firstCard = container.querySelector('.card');
     if (!firstCard) return;
     
-    // Вираховуємо ширину однієї картки разом із відступом (gap = 25px)
-    const step = firstCard.offsetWidth + 25;
+    let step = firstCard.offsetWidth + 25; // Ширина картки + gap
+    
+    // Якщо це ПК екран, гортаємо відразу на видиму групу карток
+    if (window.innerWidth >= 1024) {
+        step = step * 3; 
+    } else if (window.innerWidth >= 768) {
+        step = step * 2;
+    }
+    
     container.scrollBy({ left: step * direction, behavior: 'smooth' });
 }
 
-// --- РОБОТА ЗІ ЩОДЕННИКОМ НАСТРОЮ ---
+// --- ЩОДЕННИК НАСТРОЮ ---
 let currentSelectedMood = '';
 
 function selectMood(mood, element) {
