@@ -315,7 +315,7 @@ section {
     font-size: 1.8rem;
 }
 
-/* Слайдери ковзання */
+/* Слайдери ковзання (для відео) */
 .slider-outer {
     position: relative;
     display: flex;
@@ -338,15 +338,11 @@ section {
 }
 
 @media (min-width: 768px) {
-    .slider-container .card {
-        flex: 0 0 calc(50% - 13px);
-    }
+    .slider-container .card { flex: 0 0 calc(50% - 13px); }
 }
 
 @media (min-width: 1024px) {
-    .slider-container .card {
-        flex: 0 0 calc(33.333% - 17px);
-    }
+    .slider-container .card { flex: 0 0 calc(33.333% - 17px); }
 }
 
 .slider-arrow {
@@ -379,11 +375,7 @@ section {
 .slider-arrow.next { right: -25px; }
 
 @media (max-width: 768px) {
-    .slider-arrow {
-        width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
-    }
+    .slider-arrow { width: 40px; height: 40px; font-size: 1.1rem; }
     .slider-arrow.prev { left: -10px; }
     .slider-arrow.next { right: -10px; }
 }
@@ -403,16 +395,8 @@ section {
     border: 1px solid var(--primary);
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    font-size: 0.85rem;
-}
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.85rem; }
 
 .form-control {
     width: 100%;
@@ -431,156 +415,84 @@ section {
     flex-direction: row-reverse;
     justify-content: flex-end;
 }
-
-.stars-rating input {
-    display: none;
-}
-
-.stars-rating label {
-    font-size: 1.8rem;
-    color: #cbd5e1;
-    cursor: pointer;
-}
-
+.stars-rating input { display: none; }
+.stars-rating label { font-size: 1.8rem; color: #cbd5e1; cursor: pointer; }
 .stars-rating input:checked ~ label,
 .stars-rating label:hover,
-.stars-rating label:hover ~ label {
-    color: var(--rating);
-}
+.stars-rating label:hover ~ label { color: var(--rating); }
+.review-stars { color: var(--rating); margin-bottom: 8px; }
+.review-date { display: block; font-size: 0.75rem; color: #94a3b8; margin-top: 10px; }
 
-.review-stars {
-    color: var(--rating);
-    margin-bottom: 8px;
+/* НОВІ СТИЛІ ДЛЯ ВІДГУКІВ (Лайки, Відповіді, Видалення) */
+.review-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    font-size: 0.85rem;
 }
+.review-actions button {
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 0;
+    font-weight: 600;
+    transition: 0.2s;
+    font-family: inherit;
+}
+.review-actions button:hover { color: var(--primary); }
+.review-actions button.delete-btn { color: #ef4444; }
+.review-actions button.delete-btn:hover { color: #b91c1c; }
 
-.review-date {
-    display: block;
-    font-size: 0.75rem;
-    color: #94a3b8;
-    margin-top: 10px;
+.replies-box {
+    margin-top: 15px;
+    padding-left: 15px;
+    border-left: 2px solid #cbd5e1;
+    text-align: left;
+}
+.reply-item { margin-bottom: 8px; font-size: 0.85rem; color: #475569; }
+.reply-author { font-weight: 600; color: var(--dark); margin-right: 5px; }
+.reply-form {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    background: rgba(255,255,255,0.5);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 /* Premium */
-.premium {
-    background: linear-gradient(135deg, #fff6df, #fffdf7);
-}
-
-.price {
-    font-size: 1.8rem;
-    color: #ff9800;
-    font-weight: 700;
-    margin: 10px 0;
-}
-
-.badge {
-    display: inline-block;
-    padding: 5px 12px;
-    background: #ff9800;
-    color: white;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
+.premium { background: linear-gradient(135deg, #fff6df, #fffdf7); }
+.price { font-size: 1.8rem; color: #ff9800; font-weight: 700; margin: 10px 0; }
+.badge { display: inline-block; padding: 5px 12px; background: #ff9800; color: white; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
 
 /* Testimonials */
-.testimonial {
-    text-align: center;
-}
-
-.avatar {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    margin: 0 auto 15px;
-}
+.testimonial { text-align: left; }
+.avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); margin-bottom: 10px; }
 
 /* Адаптивна підтримка / Контакти */
-.support-box {
-    max-width: 600px;
-    margin: auto;
-    text-align: center;
-}
-.support-textarea {
-    width: 100%;
-    height: 120px;
-    padding: 15px;
-    border: 1px solid #cbd5e1;
-    border-radius: 20px;
-    background: #f8fafc;
-    resize: none;
-    outline: none;
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-    transition: 0.3s;
-}
-.support-textarea:focus {
-    border-color: var(--primary);
-    background: #ffffff;
-}
-.success-msg {
-    display: none;
-    color: #2e7d32;
-    background: #edf7ed;
-    padding: 15px;
-    border-radius: 15px;
-    font-weight: 500;
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-}
+.support-box { max-width: 600px; margin: auto; text-align: center; }
+.support-textarea { width: 100%; height: 120px; padding: 15px; border: 1px solid #cbd5e1; border-radius: 20px; background: #f8fafc; resize: none; outline: none; font-size: 0.95rem; margin-bottom: 15px; transition: 0.3s; }
+.support-textarea:focus { border-color: var(--primary); background: #ffffff; }
+.success-msg { display: none; color: #2e7d32; background: #edf7ed; padding: 15px; border-radius: 15px; font-weight: 500; margin-bottom: 15px; font-size: 0.95rem; }
 
 /* Footer */
-footer {
-    padding: 40px 8%;
-    text-align: center;
-    background: #1d2433;
-    color: white;
-}
+footer { padding: 40px 8%; text-align: center; background: #1d2433; color: white; }
 
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: 0.8s;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
+.reveal { opacity: 0; transform: translateY(30px); transition: 0.8s; }
+.reveal.active { opacity: 1; transform: translateY(0); }
 
 /* АДАПТИВНІСТЬ ДЛЯ СМАРТФОНІВ */
 @media (max-width: 968px) {
-    header {
-        position: static;
-        padding: 15px 5%;
-        flex-direction: column;
-        gap: 15px;
-    }
-    nav {
-        justify-content: center;
-    }
-    .hero {
-        flex-direction: column;
-        padding-top: 30px;
-        text-align: center;
-        gap: 35px;
-    }
-    .hero-text h1 {
-        font-size: 2.3rem;
-    }
-    .hero-image {
-        width: 100%;
-    }
-    section {
-        padding: 50px 5%;
-    }
-    .section-title h2 {
-        font-size: 1.8rem;
-    }
-    .support-box {
-        width: 100%;
-        padding: 20px 15px;
-    }
+    header { position: static; padding: 15px 5%; flex-direction: column; gap: 15px; }
+    nav { justify-content: center; }
+    .hero { flex-direction: column; padding-top: 30px; text-align: center; gap: 35px; }
+    .hero-text h1 { font-size: 2.3rem; }
+    .hero-image { width: 100%; }
+    section { padding: 50px 5%; }
+    .section-title h2 { font-size: 1.8rem; }
+    .support-box { width: 100%; padding: 20px 15px; }
 }
 </style>
 </head>
@@ -629,8 +541,7 @@ footer {
 
                 <div class="mood-history">
                     <h4>Історія станів</h4>
-                    <div id="history-list">
-                        </div>
+                    <div id="history-list"></div>
                 </div>
             </div>
         </div>
@@ -727,8 +638,7 @@ footer {
                 </div>
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                     <strong>Джерело:</strong> YouTube<br>
-                    <strong>Автор відео:</strong> Безбар'єрність<br>
-                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                    <strong>Автор відео:</strong> Безбар'єрність
                 </p>
             </div>
             
@@ -741,8 +651,7 @@ footer {
                 </div>
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                     <strong>Джерело:</strong> YouTube<br>
-                    <strong>Автор відео:</strong> Безбар'єрність<br>
-                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                    <strong>Автор відео:</strong> Безбар'єрність
                 </p>
             </div>
             
@@ -755,8 +664,7 @@ footer {
                 </div>
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
                     <strong>Джерело:</strong> YouTube<br>
-                    <strong>Автор відео:</strong> Безбар'єрність<br>
-                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                    <strong>Автор відео:</strong> Безбар'єрність
                 </p>
             </div>
 
@@ -817,33 +725,12 @@ footer {
                 <label>Текст відгуку</label>
                 <textarea id="r-text" class="form-control" placeholder="Поділіться вашими враженнями..."></textarea>
             </div>
-            <button class="btn" onclick="submitReview()">Відправити відгук</button>
+            <button class="btn" onclick="submitNewReview()">Відправити відгук</button>
         </div>
     </div>
 
-    <div class="slider-outer reveal">
-        <button class="slider-arrow prev" onclick="moveSlider('reviews-container', -1)">&#10094;</button>
-        <div class="slider-container" id="reviews-container">
-            
-            <div class="card testimonial">
-                <div class="avatar"></div>
-                <div class="review-stars">★★★★★</div>
-                <h3>Олена</h3>
-                <p>“Після використання MindGuard я стала значно спокійнішою. Медитації реально допомагають.”</p>
-                <span class="review-date">12.05.2026</span>
-            </div>
-            
-            <div class="card testimonial">
-                <div class="avatar"></div>
-                <div class="review-stars">★★★★☆</div>
-                <h3>Андрій</h3>
-                <p>“Дуже сучасний та зручний сервіс. Найбільше сподобався щоденник настрою.”</p>
-                <span class="review-date">15.05.2026</span>
-            </div>
-
+    <div class="grid reveal" id="reviews-container" style="max-height: 800px; overflow-y: auto; padding-right: 10px;">
         </div>
-        <button class="slider-arrow next" onclick="moveSlider('reviews-container', 1)">&#10095;</button>
-    </div>
 </section>
 
 <section id="contact">
@@ -898,30 +785,21 @@ function toggleForm(formId) {
     form.style.display = (form.style.display === 'block') ? 'none' : 'block';
 }
 
-// --- НАДІЙНА ЛОГІКА РОБОТИ СЛАЙДЕРІВ ---
+// --- ЛОГІКА СЛАЙДЕРА ДЛЯ ВІДЕО ---
 function moveSlider(containerId, direction) {
     const container = document.getElementById(containerId);
     const firstCard = container.querySelector('.card');
     if (!firstCard) return;
     
-    // Точна ширина однієї картки з урахуванням усіх відступів
     const cardWidth = firstCard.getBoundingClientRect().width;
     const gap = 25; 
     let step = cardWidth + gap;
     
-    // Якщо це ПК екран (3 картки), крутимо одразу на всю довжину екрана (3 картки)
-    if (window.innerWidth >= 1024) {
-        step = step * 3; 
-    } else if (window.innerWidth >= 768) {
-        step = step * 2; // Планшет (2 картки)
-    }
+    if (window.innerWidth >= 1024) step = step * 3; 
+    else if (window.innerWidth >= 768) step = step * 2; 
 
-    // Розраховуємо нове положення
-    const targetScroll = container.scrollLeft + (step * direction);
-    
-    // Плавне прокручування
     container.scrollTo({
-        left: targetScroll,
+        left: container.scrollLeft + (step * direction),
         behavior: 'smooth'
     });
 }
@@ -1019,20 +897,16 @@ function sendSupportMessage() {
     }, 1200);
 }
 
-// --- ДОДАННЯ ВІДЕО ЧЕРЕЗ ФОРМУ (З АВТО-ПЛЕЄРОМ ДЛЯ YOUTUBE) ---
+// --- ДОДАННЯ ВІДЕО ЧЕРЕЗ ФОРМУ ---
 function getYouTubeEmbedHtml(url) {
     let videoId = '';
-    if (url.includes('youtu.be/')) {
-        videoId = url.split('youtu.be/')[1].split('?')[0];
-    } else if (url.includes('v=')) {
-        videoId = url.split('v=')[1].split('&')[0];
-    }
+    if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1].split('?')[0];
+    else if (url.includes('v=')) videoId = url.split('v=')[1].split('&')[0];
     
     if (videoId) {
-        return `
-        <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
-            <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-        </div>`;
+        return `<div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                </div>`;
     }
     return null;
 }
@@ -1062,19 +936,11 @@ function submitVideo() {
 
 function appendVideoCard(video) {
     const container = document.getElementById('videos-container');
-    
     const isFb = video.url.includes('facebook.com') || video.url.includes('fb.watch');
     const iconLetter = isFb ? 'f' : '▶';
     const iconBg = isFb ? '#4267B2' : '#FF0000';
-    const sourceName = isFb ? 'Facebook' : 'YouTube';
-
-    let mediaContent = '';
-    if (isFb) {
-        mediaContent = `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на Facebook</a>`;
-    } else {
-        const embedPlayer = getYouTubeEmbedHtml(video.url);
-        mediaContent = embedPlayer ? embedPlayer : `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на YouTube</a>`;
-    }
+    
+    let mediaContent = isFb ? `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на Facebook</a>` : (getYouTubeEmbedHtml(video.url) || `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на YouTube</a>`);
 
     const cardHtml = `
         <div class="card">
@@ -1083,7 +949,7 @@ function appendVideoCard(video) {
             <p>${video.desc}</p>
             ${mediaContent}
             <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
-                <strong>Джерело:</strong> ${sourceName}<br>
+                <strong>Джерело:</strong> ${isFb ? 'Facebook' : 'YouTube'}<br>
                 <strong>Автор відео:</strong> Додано користувачем<br>
             </p>
         </div>
@@ -1091,8 +957,76 @@ function appendVideoCard(video) {
     container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- ВІДГУКИ ЧЕРЕЗ ФОРМУ ---
-function submitReview() {
+// --- НОВА ПРОСУНУТА СИСТЕМА ВІДГУКІВ ---
+const defaultReviews = [
+    { id: 101, author: "Марія", rating: 5, text: "Сервіс працює дуже швидко і без зайвого візуального шуму. Саме те, що треба для концентрації.", likes: 14, date: "19.05.2026", replies: [] },
+    { id: 102, author: "Олексій", rating: 4, text: "Дуже чистий інтерфейс. Чи планується розширення функціоналу для командної роботи або спільних сесій?", likes: 5, date: "19.05.2026", replies: [{ author: "Адміністратор", text: "Дякуємо! Так, ми розглядаємо таку можливість у майбутніх оновленнях." }] },
+    { id: 103, author: "Олена", rating: 5, text: "Спробувала відкрити і з телефону, і з ноутбука — адаптивність чудова. Мінімалізм у дизайні вельми тішить.", likes: 9, date: "18.05.2026", replies: [] },
+    { id: 104, author: "Дмитро", rating: 4, text: "Хороший старт. Простий та зрозумілий інструмент. Чекаю на реліз повноцінного мобільного додатка.", likes: 3, date: "18.05.2026", replies: [] },
+    { id: 105, author: "Ірина", rating: 5, text: "Допомагає краще контролювати час і не відволікатися на нескінченний серфінг у мережі.", likes: 11, date: "17.05.2026", replies: [] },
+    { id: 106, author: "Максим", rating: 4, text: "Класний проєкт. Хотілося б мати можливість детальніше налаштовувати профілі відпочинку під себе.", likes: 2, date: "16.05.2026", replies: [{ author: "Розробник", text: "Чудова ідея, вже додали це завдання до нашого плану розробки!" }] },
+    { id: 107, author: "Тетяна", rating: 5, text: "Чи буде додано темну тему інтерфейсу? Вночі з нею працювати набагато комфортніше.", likes: 8, date: "15.05.2026", replies: [{ author: "Адміністратор", text: "Вітаємо! Так, темна тема з'явиться найближчим часом." }] },
+    { id: 108, author: "Юлія", rating: 5, text: "Дуже приємне оформлення, все інтуїтивно зрозуміло з перших секунд. Успіхів вашій команді!", likes: 4, date: "14.05.2026", replies: [] },
+    { id: 109, author: "Андрій", rating: 5, text: "Тестую вже кілька днів на різних пристроях. Все стабільно, лагів немає. Гарна робота.", likes: 6, date: "12.05.2026", replies: [] }
+];
+
+let allReviews = [];
+
+function loadReviews() {
+    allReviews = JSON.parse(localStorage.getItem('mindguard_advanced_reviews'));
+    if (!allReviews || allReviews.length === 0) {
+        allReviews = defaultReviews;
+        saveReviewsToLocal();
+    }
+    renderReviewsList();
+}
+
+function saveReviewsToLocal() {
+    localStorage.setItem('mindguard_advanced_reviews', JSON.stringify(allReviews));
+}
+
+function renderReviewsList() {
+    const container = document.getElementById('reviews-container');
+    container.innerHTML = '';
+
+    const sortedReviews = allReviews.sort((a, b) => b.id - a.id);
+
+    sortedReviews.forEach(r => {
+        let stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
+        
+        let repliesHtml = '';
+        if (r.replies && r.replies.length > 0) {
+            repliesHtml = `<div class="replies-box">` + r.replies.map(rep => `<div class="reply-item"><span class="reply-author">${rep.author}:</span>${rep.text}</div>`).join('') + `</div>`;
+        }
+
+        const card = document.createElement('div');
+        card.className = 'card testimonial';
+        card.innerHTML = `
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">${stars}</div>
+            <h3 style="text-align: left;">${r.author}</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“${r.text}”</p>
+            <span class="review-date" style="text-align: left;">${r.date}</span>
+
+            <div class="review-actions">
+                <button onclick="likeReview(${r.id})">👍 ${r.likes || 0}</button>
+                <button onclick="toggleReply(${r.id})">💬 Відповісти</button>
+                <button class="delete-btn" onclick="deleteReview(${r.id})">🗑 Видалити</button>
+            </div>
+
+            ${repliesHtml}
+
+            <div class="reply-form" id="reply-form-${r.id}">
+                <input type="text" id="reply-name-${r.id}" class="form-control" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+                <input type="text" id="reply-text-${r.id}" class="form-control" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+                <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(${r.id})">Відправити відповідь</button>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function submitNewReview() {
     const name = document.getElementById('r-name').value.trim();
     const text = document.getElementById('r-text').value.trim();
     const ratingActive = document.querySelector('input[name="rating"]:checked');
@@ -1102,16 +1036,19 @@ function submitReview() {
         return;
     }
 
-    const ratingValue = parseInt(ratingActive.value);
-    const now = new Date();
-    const dateString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+    const newReview = {
+        id: Date.now(),
+        author: name,
+        text: text,
+        rating: parseInt(ratingActive.value),
+        likes: 0,
+        date: new Date().toLocaleDateString('uk-UA'),
+        replies: []
+    };
 
-    const newReview = { name, text, rating: ratingValue, date: dateString };
-    let localReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
-    localReviews.push(newReview);
-    localStorage.setItem('stored_revs', JSON.stringify(localReviews));
-
-    appendReviewCard(newReview);
+    allReviews.push(newReview);
+    saveReviewsToLocal();
+    renderReviewsList();
 
     document.getElementById('r-name').value = '';
     document.getElementById('r-text').value = '';
@@ -1119,23 +1056,45 @@ function submitReview() {
     toggleForm('review-form');
 }
 
-function appendReviewCard(review) {
-    const container = document.getElementById('reviews-container');
-    let starsHtml = '';
-    for(let i = 1; i <= 5; i++) {
-        starsHtml += (i <= review.rating) ? '★' : '☆';
+function deleteReview(id) {
+    if (confirm('Ви впевнені, що хочете видалити цей відгук?')) {
+        allReviews = allReviews.filter(r => r.id !== id);
+        saveReviewsToLocal();
+        renderReviewsList();
+    }
+}
+
+function likeReview(id) {
+    const rev = allReviews.find(r => r.id === id);
+    if (rev) {
+        rev.likes = (rev.likes || 0) + 1;
+        saveReviewsToLocal();
+        renderReviewsList();
+    }
+}
+
+function toggleReply(id) {
+    const form = document.getElementById(`reply-form-${id}`);
+    form.style.display = (form.style.display === 'flex') ? 'none' : 'flex';
+}
+
+function submitReply(id) {
+    const nameInput = document.getElementById(`reply-name-${id}`);
+    const textInput = document.getElementById(`reply-text-${id}`);
+    
+    let authorName = nameInput.value.trim() || 'Адміністратор';
+    if (textInput.value.trim() === '') {
+        alert('Введіть текст відповіді!');
+        return;
     }
 
-    const cardHtml = `
-        <div class="card testimonial">
-            <div class="avatar"></div>
-            <div class="review-stars">${starsHtml}</div>
-            <h3>${review.name}</h3>
-            <p>“${review.text}”</p>
-            <span class="review-date">${review.date || ''}</span>
-        </div>
-    `;
-    container.insertAdjacentHTML('beforeend', cardHtml);
+    const rev = allReviews.find(r => r.id === id);
+    if (rev) {
+        if (!rev.replies) rev.replies = [];
+        rev.replies.push({ author: authorName, text: textInput.value.trim() });
+        saveReviewsToLocal();
+        renderReviewsList();
+    }
 }
 
 // ЗАВАНТАЖЕННЯ ДАНИХ
@@ -1145,8 +1104,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const savedVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
     savedVideos.forEach(appendVideoCard);
 
-    const savedReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
-    savedReviews.forEach(appendReviewCard);
+    loadReviews(); // Завантажуємо нову систему відгуків
 });
 </script>
 
