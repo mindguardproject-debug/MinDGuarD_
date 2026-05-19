@@ -8,37 +8,37 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-body{
+body {
     margin:0;
     font-family:Poppins;
     background:#f5f7ff;
     color:#1f2937;
 }
 
-header{
+header {
     text-align:center;
     padding:20px;
-    font-size:24px;
+    font-size:22px;
     font-weight:700;
 }
 
-section{
+section {
     padding:20px;
 }
 
-.grid{
+.grid {
     display:grid;
     gap:15px;
 }
 
-.card{
+.card {
     background:white;
     padding:15px;
     border-radius:15px;
     box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
 
-.btn{
+.btn {
     background:#7c9cff;
     color:white;
     border:none;
@@ -47,7 +47,7 @@ section{
     cursor:pointer;
 }
 
-input, textarea{
+input, textarea {
     width:100%;
     padding:10px;
     margin:5px 0;
@@ -55,17 +55,7 @@ input, textarea{
     border:1px solid #ddd;
 }
 
-a.video-btn{
-    display:inline-block;
-    margin-top:10px;
-    padding:10px 15px;
-    background:#7c9cff;
-    color:white;
-    border-radius:10px;
-    text-decoration:none;
-}
-
-small{
+small {
     color:#64748b;
 }
 </style>
@@ -75,7 +65,7 @@ small{
 
 <header>MindGuard</header>
 
-<!-- ================= VIDEOS ================= -->
+<!-- ================= VIDEOS (ONLY 2 CLEAN) ================= -->
 <section>
 <h2>Відео</h2>
 
@@ -83,12 +73,10 @@ small{
 
     <div class="card">
         <h3>Практика емоційного відновлення</h3>
-        <p>Техніка для стабілізації емоцій та зниження тривожності.</p>
+        <p>Техніка для стабілізації емоційного стану.</p>
 
-        <a class="video-btn"
-           href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr"
-           target="_blank">
-            ▶ Відкрити відео у Facebook
+        <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank">
+            ▶ Переглянути відео
         </a>
 
         <small>Джерело: Facebook (публічний матеріал)</small>
@@ -96,12 +84,10 @@ small{
 
     <div class="card">
         <h3>Методи боротьби зі стресом</h3>
-        <p>Базові психологічні техніки для щоденного життя.</p>
+        <p>Психологічні техніки для зниження стресу.</p>
 
-        <a class="video-btn"
-           href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr"
-           target="_blank">
-            ▶ Відкрити відео у Facebook
+        <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank">
+            ▶ Переглянути відео
         </a>
 
         <small>Джерело: Facebook (публічний матеріал)</small>
@@ -115,9 +101,9 @@ small{
 <h2>Відгуки</h2>
 
 <div class="card">
-    <input id="name" placeholder="Ім'я">
-    <textarea id="text" placeholder="Ваш відгук"></textarea>
-    <button class="btn" onclick="addReview()">Надіслати</button>
+<input id="name" placeholder="Ім'я">
+<textarea id="text" placeholder="Відгук"></textarea>
+<button class="btn" onclick="addReview()">Надіслати</button>
 </div>
 
 <div id="reviews" class="grid"></div>
@@ -125,15 +111,15 @@ small{
 
 <script>
 
-// ===== ВІДГУКИ =====
+// ===== LOCAL REVIEWS (REALTIME ON DEVICE) =====
 
-function loadReviews(){
+function loadReviews() {
     let data = JSON.parse(localStorage.getItem("reviews") || "[]");
 
     let box = document.getElementById("reviews");
     box.innerHTML = "";
 
-    data.slice().reverse().forEach(r=>{
+    data.slice().reverse().forEach(r => {
         box.innerHTML += `
         <div class="card">
             <b>${r.name}</b>
@@ -143,7 +129,7 @@ function loadReviews(){
     });
 }
 
-function addReview(){
+function addReview() {
     let name = document.getElementById("name").value;
     let text = document.getElementById("text").value;
 
@@ -151,174 +137,7 @@ function addReview(){
 
     let data = JSON.parse(localStorage.getItem("reviews") || "[]");
 
-    data.push({name,text});
-    localStorage.setItem("reviews", JSON.stringify(data));
-
-    document.getElementById("name").value = "";
-    document.getElementById("text").value = "";
-
-    loadReviews();
-}
-
-loadReviews();
-
-</script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="uk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MindGuard</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-body{
-    margin:0;
-    font-family:Poppins;
-    background:#f5f7ff;
-    color:#1f2937;
-}
-
-header{
-    text-align:center;
-    padding:20px;
-    font-size:24px;
-    font-weight:700;
-}
-
-section{
-    padding:20px;
-}
-
-.grid{
-    display:grid;
-    gap:15px;
-}
-
-.card{
-    background:white;
-    padding:15px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.05);
-}
-
-.btn{
-    background:#7c9cff;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-input, textarea{
-    width:100%;
-    padding:10px;
-    margin:5px 0;
-    border-radius:10px;
-    border:1px solid #ddd;
-}
-
-a.video-btn{
-    display:inline-block;
-    margin-top:10px;
-    padding:10px 15px;
-    background:#7c9cff;
-    color:white;
-    border-radius:10px;
-    text-decoration:none;
-}
-
-small{
-    color:#64748b;
-}
-</style>
-</head>
-
-<body>
-
-<header>MindGuard</header>
-
-<!-- ================= VIDEOS ================= -->
-<section>
-<h2>Відео</h2>
-
-<div class="grid">
-
-    <div class="card">
-        <h3>Практика емоційного відновлення</h3>
-        <p>Техніка для стабілізації емоцій та зниження тривожності.</p>
-
-        <a class="video-btn"
-           href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr"
-           target="_blank">
-            ▶ Відкрити відео у Facebook
-        </a>
-
-        <small>Джерело: Facebook (публічний матеріал)</small>
-    </div>
-
-    <div class="card">
-        <h3>Методи боротьби зі стресом</h3>
-        <p>Базові психологічні техніки для щоденного життя.</p>
-
-        <a class="video-btn"
-           href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr"
-           target="_blank">
-            ▶ Відкрити відео у Facebook
-        </a>
-
-        <small>Джерело: Facebook (публічний матеріал)</small>
-    </div>
-
-</div>
-</section>
-
-<!-- ================= REVIEWS ================= -->
-<section>
-<h2>Відгуки</h2>
-
-<div class="card">
-    <input id="name" placeholder="Ім'я">
-    <textarea id="text" placeholder="Ваш відгук"></textarea>
-    <button class="btn" onclick="addReview()">Надіслати</button>
-</div>
-
-<div id="reviews" class="grid"></div>
-</section>
-
-<script>
-
-// ===== ВІДГУКИ =====
-
-function loadReviews(){
-    let data = JSON.parse(localStorage.getItem("reviews") || "[]");
-
-    let box = document.getElementById("reviews");
-    box.innerHTML = "";
-
-    data.slice().reverse().forEach(r=>{
-        box.innerHTML += `
-        <div class="card">
-            <b>${r.name}</b>
-            <p>${r.text}</p>
-        </div>
-        `;
-    });
-}
-
-function addReview(){
-    let name = document.getElementById("name").value;
-    let text = document.getElementById("text").value;
-
-    if(!name || !text) return;
-
-    let data = JSON.parse(localStorage.getItem("reviews") || "[]");
-
-    data.push({name,text});
+    data.push({name, text});
     localStorage.setItem("reviews", JSON.stringify(data));
 
     document.getElementById("name").value = "";
