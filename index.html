@@ -1,1010 +1,513 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindGuard — Простір психологічної підтримки</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        :root {
-            --primary: #7c9cff;
-            --secondary: #c8d8ff;
-            --accent: #8ee3c4;
-            --dark: #1f2937;
-            --light: #f5f7ff;
-            --white: #ffffff;
-            --rating: #ffc107;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: radial-gradient(circle at top left, #dfe9ff, #f7fbff);
-            color: var(--dark);
-            overflow-x: hidden;
-        }
-
-        .blur-circle {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(90px);
-            z-index: -1;
-            opacity: 0.5;
-        }
-
-        .circle1 {
-            width: 300px;
-            height: 300px;
-            background: #b8c0ff;
-            top: -100px;
-            left: -100px;
-        }
-
-        .circle2 {
-            width: 250px;
-            height: 250px;
-            background: #8ee3c4;
-            bottom: 0;
-            right: -80px;
-        }
-
-        header {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            z-index: 1000;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-        }
-
-        .logo h2 {
-            color: var(--dark);
-        }
-
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        .plus-link {
-            color: #ff9800;
-            font-weight: 700;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 140px 8% 60px;
-            gap: 50px;
-        }
-
-        .hero-text {
-            flex: 1;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-
-        .hero-text p {
-            font-size: 1.1rem;
-            color: #5f6b7a;
-            margin-bottom: 35px;
-            max-width: 600px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 40px;
-            background: linear-gradient(135deg, var(--primary), #95aeff);
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.4s;
-            box-shadow: 0 0 25px rgba(124, 156, 255, 0.4);
-            border: none;
-            cursor: pointer;
-            font-size: 0.95rem;
-            text-align: center;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .phone {
-            width: 100%;
-            max-width: 340px;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 35px;
-            padding: 25px 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
-        }
-
-        .app-screen h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .mood-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 15px 0;
-            gap: 10px;
-        }
-
-        .mood-btn {
-            flex: 1;
-            height: 50px;
-            border-radius: 15px;
-            background: var(--white);
-            border: 1px solid rgba(0,0,0,0.05);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mood-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .mood-btn.selected {
-            background: var(--secondary);
-            border-color: var(--primary);
-            transform: scale(1.1);
-        }
-
-        .mood-input-box {
-            margin-top: 15px;
-            display: none;
-        }
-
-        .mood-note {
-            width: 100%;
-            padding: 10px;
-            border-radius: 12px;
-            border: 1px solid #cbd5e1;
-            resize: none;
-            height: 60px;
-            font-size: 0.85rem;
-            outline: none;
-            margin-bottom: 10px;
-        }
-
-        .mood-history {
-            margin-top: 20px;
-            max-height: 180px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .mood-history h4 {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            color: #475569;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 4px;
-        }
-
-        .history-item {
-            background: rgba(255,255,255,0.6);
-            padding: 8px 12px;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            font-size: 0.8rem;
-            border-left: 4px solid var(--primary);
-        }
-
-        .history-item .time {
-            font-size: 0.7rem;
-            color: #94a3b8;
-            display: block;
-            margin-top: 2px;
-        }
-
-        section {
-            padding: 80px 8%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-title h2 {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-        }
-
-        .section-title p {
-            color: #667085;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            align-items: start;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 30px;
-            border-radius: 25px;
-            transition: 0.3s;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-        }
-
-        .card h3 {
-            margin: 15px 0 10px;
-        }
-
-        .icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-        }
-
-        /* Оновлені відео-контейнери для повної адаптивності на смартфонах */
-        .video-box {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* Співвідношення сторін 16:9 */
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            background: #e2e8f0;
-        }
-
-        .video-box iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .add-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-card {
-            display: none;
-            max-width: 500px;
-            margin: 20px auto;
-            text-align: left;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--primary);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            font-size: 0.85rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            background: #f8fafc;
-            font-size: 0.95rem;
-            outline: none;
-        }
-
-        .stars-rating {
-            display: flex;
-            gap: 8px;
-            flex-direction: row-reverse;
-            justify-content: flex-end;
-        }
-
-        .stars-rating input {
-            display: none;
-        }
-
-        .stars-rating label {
-            font-size: 1.8rem;
-            color: #cbd5e1;
-            cursor: pointer;
-        }
-
-        .stars-rating input:checked ~ label,
-        .stars-rating label:hover,
-        .stars-rating label:hover ~ label {
-            color: var(--rating);
-        }
-
-        .review-stars {
-            color: var(--rating);
-            margin-bottom: 8px;
-        }
-
-        .review-date {
-            display: block;
-            font-size: 0.75rem;
-            color: #94a3b8;
-            margin-top: 10px;
-        }
-
-        .review-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 15px;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            padding-top: 15px;
-            justify-content: center;
-        }
-
-        .action-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: 0.2s;
-            font-weight: 500;
-        }
-
-        .action-btn:hover {
-            color: var(--primary);
-        }
-
-        .action-btn.delete:hover {
-            color: #ef4444;
-        }
-
-        .reply-form {
-            display: none;
-            margin-top: 15px;
-            flex-direction: column;
-            gap: 10px;
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 15px;
-        }
-
-        .replies-list {
-            margin-top: 15px;
-            text-align: left;
-            border-left: 3px solid #e2e8f0;
-            padding-left: 15px;
-        }
-
-        .reply-item {
-            background: rgba(255,255,255,0.8);
-            padding: 10px 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            font-size: 0.85rem;
-        }
-
-        .reply-item strong {
-            color: var(--primary);
-        }
-
-        .premium {
-            background: linear-gradient(135deg, #fff6df, #fffdf7);
-        }
-
-        .price {
-            font-size: 1.8rem;
-            color: #ff9800;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            background: #ff9800;
-            color: white;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .testimonial {
-            text-align: center;
-        }
-
-        .avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            margin: 0 auto 15px;
-        }
-
-        footer {
-            padding: 40px 8%;
-            text-align: center;
-            background: #1d2433;
-            color: white;
-        }
-
-        /* Плавна поява оптимізована для телефонів (якщо скрипт не встиг, блоки видимі) */
-        .reveal {
-            opacity: 1;
-            transform: none;
-            transition: 0.6s;
-        }
-        
-        @media (min-width: 969px) {
-            .reveal {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            .reveal.active {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .support-box {
-            max-width: 500px;
-            margin: auto;
-            text-align: center;
-            padding: 30px 20px;
-        }
-
-        .email-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 360px;
-            padding: 15px 20px;
-            font-size: 1rem;
-            word-break: break-all;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 968px) {
-            header {
-                position: static;
-                padding: 15px 5%;
-                flex-direction: column;
-                gap: 15px;
-            }
-            nav {
-                justify-content: center;
-            }
-            .hero {
-                flex-direction: column;
-                padding-top: 30px;
-                text-align: center;
-                gap: 35px;
-            }
-            .hero-image {
-                width: 100%;
-            }
-            section {
-                padding: 50px 5%;
-            }
-            .hero-text h1 {
-                font-size: 2.3rem;
-            }
-            .section-title h2 {
-                font-size: 1.8rem;
-            }
-            .email-btn {
-                font-size: 0.9rem;
-                padding: 12px 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindGuard — Простір психологічної підтримки</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+:root{
+    --primary:#7c9cff;
+    --secondary:#c8d8ff;
+    --accent:#8ee3c4;
+    --dark:#1f2937;
+    --light:#f5f7ff;
+    --white:#ffffff;
+    --card:rgba(255,255,255,0.75);
+    --text:#1f2937;
+    --sub:#64748b;
+}
+
+body.dark{
+    --light:#0f172a;
+    --white:#111827;
+    --dark:#f1f5f9;
+    --card:rgba(17,24,39,0.85);
+    --text:#f1f5f9;
+    --sub:#cbd5e1;
+    background:linear-gradient(135deg,#020617,#111827);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:radial-gradient(circle at top left,#dfe9ff,#f7fbff);
+    color:var(--text);
+    overflow-x:hidden;
+    transition:0.3s;
+}
+
+.blur-circle{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(80px);
+    z-index:-1;
+    opacity:0.4;
+}
+
+.circle1{
+    width:300px;
+    height:300px;
+    background:#8ea8ff;
+    top:-100px;
+    left:-100px;
+}
+
+.circle2{
+    width:250px;
+    height:250px;
+    background:#8ee3c4;
+    bottom:0;
+    right:-80px;
+}
+
+header{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 8%;
+    background:rgba(255,255,255,0.6);
+    backdrop-filter:blur(12px);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+body.dark header{
+    background:rgba(15,23,42,0.7);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-circle{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+}
+
+nav{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+nav a{
+    text-decoration:none;
+    color:var(--text);
+    font-weight:500;
+}
+
+nav a:hover{
+    color:var(--primary);
+}
+
+.theme-btn{
+    border:none;
+    background:linear-gradient(135deg,var(--primary),#95aeff);
+    color:white;
+    padding:10px 16px;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:50px;
+    padding:80px 8%;
+}
+
+.hero-text{
+    flex:1;
+}
+
+.hero-text h1{
+    font-size:3.4rem;
+    margin-bottom:20px;
+    line-height:1.1;
+}
+
+.hero-text p{
+    color:var(--sub);
+    margin-bottom:30px;
+    max-width:600px;
+    line-height:1.7;
+}
+
+.btn{
+    display:inline-block;
+    padding:13px 28px;
+    border-radius:40px;
+    background:linear-gradient(135deg,var(--primary),#95aeff);
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    box-shadow:0 0 25px rgba(124,156,255,0.4);
+}
+
+.phone{
+    width:100%;
+    max-width:340px;
+    background:var(--card);
+    backdrop-filter:blur(12px);
+    border-radius:35px;
+    padding:25px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.08);
+}
+
+.app-screen h3{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.mood-row{
+    display:flex;
+    gap:10px;
+    justify-content:space-between;
+}
+
+.mood-btn{
+    flex:1;
+    height:55px;
+    border:none;
+    border-radius:15px;
+    font-size:1.6rem;
+    background:white;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+body.dark .mood-btn{
+    background:#1e293b;
+}
+
+.mood-btn:hover{
+    transform:scale(1.08);
+}
+
+section{
+    padding:80px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    font-size:2.2rem;
+    margin-bottom:10px;
+}
+
+.section-title p{
+    color:var(--sub);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:var(--card);
+    border-radius:25px;
+    padding:25px;
+    backdrop-filter:blur(10px);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.icon{
+    width:60px;
+    height:60px;
+    border-radius:18px;
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:1.8rem;
+    margin-bottom:15px;
+}
+
+.video-box{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.video-box iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+}
+
+@media(max-width:900px){
+
+.hero{
+    flex-direction:column;
+    text-align:center;
+    padding-top:40px;
+}
+
+.hero-text h1{
+    font-size:2.4rem;
+}
+
+header{
+    flex-direction:column;
+    gap:15px;
+}
+
+nav{
+    justify-content:center;
+}
+
+section{
+    padding:60px 5%;
+}
+
+}
+</style>
 </head>
+
 <body>
 
 <div class="blur-circle circle1"></div>
 <div class="blur-circle circle2"></div>
 
 <header>
-    <div class="logo">
-        <div class="logo-circle"></div>
-        <h2>MindGuard</h2>
-    </div>
-    <nav>
-        <a href="#home">Головна</a>
-        <a href="#features">Можливості</a>
-        <a href="#videos">Відео</a>
-        <a href="#premium" class="plus-link">Plus ✨</a>
-        <a href="#reviews">Відгуки</a>
-        <a href="#contact">Контакти</a>
-    </nav>
+
+<div class="logo">
+<div class="logo-circle"></div>
+<h2>MindGuard</h2>
+</div>
+
+<nav>
+<a href="#home">Головна</a>
+<a href="#features">Можливості</a>
+<a href="#videos">Відео</a>
+<a href="#contact">Контакти</a>
+</nav>
+
+<button class="theme-btn" onclick="toggleTheme()">🌙 Темний режим</button>
+
 </header>
 
-<!-- HERO SECTION -->
 <section class="hero" id="home">
-    <div class="hero-text reveal">
-        <h1>Твій простір спокою та підтримки</h1>
-        <p>MindGuard — сучасна платформа психологічної підтримки, яка допомагає контролювати емоційний стан, зменшувати тривогу та відновлювати внутрішній баланс.</p>
-        <a href="#features" class="btn">Розпочати шлях</a>
-    </div>
-    
-    <div class="hero-image reveal">
-        <div class="phone">
-            <div class="app-screen">
-                <h3>Як ти сьогодні?</h3>
-                <div class="mood-row">
-                    <button class="mood-btn" onclick="selectMood('😊', this)">😊</button>
-                    <button class="mood-btn" onclick="selectMood('😌', this)">😌</button>
-                    <button class="mood-btn" onclick="selectMood('😔', this)">😔</button>
-                    <button class="mood-btn" onclick="selectMood('😴', this)">😴</button>
-                </div>
-                
-                <div class="mood-input-box" id="mood-input-container">
-                    <textarea id="mood-text" class="mood-note" placeholder="Що стало причиною такого настрою? (необов'язково)"></textarea>
-                    <button class="btn" style="width:100%; padding:8px;" onclick="saveMoodState()">Зберегти стан</button>
-                </div>
 
-                <div class="mood-history">
-                    <h4>Історія станів</h4>
-                    <div id="history-list"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="hero-text">
+<h1>Твій простір психологічної підтримки</h1>
+
+<p>
+MindGuard допомагає контролювати емоційний стан, 
+зменшувати тривогу та знаходити внутрішній баланс.
+</p>
+
+<a href="#features" class="btn">Розпочати</a>
+</div>
+
+<div class="hero-image">
+
+<div class="phone">
+
+<div class="app-screen">
+
+<h3>Як ти сьогодні?</h3>
+
+<div class="mood-row">
+<button class="mood-btn">😊</button>
+<button class="mood-btn">😌</button>
+<button class="mood-btn">😔</button>
+<button class="mood-btn">😴</button>
+</div>
+
+</div>
+</div>
+</div>
+
 </section>
 
-<!-- FEATURES SECTION -->
 <section id="features">
-    <div class="section-title reveal">
-        <h2>Можливості платформи</h2>
-        <p>Все необхідне для психологічної підтримки в одному місці</p>
-    </div>
-    <div class="grid">
-        <div class="card reveal">
-            <div class="icon">🧠</div>
-            <h3>Щоденник настрою</h3>
-            <p>Відстежуй свій емоційний стан та аналізуй зміни настрою.</p>
-        </div>
-        <div class="card reveal">
-            <div class="icon">🌿</div>
-            <h3>Медитації</h3>
-            <p>Практики дихання та розслаблення для боротьби зі стресом.</p>
-        </div>
-        <div class="card reveal">
-            <div class="icon">💬</div>
-            <h3>Підтримка фахівців</h3>
-            <p>Онлайн-консультації з психологами та спеціалістами.</p>
-        </div>
-    </div>
+
+<div class="section-title">
+<h2>Можливості платформи</h2>
+<p>Все необхідне для емоційної підтримки</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">🧠</div>
+<h3>Щоденник настрою</h3>
+<p>Записуй свій емоційний стан та слідкуй за змінами.</p>
+</div>
+
+<div class="card">
+<div class="icon">🌿</div>
+<h3>Медитації</h3>
+<p>Практики дихання та розслаблення для боротьби зі стресом.</p>
+</div>
+
+<div class="card">
+<div class="icon">💬</div>
+<h3>Підтримка</h3>
+<p>Корисні поради та відео для психологічного відновлення.</p>
+</div>
+
+</div>
 </section>
 
-<!-- VIDEOS SECTION -->
 <section id="videos">
-    <div class="section-title reveal">
-        <h2>Відеокурси</h2>
-        <p>Короткі практичні заняття для психологічного відновлення</p>
-    </div>
 
-    <div class="add-container reveal">
-        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео</button>
-        
-        <div class="card form-card" id="video-form">
-            <h3>Додати відео курс</h3><br>
-            <div class="form-group">
-                <label>Посилання на YouTube або Facebook відео</label>
-                <input type="text" id="v-url" class="form-control" placeholder="https://...">
-            </div>
-            <div class="form-group">
-                <label>Назва курсу</label>
-                <input type="text" id="v-title" class="form-control" placeholder="Введіть назву...">
-            </div>
-            <div class="form-group">
-                <label>Короткий опис</label>
-                <textarea id="v-desc" class="form-control" placeholder="Про що це відео..."></textarea>
-            </div>
-            <button class="btn" onclick="submitVideo()">Опублікувати</button>
-        </div>
-    </div>
+<div class="section-title">
+<h2>Корисні відео</h2>
+<p>Практики для заспокоєння та психологічного відновлення</p>
+</div>
 
-    <div class="grid" id="videos-container"></div>
+<div class="grid">
+
+<div class="card">
+
+<div class="video-box">
+<iframe 
+loading="lazy"
+src="https://www.youtube.com/embed/inpok4MKVLM"
+allowfullscreen>
+</iframe>
+</div>
+
+<h3>5-хвилинна медитація</h3>
+<p>Коротка практика для швидкого зменшення тривоги.</p>
+
+</div>
+
+<div class="card">
+
+<div class="video-box">
+<iframe 
+loading="lazy"
+src="https://www.youtube.com/embed/ZToicYcHIOU"
+allowfullscreen>
+</iframe>
+</div>
+
+<h3>Дихальні вправи</h3>
+<p>Техніки дихання для зниження стресу та паніки.</p>
+
+</div>
+
+<div class="card">
+
+<div class="video-box">
+<iframe 
+loading="lazy"
+src="https://www.youtube.com/embed/1ZYbU82GVz4"
+allowfullscreen>
+</iframe>
+</div>
+
+<h3>Заспокійлива музика</h3>
+<p>Релаксуючі звуки для концентрації та відпочинку.</p>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- PREMIUM SECTION -->
-<section id="premium" class="premium">
-    <div class="section-title reveal">
-        <h2>MindGuard Plus ✨</h2>
-        <p>Розширені можливості та персональна підтримка</p>
-    </div>
-    <div class="grid">
-        <div class="card reveal">
-            <span class="badge">ІНДИВІДУАЛЬНО</span>
-            <h3>Консультація психолога</h3>
-            <div class="price">500 грн</div>
-            <p>Особиста 60-хвилинна онлайн-сесія з фахівцем.</p>
-            <br><a href="#contact" class="btn">Замовити</a>
-        </div>
-        <div class="card reveal">
-            <span class="badge">ПІДПИСКА</span>
-            <h3>Група підтримки</h3>
-            <div class="price">250 грн/міс</div>
-            <p>Вебінари, закритий чат та ексклюзивні практики.</p>
-            <br><a href="#contact" class="btn">Приєднатися</a>
-        </div>
-    </div>
-</section>
-
-<!-- REVIEWS SECTION -->
-<section id="reviews">
-    <div class="section-title reveal">
-        <h2>Відгуки користувачів</h2>
-        <p>Глобальна спільнота MindGuard. Синхронізація між ПК та телефоном у реальному часі!</p>
-    </div>
-
-    <div class="add-container reveal">
-        <button class="btn" onclick="toggleForm('review-form')">+ Залишити свій відгук</button>
-        
-        <div class="card form-card" id="review-form">
-            <h3>Ваш відгук</h3><br>
-            <div class="form-group">
-                <label>Ваше ім'я</label>
-                <input type="text" id="r-name" class="form-control" placeholder="Як вас звати?">
-            </div>
-            <div class="form-group">
-                <label>Ваша оцінка</label>
-                <div class="stars-rating">
-                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
-                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Текст відгуку</label>
-                <textarea id="r-text" class="form-control" placeholder="Поділіться вашими враженнями..."></textarea>
-            </div>
-            <button class="btn" onclick="submitReview()">Опублікувати</button>
-        </div>
-    </div>
-
-    <div class="grid" id="reviews-container"></div>
-</section>
-
-<!-- CONTACT SECTION -->
 <section id="contact">
-    <div class="section-title reveal">
-        <h2>Зв'яжіться з нами</h2>
-        <p>Служба підтримки MindGuard завжди на зв'язку</p>
-    </div>
-    <div class="card reveal support-box">
-        <div class="icon" style="margin: 0 auto 20px;">✉️</div>
-        <h3>Напишіть нам на пошту</h3><br>
-        <p style="font-size:0.95rem; color:#5f6b7a; margin-bottom: 20px; line-height: 1.5;">
-            Запитання, пропозиції чи потреба в допомозі? Натисніть кнопку нижче, щоб швидко надіслати листа.
-        </p>
-        <a href="mailto:mindguardproject@gmail.com" class="btn email-btn">
-            mindguardproject@gmail.com
-        </a>
-    </div>
+
+<div class="section-title">
+<h2>Контакти</h2>
+<p>Ми завжди на зв'язку</p>
+</div>
+
+<div class="card" style="text-align:center; max-width:500px; margin:auto;">
+
+<div class="icon" style="margin:0 auto 15px;">✉️</div>
+
+<h3>Напишіть нам</h3>
+
+<br>
+
+<a href="mailto:mindguardproject@gmail.com" class="btn">
+mindguardproject@gmail.com
+</a>
+
+</div>
+
 </section>
 
 <footer>
-    <h2>MindGuard</h2><br>
-    <p>© 2026 MindGuard Project — Робимо світ спокійнішим 💙</p>
+
+<h2>MindGuard</h2>
+
+<br>
+
+<p>© 2026 MindGuard Project — Робимо світ спокійнішим 💙</p>
+
 </footer>
 
-<!-- FIREBASE SDK -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
 <script>
-// Налаштування Firebase
-const firebaseConfig = {
-    databaseURL: "https://mindguard-default-rtdb.europe-west1.firebasedatabase.app/"
+
+function toggleTheme(){
+
+document.body.classList.toggle('dark');
+
+if(document.body.classList.contains('dark')){
+    localStorage.setItem('theme','dark');
+}else{
+    localStorage.setItem('theme','light');
+}
+
+}
+
+window.onload = () => {
+
+if(localStorage.getItem('theme') === 'dark'){
+    document.body.classList.add('dark');
+}
+
 };
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
 
-// Анімація появи елементів
-const reveals = document.querySelectorAll('.reveal');
-function scanElements() {
-    reveals.forEach(el => {
-        const windowHeight = window.innerHeight;
-        const revealTop = el.getBoundingClientRect().top;
-        if(revealTop < windowHeight - 80) el.classList.add('active');
-    });
-}
-window.addEventListener('scroll', scanElements);
-window.addEventListener('load', scanElements);
-
-function toggleForm(formId) {
-    const form = document.getElementById(formId);
-    form.style.display = (form.style.display === 'block') ? 'none' : 'block';
-}
-
-// --- ЩОДЕННИК НАСТРОЮ (Локальний для кожного пристрою) ---
-let currentSelectedMood = '';
-function selectMood(mood, element) {
-    document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
-    element.classList.add('selected');
-    currentSelectedMood = mood;
-    document.getElementById('mood-input-container').style.display = 'block';
-}
-
-function saveMoodState() {
-    const note = document.getElementById('mood-text').value.trim();
-    if (!currentSelectedMood) return;
-    const now = new Date();
-    const timeString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    const moodEntry = { mood: currentSelectedMood, note: note || "Без коментаря", time: timeString };
-    
-    let history = JSON.parse(localStorage.getItem('mood_history') || '[]');
-    history.unshift(moodEntry);
-    localStorage.setItem('mood_history', JSON.stringify(history));
-    
-    renderMoodHistory();
-    document.getElementById('mood-text').value = '';
-    document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
-    document.getElementById('mood-input-container').style.display = 'none';
-    currentSelectedMood = '';
-}
-
-function renderMoodHistory() {
-    const container = document.getElementById('history-list');
-    const history = JSON.parse(localStorage.getItem('mood_history') || '[]');
-    if(history.length === 0) {
-        container.innerHTML = '<p style="font-size:0.8rem;color:#94a3b8;text-align:center;">Тут будуть ваші записи</p>';
-        return;
-    }
-    container.innerHTML = history.map(item => `
-        <div class="history-item">
-            <strong>Почувався: ${item.mood}</strong> — ${item.note}
-            <span class="time">${item.time}</span>
-        </div>
-    `).join('');
-}
-
-// --- РОЗУМНИЙ ПАРСЕР ВІДЕОПОСИЛАНЬ (YouTube + Facebook) ---
-function getEmbedUrl(url) {
-    // Перевірка на YouTube
-    let ytReg = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    let ytMatch = url.match(ytReg);
-    if (ytMatch && ytMatch[2].length == 11) {
-        return "https://www.youtube.com/embed/" + ytMatch[2];
-    }
-    
-    // Перевірка на Facebook Watch / Facebook Video
-    if (url.includes("facebook.com") || url.includes("fb.watch")) {
-        return "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(url) + "&show_text=0&width=560";
-    }
-    
-    return null;
-}
-
-// СИНХРОНІЗАЦІЯ ВІДЕО КРОСПЛАТФОРМЕННО
-database.ref('videos').on('value', (snapshot) => {
-    const container = document.getElementById('videos-container');
-    let data = snapshot.val();
-    let videos = [];
-    
-    if (data) {
-        videos = Object.keys(data).map(key => ({ firebaseKey: key, ...data[key] }));
-    } else {
-        // Дефолтні відео, якщо база порожня (Твоє з Фейсбуку + Корисне від мене)
-        videos = [
-            { 
-                id: 1, 
-                embedUrl: "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent("https://www.facebook.com/watch/?v=1346275919458117") + "&show_text=0&width=560", 
-                title: "Практика заземлення та фокусу", 
-                desc: "Твоє улюблене відео з Facebook для швидкого відновлення емоційного балансу." 
-            },
-            { 
-                id: 2, 
-                embedUrl: "https://www.youtube.com/embed/TTXcHEMfLb4", 
-                title: "Як працює наш стрес?", 
-                desc: "Анатомія тривожності та прості кроки, щоб допомогти нервовій системі під час паніки." 
-            }
-        ];
-    }
-    
-    container.innerHTML = videos.map(video => `
-        <div class="card reveal active" style="transform:none; opacity:1;">
-            <div class="video-box">
-                <iframe src="${video.embedUrl}" allowfullscreen scrolling="no" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-            <h3>${video.title}</h3>
-            <p>${video.desc}</p>
-        </div>
-    `).join('');
-});
-
-function submitVideo() {
-    const url = document.getElementById('v-url').value.trim();
-    const title = document.getElementById('v-title').value.trim();
-    const desc = document.getElementById('v-desc').value.trim();
-    if (!url || !title || !desc) return alert("Заповніть усі поля!");
-    
-    const embedUrl = getEmbedUrl(url);
-    if (!embedUrl) return alert("Некоректне посилання! Підтримуються тільки YouTube та Facebook.");
-    
-    database.ref('videos').push({ id: Date.now(), embedUrl, title, desc });
-    
-    document.getElementById('v-url').value = '';
-    document.getElementById('v-title').value = '';
-    document.getElementById('v-desc').value = '';
-    toggleForm('video-form');
-}
-
-// --- СИНХРОНІЗАЦІЯ ВІДГУКІВ КРОСПЛАТФОРМЕННО (Чиста Хмара) ---
-database.ref('reviews').on('value', (snapshot) => {
-    const container = document.getElementById('reviews-container');
-    let cloudData = snapshot.val() || {};
-    
-    let allReviews = Object.keys(cloudData).map(key => ({ firebaseKey: key, ...cloudData[key] }));
-
-    // Якщо відгуків у хмарі ще зовсім немає, показуємо заглушку
-    if(allReviews.length === 0) {
-        container.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:#64748b;">Тут поки немає відгуків. Будь першим, хто залишить свій відгук!</p>';
-        return;
-    }
-
-    // Сортуємо: нові відгуки додаються на початок
-    allReviews.sort((a, b) => b.id - a.id);
-
-    container.innerHTML = '';
-    allReviews.forEach(review => {
-        let starsHtml = '';
-        for(let i = 1; i <= 5; i++) { starsHtml += (i <= review.rating) ? '★' : '☆'; }
-        
-        let repliesList = review.replies ? Object.values(review.replies) : [];
-        let repliesHtml = repliesList.length > 0 
-            ? `<div class="replies-list">${repliesList.map(r => `<div class="reply-item"><strong>${r.name}:</strong> ${r.text}</div>`).join('')}</div>` : '';
-
-        const key = review.firebaseKey;
-
-        const card = `
-            <div class="card testimonial reveal active" style="transform:none; opacity:1;">
-                <div class="avatar"></div>
-                <div class="review-stars">${starsHtml}</div>
-                <h3>${review.name}</h3>
-                <p>“${review.text}”</p>
-                <span class="review-date">${review.date || ''}</span>
-                <div class="review-actions">
-                    <button class="action-btn" onclick="likeReview('${key}', ${review.likes || 0})">❤️ ${review.likes || 0}</button>
-                    <button class="action-btn" onclick="toggleReplyBox('${key}')">💬 Коментувати</button>
-                    <button class="action-btn delete" onclick="deleteReview('${key}')">🗑️ Видалити</button>
-                </div>
-                <div class="reply-form" id="reply-box-${key}">
-                    <input type="text" id="reply-name-${key}" class="form-control" placeholder="Ваше ім'я" style="padding: 8px;">
-                    <input type="text" id="reply-text-${key}" class="form-control" placeholder="Відповідь..." style="padding: 8px;">
-                    <button class="btn" style="padding: 8px;" onclick="submitReply('${key}')">Надіслати</button>
-                </div>
-                ${repliesHtml}
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', card);
-    });
-});
-
-function submitReview() {
-    const name = document.getElementById('r-name').value.trim();
-    const text = document.getElementById('r-text').value.trim();
-    const ratingActive = document.querySelector('input[name="rating"]:checked');
-    if (!name || !text || !ratingActive) return alert("Заповніть форму повністю!");
-    
-    const now = new Date();
-    const dateString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
-    
-    const reviewData = { id: Date.now(), name, text, rating: parseInt(ratingActive.value), date: dateString, likes: 0 };
-    
-    // Пряме збереження в базу даних (миттєва поява на всіх девайсах)
-    database.ref('reviews').push(reviewData);
-
-    document.getElementById('r-name').value = '';
-    document.getElementById('r-text').value = '';
-    ratingActive.checked = false;
-    toggleForm('review-form');
-}
-
-function likeReview(key, currentLikes) {
-    database.ref(`reviews/${key}`).update({ likes: currentLikes + 1 });
-}
-
-function toggleReplyBox(key) {
-    const box = document.getElementById(`reply-box-${key}`);
-    box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
-}
-
-function submitReply(key) {
-    const name = document.getElementById(`reply-name-${key}`).value.trim();
-    const text = document.getElementById(`reply-text-${key}`).value.trim();
-    if(!name || !text) return alert("Заповніть поля!");
-
-    database.ref(`reviews/${key}/replies`).push({ name, text });
-}
-
-function deleteReview(key) {
-    if(!confirm("Видалити цей відгук у всіх користувачів сайту?")) return;
-    database.ref(`reviews/${key}`).remove();
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    renderMoodHistory();
-});
 </script>
+
 </body>
 </html>
