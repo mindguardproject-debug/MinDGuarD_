@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* ... УСІ ПОПЕРЕДНІ СТИЛІ ЗАЛИШАЮТЬСЯ БЕЗ ЗМІН ... */
 * {
     margin: 0;
     padding: 0;
@@ -34,7 +35,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Decorative Background */
 .blur-circle {
     position: fixed;
     border-radius: 50%;
@@ -43,23 +43,9 @@ body {
     opacity: 0.5;
 }
 
-.circle1 {
-    width: 300px;
-    height: 300px;
-    background: #b8c0ff;
-    top: -100px;
-    left: -100px;
-}
+.circle1 { width: 300px; height: 300px; background: #b8c0ff; top: -100px; left: -100px; }
+.circle2 { width: 250px; height: 250px; background: #8ee3c4; bottom: 0; right: -80px; }
 
-.circle2 {
-    width: 250px;
-    height: 250px;
-    background: #8ee3c4;
-    bottom: 0;
-    right: -80px;
-}
-
-/* Header */
 header {
     width: 100%;
     position: fixed;
@@ -75,71 +61,18 @@ header {
     z-index: 1000;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo-circle { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); }
+.logo h2 { color: var(--dark); }
+nav { display: flex; flex-wrap: wrap; gap: 15px; }
+nav a { text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; }
+nav a:hover { color: var(--primary); }
+.plus-link { color: #ff9800; font-weight: 700; }
 
-.logo-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-}
-
-.logo h2 {
-    color: var(--dark);
-}
-
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-nav a {
-    text-decoration: none;
-    color: var(--dark);
-    font-weight: 500;
-    transition: 0.3s;
-}
-
-nav a:hover {
-    color: var(--primary);
-}
-
-.plus-link {
-    color: #ff9800;
-    font-weight: 700;
-}
-
-/* Hero */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 140px 8% 60px;
-    gap: 50px;
-}
-
-.hero-text {
-    flex: 1;
-}
-
-.hero-text h1 {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
-    line-height: 1.1;
-}
-
-.hero-text p {
-    font-size: 1.1rem;
-    color: #5f6b7a;
-    margin-bottom: 35px;
-    max-width: 600px;
-}
+.hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; padding: 140px 8% 60px; gap: 50px; }
+.hero-text { flex: 1; }
+.hero-text h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1; }
+.hero-text p { font-size: 1.1rem; color: #5f6b7a; margin-bottom: 35px; max-width: 600px; }
 
 .btn {
     display: inline-block;
@@ -154,401 +87,105 @@ nav a:hover {
     border: none;
     cursor: pointer;
     font-size: 0.95rem;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-}
-
-.hero-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.phone {
-    width: 100%;
-    max-width: 340px;
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 35px;
-    padding: 25px 20px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
-}
-
-.app-screen h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
     text-align: center;
 }
 
-.mood-row {
-    display: flex;
-    justify-content: space-between;
-    margin: 15px 0;
-    gap: 10px;
-}
+.btn:hover { transform: translateY(-3px); }
+.hero-image { flex: 1; display: flex; justify-content: center; }
+.phone { width: 100%; max-width: 340px; background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 35px; padding: 25px 20px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06); }
+.app-screen h3 { font-size: 1.2rem; margin-bottom: 15px; text-align: center; }
+.mood-row { display: flex; justify-content: space-between; margin: 15px 0; gap: 10px; }
+.mood-btn { flex: 1; height: 50px; border-radius: 15px; background: var(--white); border: 1px solid rgba(0,0,0,0.05); font-size: 1.5rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+.mood-btn:hover { transform: scale(1.1); }
+.mood-btn.selected { background: var(--secondary); border-color: var(--primary); transform: scale(1.1); }
+.mood-input-box { margin-top: 15px; display: none; }
+.mood-note { width: 100%; padding: 10px; border-radius: 12px; border: 1px solid #cbd5e1; resize: none; height: 60px; font-size: 0.85rem; outline: none; margin-bottom: 10px; }
+.mood-history { margin-top: 20px; max-height: 180px; overflow-y: auto; padding-right: 5px; }
+.mood-history h4 { font-size: 0.9rem; margin-bottom: 10px; color: #475569; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
+.history-item { background: rgba(255,255,255,0.6); padding: 8px 12px; border-radius: 12px; margin-bottom: 8px; font-size: 0.8rem; border-left: 4px solid var(--primary); }
+.history-item .time { font-size: 0.7rem; color: #94a3b8; display: block; margin-top: 2px; }
 
-.mood-btn {
-    flex: 1;
-    height: 50px;
-    border-radius: 15px;
-    background: var(--white);
-    border: 1px solid rgba(0,0,0,0.05);
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+section { padding: 80px 8%; }
+.section-title { text-align: center; margin-bottom: 40px; }
+.section-title h2 { font-size: 2.2rem; margin-bottom: 12px; }
+.section-title p { color: #667085; }
 
-.mood-btn:hover {
-    transform: scale(1.1);
-}
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; align-items: start; }
+.card { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.4); padding: 30px; border-radius: 25px; transition: 0.3s; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); }
+.card h3 { margin: 15px 0 10px; }
+.icon { width: 60px; height: 60px; border-radius: 18px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; }
 
-.mood-btn.selected {
-    background: var(--secondary);
-    border-color: var(--primary);
-    transform: scale(1.1);
-}
+.video-box { position: relative; width: 100%; padding-top: 56.25%; border-radius: 20px; overflow: hidden; margin-bottom: 15px; background: #e2e8f0; }
+.video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-.mood-input-box {
-    margin-top: 15px;
-    display: none;
-}
+.add-container { text-align: center; margin-bottom: 30px; }
+.form-card { display: none; max-width: 500px; margin: 20px auto; text-align: left; background: rgba(255, 255, 255, 0.95); border: 1px solid var(--primary); }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.85rem; }
+.form-control { width: 100%; padding: 10px 15px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; font-size: 0.95rem; outline: none; }
 
-.mood-note {
-    width: 100%;
-    padding: 10px;
-    border-radius: 12px;
-    border: 1px solid #cbd5e1;
-    resize: none;
-    height: 60px;
-    font-size: 0.85rem;
-    outline: none;
-    margin-bottom: 10px;
-}
+.stars-rating { display: flex; gap: 8px; flex-direction: row-reverse; justify-content: flex-end; }
+.stars-rating input { display: none; }
+.stars-rating label { font-size: 1.8rem; color: #cbd5e1; cursor: pointer; }
+.stars-rating input:checked ~ label, .stars-rating label:hover, .stars-rating label:hover ~ label { color: var(--rating); }
+.review-stars { color: var(--rating); margin-bottom: 8px; }
+.review-date { display: block; font-size: 0.75rem; color: #94a3b8; margin-top: 10px; }
 
-.mood-history {
-    margin-top: 20px;
-    max-height: 180px;
-    overflow-y: auto;
-    padding-right: 5px;
-}
+.review-actions { display: flex; align-items: center; gap: 15px; margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; justify-content: center; }
+.action-btn { background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #64748b; display: flex; align-items: center; gap: 5px; transition: 0.2s; font-weight: 500; }
+.action-btn:hover { color: var(--primary); }
+.action-btn.delete:hover { color: #ef4444; }
 
-.mood-history h4 {
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-    color: #475569;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 4px;
-}
+.reply-form { display: none; margin-top: 15px; flex-direction: column; gap: 10px; background: #f8fafc; padding: 15px; border-radius: 15px; }
+.replies-list { margin-top: 15px; text-align: left; border-left: 3px solid #e2e8f0; padding-left: 15px; }
+.reply-item { background: rgba(255,255,255,0.8); padding: 10px 15px; border-radius: 12px; margin-bottom: 10px; font-size: 0.85rem; }
+.reply-item strong { color: var(--primary); }
 
-.history-item {
-    background: rgba(255,255,255,0.6);
-    padding: 8px 12px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    font-size: 0.8rem;
-    border-left: 4px solid var(--primary);
-}
+.premium { background: linear-gradient(135deg, #fff6df, #fffdf7); }
+.price { font-size: 1.8rem; color: #ff9800; font-weight: 700; margin: 10px 0; }
+.badge { display: inline-block; padding: 5px 12px; background: #ff9800; color: white; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+.testimonial { text-align: center; }
+.avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); margin: 0 auto 15px; }
 
-.history-item .time {
-    font-size: 0.7rem;
-    color: #94a3b8;
-    display: block;
-    margin-top: 2px;
-}
+footer { padding: 40px 8%; text-align: center; background: #1d2433; color: white; }
+.reveal { opacity: 0; transform: translateY(30px); transition: 0.8s; }
+.reveal.active { opacity: 1; transform: translateY(0); }
 
-/* Sections */
-section {
-    padding: 80px 8%;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.section-title h2 {
-    font-size: 2.2rem;
-    margin-bottom: 12px;
-}
-
-.section-title p {
-    color: #667085;
-}
-
-/* Cards & Grid */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    align-items: start;
-}
-
-.card {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    padding: 30px;
-    border-radius: 25px;
-    transition: 0.3s;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-}
-
-.card h3 {
-    margin: 15px 0 10px;
-}
-
-.icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.8rem;
-}
-
-/* Videos */
-.video-box {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 15px;
-    background: #e2e8f0;
-}
-
-.video-box iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* Forms */
-.add-container {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.form-card {
-    display: none;
-    max-width: 500px;
-    margin: 20px auto;
-    text-align: left;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid var(--primary);
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    font-size: 0.85rem;
-}
-
-.form-control {
-    width: 100%;
-    padding: 10px 15px;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    background: #f8fafc;
-    font-size: 0.95rem;
-    outline: none;
-}
-
-/* Stars */
-.stars-rating {
-    display: flex;
-    gap: 8px;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-}
-
-.stars-rating input {
-    display: none;
-}
-
-.stars-rating label {
-    font-size: 1.8rem;
-    color: #cbd5e1;
-    cursor: pointer;
-}
-
-.stars-rating input:checked ~ label,
-.stars-rating label:hover,
-.stars-rating label:hover ~ label {
-    color: var(--rating);
-}
-
-.review-stars {
-    color: var(--rating);
-    margin-bottom: 8px;
-}
-
-.review-date {
-    display: block;
-    font-size: 0.75rem;
-    color: #94a3b8;
-    margin-top: 10px;
-}
-
-/* Review Actions (Лайки, Відповіді, Видалення) */
-.review-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 15px;
-    border-top: 1px solid rgba(0,0,0,0.05);
-    padding-top: 15px;
-    justify-content: center;
-}
-
-.action-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #64748b;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: 0.2s;
-    font-weight: 500;
-}
-
-.action-btn:hover {
-    color: var(--primary);
-}
-
-.action-btn.delete:hover {
-    color: #ef4444;
-}
-
-.reply-form {
-    display: none;
-    margin-top: 15px;
-    flex-direction: column;
-    gap: 10px;
-    background: #f8fafc;
-    padding: 15px;
-    border-radius: 15px;
-}
-
-.replies-list {
-    margin-top: 15px;
-    text-align: left;
-    border-left: 3px solid #e2e8f0;
-    padding-left: 15px;
-}
-
-.reply-item {
-    background: rgba(255,255,255,0.8);
-    padding: 10px 15px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    font-size: 0.85rem;
-}
-
-.reply-item strong {
-    color: var(--primary);
-}
-
-/* Premium */
-.premium {
-    background: linear-gradient(135deg, #fff6df, #fffdf7);
-}
-
-.price {
-    font-size: 1.8rem;
-    color: #ff9800;
-    font-weight: 700;
-    margin: 10px 0;
-}
-
-.badge {
-    display: inline-block;
-    padding: 5px 12px;
-    background: #ff9800;
-    color: white;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-/* Testimonials */
-.testimonial {
-    text-align: center;
-}
-
-.avatar {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    margin: 0 auto 15px;
-}
-
-/* Footer & Support */
+/* --- НОВІ ТА ОПТИМІЗОВАНІ СТИЛІ ДЛЯ МОБІЛЬНИХ КОНТАКТІВ --- */
 .support-box {
-    max-width: 600px;
+    max-width: 500px;
     margin: auto;
     text-align: center;
+    padding: 25px 20px;
 }
 
-footer {
-    padding: 40px 8%;
-    text-align: center;
-    background: #1d2433;
-    color: white;
-}
-
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: 0.8s;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
+.email-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%; /* На мобільних кнопка розтягується для зручного натискання пальцем */
+    max-width: 360px;
+    padding: 14px 20px;
+    font-size: 1rem;
+    word-break: break-all; /* Запобігає вилізанню довгого тексту email на маленьких екранах */
 }
 
 @media (max-width: 968px) {
-    header {
-        position: static;
-        padding: 15px 5%;
-        flex-direction: column;
-        gap: 15px;
-    }
-    nav {
-        justify-content: center;
-    }
-    .hero {
-        flex-direction: column;
-        padding-top: 30px;
-        text-align: center;
-        gap: 35px;
-    }
-    .hero-image {
-        width: 100%;
-    }
-    section {
-        padding: 50px 5%;
+    header { position: static; padding: 15px 5%; flex-direction: column; gap: 15px; }
+    nav { justify-content: center; }
+    .hero { flex-direction: column; padding-top: 30px; text-align: center; gap: 35px; }
+    .hero-image { width: 100%; }
+    section { padding: 50px 5%; }
+    
+    /* Зменшуємо заголовки на телефонах, щоб не переносилися негарно */
+    .hero-text h1 { font-size: 2.3rem; }
+    .section-title h2 { font-size: 1.8rem; }
+    
+    /* Додаткова адаптивність для пошти на дуже маленьких екранах */
+    .email-btn {
+        font-size: 0.9rem;
+        padding: 12px 15px;
     }
 }
 </style>
@@ -573,6 +210,7 @@ footer {
     </nav>
 </header>
 
+<!-- HERO SECTION -->
 <section class="hero" id="home">
     <div class="hero-text reveal">
         <h1>Твій простір спокою та підтримки</h1>
@@ -605,6 +243,7 @@ footer {
     </div>
 </section>
 
+<!-- FEATURES SECTION -->
 <section id="features">
     <div class="section-title reveal">
         <h2>Можливості платформи</h2>
@@ -629,6 +268,7 @@ footer {
     </div>
 </section>
 
+<!-- VIDEOS SECTION -->
 <section id="videos">
     <div class="section-title reveal">
         <h2>Відеокурси</h2>
@@ -656,11 +296,10 @@ footer {
         </div>
     </div>
 
-    <div class="grid" id="videos-container">
-        <!-- Відео генеруватимуться через JavaScript -->
-    </div>
+    <div class="grid" id="videos-container"></div>
 </section>
 
+<!-- PREMIUM SECTION -->
 <section id="premium" class="premium">
     <div class="section-title reveal">
         <h2>MindGuard Plus ✨</h2>
@@ -684,6 +323,7 @@ footer {
     </div>
 </section>
 
+<!-- REVIEWS SECTION -->
 <section id="reviews">
     <div class="section-title reveal">
         <h2>Відгуки користувачів</h2>
@@ -717,24 +357,23 @@ footer {
         </div>
     </div>
 
-    <div class="grid" id="reviews-container">
-        <!-- Відгуки генеруватимуться через JavaScript -->
-    </div>
+    <div class="grid" id="reviews-container"></div>
 </section>
 
-<!-- Оновлений розділ контактів (тільки email) -->
+<!-- ОНОВЛЕНИЙ І СУПЕР-АДАПТИВНИЙ БЛОК КОНТАКТІВ ДЛЯ ТЕЛЕФОНУ -->
 <section id="contact">
     <div class="section-title reveal">
         <h2>Зв'яжіться з нами</h2>
-        <p>Ми завжди готові надати вам психологічну та технічну допомогу</p>
+        <p>Служба підтримки MindGuard завжди на зв'язку</p>
     </div>
     <div class="card reveal support-box">
-        <h3>Служба турботи MindGuard</h3><br>
-        <p style="font-size:1.1rem; color:#475569; margin-bottom: 25px;">
-            Напишіть нам напряму на електронну пошту, і наші спеціалісти дадуть відповідь у найкоротші терміни.
+        <div class="icon" style="margin: 0 auto 20px;">✉️</div>
+        <h3>Напишіть нам на пошту</h3><br>
+        <p style="font-size:0.95rem; color:#5f6b7a; margin-bottom: 25px; line-height: 1.5;">
+            Запитання, пропозиції чи потреба в допомозі? Натисніть кнопку нижче, щоб надіслати нам листа.
         </p>
-        <a href="mailto:mindguardproject@gmail.com" class="btn" style="padding: 15px 40px; font-size: 1.1rem;">
-            ✉️ mindguardproject@gmail.com
+        <a href="mailto:mindguardproject@gmail.com" class="btn email-btn">
+            mindguardproject@gmail.com
         </a>
     </div>
 </section>
@@ -745,7 +384,7 @@ footer {
 </footer>
 
 <script>
-// --- АНІМАЦІЯ ---
+// --- УСЯ ЛОГІКА JAVASCRIPT ЗАЛИШАЄТЬСЯ ТАКОЮ Ж ---
 const reveals = document.querySelectorAll('.reveal');
 function scanElements() {
     reveals.forEach(el => {
@@ -762,7 +401,6 @@ function toggleForm(formId) {
     form.style.display = (form.style.display === 'block') ? 'none' : 'block';
 }
 
-// --- ЩОДЕННИК НАСТРОЮ ---
 let currentSelectedMood = '';
 function selectMood(mood, element) {
     document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
@@ -800,7 +438,6 @@ function renderMoodHistory() {
     `).join('');
 }
 
-// --- ВІДЕО ---
 function getYouTubeEmbedUrl(url) {
     let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     let match = url.match(regExp);
@@ -811,8 +448,6 @@ function getYouTubeEmbedUrl(url) {
 function renderVideos() {
     const container = document.getElementById('videos-container');
     let videos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
-    
-    // Дефолтні відео
     if(videos.length === 0) {
         videos = [
             { id: 1, embedUrl: "https://www.youtube.com/embed/TTXcHEMfLb4", title: "Основи емоційного балансу", desc: "Навчись заспокоювати думки та контролювати тривогу за допомогою простих арт-технік." },
@@ -820,7 +455,6 @@ function renderVideos() {
         ];
         localStorage.setItem('stored_vids', JSON.stringify(videos));
     }
-
     container.innerHTML = videos.map(video => `
         <div class="card reveal active" style="transform:none; opacity:1;">
             <div class="video-box">
@@ -839,12 +473,10 @@ function submitVideo() {
     if (!url || !title || !desc) return alert("Заповніть усі поля!");
     const embedUrl = getYouTubeEmbedUrl(url);
     if (!embedUrl) return alert("Некоректне посилання!");
-
     const newVideo = { id: Date.now(), embedUrl, title, desc };
     let videos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
     videos.push(newVideo);
     localStorage.setItem('stored_vids', JSON.stringify(videos));
-
     renderVideos();
     document.getElementById('v-url').value = '';
     document.getElementById('v-title').value = '';
@@ -852,12 +484,9 @@ function submitVideo() {
     toggleForm('video-form');
 }
 
-// --- ВІДГУКИ З КОМЕНТАРЯМИ, ЛАЙКАМИ ТА ВИДАЛЕННЯМ ---
 function renderReviews() {
     const container = document.getElementById('reviews-container');
     let reviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
-    
-    // Дефолтні відгуки
     if (reviews.length === 0) {
         reviews = [
             { id: 101, name: 'Олена', text: 'Після використання MindGuard я стала значно спокійнішою. Медитації реально допомагають.', rating: 5, date: '12.05.2026', likes: 12, replies: [{name: 'Адмін', text: 'Дякуємо, Олено! Раді допомогти 💙'}] },
@@ -865,18 +494,12 @@ function renderReviews() {
         ];
         localStorage.setItem('stored_revs', JSON.stringify(reviews));
     }
-
     container.innerHTML = '';
     reviews.forEach(review => {
         let starsHtml = '';
-        for(let i = 1; i <= 5; i++) {
-            starsHtml += (i <= review.rating) ? '★' : '☆';
-        }
-
+        for(let i = 1; i <= 5; i++) { starsHtml += (i <= review.rating) ? '★' : '☆'; }
         let repliesHtml = review.replies && review.replies.length > 0 
-            ? `<div class="replies-list">${review.replies.map(r => `<div class="reply-item"><strong>${r.name}:</strong> ${r.text}</div>`).join('')}</div>` 
-            : '';
-
+            ? `<div class="replies-list">${review.replies.map(r => `<div class="reply-item"><strong>${r.name}:</strong> ${r.text}</div>`).join('')}</div>` : '';
         const card = `
             <div class="card testimonial reveal active" style="transform:none; opacity:1;">
                 <div class="avatar"></div>
@@ -884,19 +507,16 @@ function renderReviews() {
                 <h3>${review.name}</h3>
                 <p>“${review.text}”</p>
                 <span class="review-date">${review.date || ''}</span>
-                
                 <div class="review-actions">
                     <button class="action-btn" onclick="likeReview(${review.id})">❤️ ${review.likes || 0}</button>
                     <button class="action-btn" onclick="toggleReplyBox(${review.id})">💬 Коментувати</button>
                     <button class="action-btn delete" onclick="deleteReview(${review.id})">🗑️ Видалити</button>
                 </div>
-
                 <div class="reply-form" id="reply-box-${review.id}">
                     <input type="text" id="reply-name-${review.id}" class="form-control" placeholder="Ваше ім'я" style="padding: 8px;">
                     <input type="text" id="reply-text-${review.id}" class="form-control" placeholder="Відповідь..." style="padding: 8px;">
                     <button class="btn" style="padding: 8px;" onclick="submitReply(${review.id})">Надіслати</button>
                 </div>
-
                 ${repliesHtml}
             </div>
         `;
@@ -908,28 +528,14 @@ function submitReview() {
     const name = document.getElementById('r-name').value.trim();
     const text = document.getElementById('r-text').value.trim();
     const ratingActive = document.querySelector('input[name="rating"]:checked');
-    
     if (!name || !text || !ratingActive) return alert("Заповніть форму та виберіть зірочки!");
-
     const now = new Date();
     const dateString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
-
-    const newReview = { 
-        id: Date.now(), 
-        name, 
-        text, 
-        rating: parseInt(ratingActive.value), 
-        date: dateString, 
-        likes: 0, 
-        replies: [] 
-    };
-
+    const newReview = { id: Date.now(), name, text, rating: parseInt(ratingActive.value), date: dateString, likes: 0, replies: [] };
     let reviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
     reviews.push(newReview);
     localStorage.setItem('stored_revs', JSON.stringify(reviews));
-
     renderReviews();
-
     document.getElementById('r-name').value = '';
     document.getElementById('r-text').value = '';
     ratingActive.checked = false;
@@ -954,6 +560,7 @@ function likeReview(id) {
     }
 }
 
+// Функції коментування
 function toggleReplyBox(id) {
     const box = document.getElementById(`reply-box-${id}`);
     box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
@@ -964,9 +571,7 @@ function submitReply(id) {
     const textInput = document.getElementById(`reply-text-${id}`);
     const name = nameInput.value.trim();
     const text = textInput.value.trim();
-
     if(!name || !text) return alert("Будь ласка, введіть ім'я та текст коментаря!");
-
     let reviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
     const index = reviews.findIndex(r => r.id === id);
     if(index > -1) {
@@ -977,13 +582,11 @@ function submitReply(id) {
     }
 }
 
-// ІНІЦІАЛІЗАЦІЯ
 window.addEventListener('DOMContentLoaded', () => {
     renderMoodHistory();
     renderVideos();
     renderReviews();
 });
 </script>
-
 </body>
 </html>
