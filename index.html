@@ -8,47 +8,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-body {
+body{
     margin:0;
     font-family:Poppins;
     background:#f5f7ff;
     color:#1f2937;
 }
 
-header {
-    padding:20px;
+header{
     text-align:center;
-    font-size:22px;
+    padding:20px;
+    font-size:24px;
     font-weight:700;
 }
 
-section {
+section{
     padding:20px;
 }
 
-.grid {
+.grid{
     display:grid;
     gap:15px;
 }
 
-.card {
+.card{
     background:white;
     padding:15px;
     border-radius:15px;
     box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
 
-.btn {
+.btn{
     background:#7c9cff;
     color:white;
     border:none;
     padding:10px 15px;
     border-radius:10px;
     cursor:pointer;
-    margin-top:10px;
 }
 
-input, textarea {
+input, textarea{
     width:100%;
     padding:10px;
     margin:5px 0;
@@ -56,7 +55,17 @@ input, textarea {
     border:1px solid #ddd;
 }
 
-small {
+a.video-btn{
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 15px;
+    background:#7c9cff;
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+}
+
+small{
     color:#64748b;
 }
 </style>
@@ -70,31 +79,33 @@ small {
 <section>
 <h2>Відео</h2>
 
-<div class="grid" id="videos">
+<div class="grid">
 
-<!-- VIDEO 1 -->
-<div class="card">
-<h3>Практика емоційного відновлення</h3>
-<p>Техніка стабілізації емоцій та зниження тривожності.</p>
+    <div class="card">
+        <h3>Практика емоційного відновлення</h3>
+        <p>Техніка для стабілізації емоцій та зниження тривожності.</p>
 
-<a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank">
-Переглянути відео
-</a>
+        <a class="video-btn"
+           href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr"
+           target="_blank">
+            ▶ Відкрити відео у Facebook
+        </a>
 
-<small>Джерело: Facebook (публічний матеріал)</small>
-</div>
+        <small>Джерело: Facebook (публічний матеріал)</small>
+    </div>
 
-<!-- VIDEO 2 -->
-<div class="card">
-<h3>Методи боротьби зі стресом</h3>
-<p>Базові психологічні техніки для щоденного життя.</p>
+    <div class="card">
+        <h3>Методи боротьби зі стресом</h3>
+        <p>Базові психологічні техніки для щоденного життя.</p>
 
-<a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank">
-Переглянути відео
-</a>
+        <a class="video-btn"
+           href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr"
+           target="_blank">
+            ▶ Відкрити відео у Facebook
+        </a>
 
-<small>Джерело: Facebook (публічний матеріал)</small>
-</div>
+        <small>Джерело: Facebook (публічний матеріал)</small>
+    </div>
 
 </div>
 </section>
@@ -104,9 +115,9 @@ small {
 <h2>Відгуки</h2>
 
 <div class="card">
-<input id="name" placeholder="Ім'я">
-<textarea id="text" placeholder="Відгук"></textarea>
-<button class="btn" onclick="addReview()">Надіслати</button>
+    <input id="name" placeholder="Ім'я">
+    <textarea id="text" placeholder="Ваш відгук"></textarea>
+    <button class="btn" onclick="addReview()">Надіслати</button>
 </div>
 
 <div id="reviews" class="grid"></div>
@@ -114,14 +125,16 @@ small {
 
 <script>
 
-// ===== REVIEWS (миттєво для всіх через localStorage) =====
+// ===== ВІДГУКИ =====
 
-function loadReviews() {
+function loadReviews(){
     let data = JSON.parse(localStorage.getItem("reviews") || "[]");
-    document.getElementById("reviews").innerHTML = "";
 
-    data.reverse().forEach(r => {
-        document.getElementById("reviews").innerHTML += `
+    let box = document.getElementById("reviews");
+    box.innerHTML = "";
+
+    data.slice().reverse().forEach(r=>{
+        box.innerHTML += `
         <div class="card">
             <b>${r.name}</b>
             <p>${r.text}</p>
@@ -130,7 +143,7 @@ function loadReviews() {
     });
 }
 
-function addReview() {
+function addReview(){
     let name = document.getElementById("name").value;
     let text = document.getElementById("text").value;
 
@@ -138,7 +151,7 @@ function addReview() {
 
     let data = JSON.parse(localStorage.getItem("reviews") || "[]");
 
-    data.push({name, text});
+    data.push({name,text});
     localStorage.setItem("reviews", JSON.stringify(data));
 
     document.getElementById("name").value = "";
@@ -147,7 +160,6 @@ function addReview() {
     loadReviews();
 }
 
-// старт
 loadReviews();
 
 </script>
