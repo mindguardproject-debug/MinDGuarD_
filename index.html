@@ -1,91 +1,885 @@
-<!-- FIREBASE -->
-<script type="module">
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindGuard — Простір психологічної підтримки</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+:root {
+    --primary: #7c9cff;
+    --secondary: #c8d8ff;
+    --accent: #8ee3c4;
+    --dark: #1f2937;
+    --light: #f5f7ff;
+    --white: #ffffff;
+    --rating: #ffc107;
+}
 
-const firebaseConfig = {
-    apiKey: "ТУТ_API_KEY",
-    authDomain: "ТУТ_DOMAIN",
-    projectId: "ТУТ_PROJECT_ID",
-    storageBucket: "ТУТ_BUCKET",
-    messagingSenderId: "ТУТ_SENDER_ID",
-    appId: "ТУТ_APP_ID"
-};
+html {
+    scroll-behavior: smooth;
+}
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+body {
+    background: radial-gradient(circle at top left, #dfe9ff, #f7fbff);
+    color: var(--dark);
+    overflow-x: hidden;
+}
 
-window.db = db;
-window.collection = collection;
-window.addDoc = addDoc;
-window.getDocs = getDocs;
+/* Decorative Background */
+.blur-circle {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    z-index: -1;
+    opacity: 0.5;
+}
 
-</script>
+.circle1 {
+    width: 300px;
+    height: 300px;
+    background: #b8c0ff;
+    top: -100px;
+    left: -100px;
+}
+
+.circle2 {
+    width: 250px;
+    height: 250px;
+    background: #8ee3c4;
+    bottom: 0;
+    right: -80px;
+}
+
+/* Header */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.logo h2 {
+    color: var(--dark);
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+.plus-link {
+    color: #ff9800;
+    font-weight: 700;
+}
+
+/* Hero */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 140px 8% 60px;
+    gap: 50px;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    color: #5f6b7a;
+    margin-bottom: 35px;
+    max-width: 600px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 40px;
+    background: linear-gradient(135deg, var(--primary), #95aeff);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.4s;
+    box-shadow: 0 0 25px rgba(124, 156, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* Інтерактивний Смартфон / Щоденник настрою */
+.phone {
+    width: 100%;
+    max-width: 340px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 35px;
+    padding: 25px 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+}
+
+.app-screen h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.mood-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+.mood-btn {
+    flex: 1;
+    height: 50px;
+    border-radius: 15px;
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.05);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mood-btn:hover {
+    transform: scale(1.1);
+}
+
+.mood-btn.selected {
+    background: var(--secondary);
+    border-color: var(--primary);
+    transform: scale(1.1);
+}
+
+.mood-input-box {
+    margin-top: 15px;
+    display: none;
+}
+
+.mood-note {
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    resize: none;
+    height: 60px;
+    font-size: 0.85rem;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.mood-history {
+    margin-top: 20px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.mood-history h4 {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 4px;
+}
+
+.history-item {
+    background: rgba(255,255,255,0.6);
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    border-left: 4px solid var(--primary);
+}
+
+.history-item .time {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    display: block;
+    margin-top: 2px;
+}
+
+/* Sections */
+section {
+    padding: 80px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+}
+
+.section-title p {
+    color: #667085;
+}
+
+/* Cards & Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 30px;
+    border-radius: 25px;
+    transition: 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.card h3 {
+    margin: 15px 0 10px;
+}
+
+.icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+}
+
+/* Слайдери ковзання */
+.slider-outer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.slider-container {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    gap: 25px;
+    width: 100%;
+    padding: 15px 5px;
+}
+
+.slider-container .card {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .slider-container .card {
+        flex: 0 0 calc(50% - 13px);
+    }
+}
+
+@media (min-width: 1024px) {
+    .slider-container .card {
+        flex: 0 0 calc(33.333% - 17px);
+    }
+}
+
+.slider-arrow {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    color: var(--dark);
+}
+
+.slider-arrow:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.slider-arrow.prev { left: -25px; }
+.slider-arrow.next { right: -25px; }
+
+@media (max-width: 768px) {
+    .slider-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    .slider-arrow.prev { left: -10px; }
+    .slider-arrow.next { right: -10px; }
+}
+
+/* Forms */
+.add-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-card {
+    display: none;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid var(--primary);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+/* Stars */
+.stars-rating {
+    display: flex;
+    gap: 8px;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.stars-rating input {
+    display: none;
+}
+
+.stars-rating label {
+    font-size: 1.8rem;
+    color: #cbd5e1;
+    cursor: pointer;
+}
+
+.stars-rating input:checked ~ label,
+.stars-rating label:hover,
+.stars-rating label:hover ~ label {
+    color: var(--rating);
+}
+
+.review-stars {
+    color: var(--rating);
+    margin-bottom: 8px;
+}
+
+.review-date {
+    display: block;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-top: 10px;
+}
+
+/* Premium */
+.premium {
+    background: linear-gradient(135deg, #fff6df, #fffdf7);
+}
+
+.price {
+    font-size: 1.8rem;
+    color: #ff9800;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #ff9800;
+    color: white;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Testimonials */
+.testimonial {
+    text-align: center;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    margin: 0 auto 15px;
+}
+
+/* Адаптивна підтримка / Контакти */
+.support-box {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+.support-textarea {
+    width: 100%;
+    height: 120px;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 20px;
+    background: #f8fafc;
+    resize: none;
+    outline: none;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+.support-textarea:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+}
+.success-msg {
+    display: none;
+    color: #2e7d32;
+    background: #edf7ed;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+/* Footer */
+footer {
+    padding: 40px 8%;
+    text-align: center;
+    background: #1d2433;
+    color: white;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.8s;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* АДАПТИВНІСТЬ ДЛЯ СМАРТФОНІВ */
+@media (max-width: 968px) {
+    header {
+        position: static;
+        padding: 15px 5%;
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav {
+        justify-content: center;
+    }
+    .hero {
+        flex-direction: column;
+        padding-top: 30px;
+        text-align: center;
+        gap: 35px;
+    }
+    .hero-text h1 {
+        font-size: 2.3rem;
+    }
+    .hero-image {
+        width: 100%;
+    }
+    section {
+        padding: 50px 5%;
+    }
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+    .support-box {
+        width: 100%;
+        padding: 20px 15px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="blur-circle circle1"></div>
+<div class="blur-circle circle2"></div>
+
+<header>
+    <div class="logo">
+        <div class="logo-circle"></div>
+        <h2>MindGuard</h2>
+    </div>
+    <nav>
+        <a href="#home">Головна</a>
+        <a href="#features">Можливості</a>
+        <a href="#videos">Відео</a>
+        <a href="#premium" class="plus-link">Plus ✨</a>
+        <a href="#reviews">Відгуки</a>
+        <a href="#contact">Контакти</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-text reveal">
+        <h1>Твій простір спокою та підтримки</h1>
+        <p>MindGuard — сучасна платформа психологічної підтримки, яка допомагає контролювати емоційний стан, зменшувати тривогу та відновлювати внутрішній баланс.</p>
+        <a href="#features" class="btn">Розпочати шлях</a>
+    </div>
+    
+    <div class="hero-image reveal">
+        <div class="phone">
+            <div class="app-screen">
+                <h3>Як ти сьогодні?</h3>
+                <div class="mood-row">
+                    <button class="mood-btn" onclick="selectMood('😊', this)">😊</button>
+                    <button class="mood-btn" onclick="selectMood('😌', this)">😌</button>
+                    <button class="mood-btn" onclick="selectMood('😔', this)">😔</button>
+                    <button class="mood-btn" onclick="selectMood('😴', this)">😴</button>
+                </div>
+                
+                <div class="mood-input-box" id="mood-input-container">
+                    <textarea id="mood-text" class="mood-note" placeholder="Що стало причиною такого настрою? (необов'язково)"></textarea>
+                    <button class="btn" style="width:100%; padding:8px;" onclick="saveMoodState()">Зберегти стан</button>
+                </div>
+
+                <div class="mood-history">
+                    <h4>Історія станів</h4>
+                    <div id="history-list">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="features">
+    <div class="section-title reveal">
+        <h2>Можливості платформи</h2>
+        <p>Все необхідне для психологічної підтримки в одному місці</p>
+    </div>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="icon">🧠</div>
+            <h3>Щоденник настрою</h3>
+            <p>Відстежуй свій емоційний стан та аналізуй зміни настрою.</p>
+        </div>
+        <div class="card reveal">
+            <div class="icon">🌿</div>
+            <h3>Медитації</h3>
+            <p>Практики дихання та розслаблення для боротьби зі стресом.</p>
+        </div>
+        <div class="card reveal">
+            <div class="icon">💬</div>
+            <h3>Підтримка фахівців</h3>
+            <p>Онлайн-консультації з психологами та спеціалістами.</p>
+        </div>
+    </div>
+</section>
+
+<section id="videos">
+    <div class="section-title reveal">
+        <h2>Відеокурси та ресурси</h2>
+        <p>Короткі практичні заняття для психологічного відновлення</p>
+    </div>
+
+    <div class="add-container reveal">
+        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео</button>
+        
+        <div class="card form-card" id="video-form">
+            <h3>Додати відео курс</h3><br>
+            <div class="form-group">
+                <label>Посилання на YouTube або Facebook відео</label>
+                <input type="text" id="v-url" class="form-control" placeholder="https://youtu.be/...">
+            </div>
+            <div class="form-group">
+                <label>Назва курсу</label>
+                <input type="text" id="v-title" class="form-control" placeholder="Введіть назву...">
+            </div>
+            <div class="form-group">
+                <label>Короткий опис</label>
+                <textarea id="v-desc" class="form-control" placeholder="Про що це відео..."></textarea>
+            </div>
+            <button class="btn" onclick="submitVideo()">Опублікувати</button>
+        </div>
+    </div>
+
+    <div class="slider-outer reveal">
+        <button class="slider-arrow prev" onclick="moveSlider('videos-container', -1)">&#10094;</button>
+        <div class="slider-container" id="videos-container">
+            
+            <div class="card">
+                <div class="icon" style="background: #4267B2; color: white;">f</div>
+                <h3>Практика ментального спокою</h3>
+                <p>Корисні техніки для відновлення внутрішнього балансу та стабілізації емоційного фону.</p>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> Facebook<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                </p>
+                <br>
+                <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
+            </div>
+
+            <div class="card">
+                <div class="icon" style="background: #4267B2; color: white;">f</div>
+                <h3>Техніки стабілізації</h3>
+                <p>Практичні вправи та дієві поради від спеціалістів для подолання стресу в кризових ситуаціях.</p>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> Facebook<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                </p>
+                <br>
+                <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
+            </div>
+
+        </div>
+        <button class="slider-arrow next" onclick="moveSlider('videos-container', 1)">&#10095;</button>
+    </div>
+</section>
+
+<section id="premium" class="premium">
+    <div class="section-title reveal">
+        <h2>MindGuard Plus ✨</h2>
+        <p>Розширені можливості та персональна підтримка</p>
+    </div>
+    <div class="grid">
+        <div class="card reveal">
+            <span class="badge">ІНДИВІДУАЛЬНО</span>
+            <h3>Консультація психолога</h3>
+            <div class="price">500 грн</div>
+            <p>Особиста 60-хвилинна онлайн-сесія з фахівцем.</p>
+            <br><a href="#contact" class="btn">Замовити</a>
+        </div>
+        <div class="card reveal">
+            <span class="badge">ПІДПИСКА</span>
+            <h3>Група підтримки</h3>
+            <div class="price">250 грн/міс</div>
+            <p>Вебінари, закритий чат та ексклюзивні практики.</p>
+            <br><a href="#contact" class="btn">Приєднатися</a>
+        </div>
+    </div>
+</section>
+
+<section id="reviews">
+    <div class="section-title reveal">
+        <h2>Відгуки користувачів</h2>
+        <p>MindGuard уже допомагає людям знаходити внутрішній спокій</p>
+    </div>
+
+    <div class="add-container reveal">
+        <button class="btn" onclick="toggleForm('review-form')">+ Залишити свій відгук</button>
+        
+        <div class="card form-card" id="review-form">
+            <h3>Ваш відгук</h3><br>
+            <div class="form-group">
+                <label>Ваше ім'я</label>
+                <input type="text" id="r-name" class="form-control" placeholder="Як вас звати?">
+            </div>
+            <div class="form-group">
+                <label>Ваша оцінка</label>
+                <div class="stars-rating">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Текст відгуку</label>
+                <textarea id="r-text" class="form-control" placeholder="Поділіться вашими враженнями..."></textarea>
+            </div>
+            <button class="btn" onclick="submitReview()">Відправити відгук</button>
+        </div>
+    </div>
+
+    <div class="slider-outer reveal">
+        <button class="slider-arrow prev" onclick="moveSlider('reviews-container', -1)">&#10094;</button>
+        <div class="slider-container" id="reviews-container">
+            
+            <div class="card testimonial">
+                <div class="avatar"></div>
+                <div class="review-stars">★★★★★</div>
+                <h3>Олена</h3>
+                <p>“Після використання MindGuard я стала значно спокійнішою. Медитації реально допомагають.”</p>
+                <span class="review-date">12.05.2026</span>
+            </div>
+            
+            <div class="card testimonial">
+                <div class="avatar"></div>
+                <div class="review-stars">★★★★☆</div>
+                <h3>Андрій</h3>
+                <p>“Дуже сучасний та зручний сервіс. Найбільше сподобався щоденник настрою.”</p>
+                <span class="review-date">15.05.2026</span>
+            </div>
+
+        </div>
+        <button class="slider-arrow next" onclick="moveSlider('reviews-container', 1)">&#10095;</button>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="section-title reveal">
+        <h2>Зв'яжіться з нами</h2>
+        <p>Ми завжди готові надати вам психологічну та технічну допомогу</p>
+    </div>
+    <div class="card reveal support-box">
+        <h3>Служба турботи MindGuard</h3><br>
+        <p style="font-size:1.1rem;color:var(--primary);font-weight:600;margin-bottom: 20px;">mindguardproject@gmail.com</p>
+        
+        <div id="support-success" class="success-msg">
+            ✨ Дякуємо! Ваше звернення успішно надіслано. Наш черговий психолог відповість вам на пошту протягом 15 хвилин.
+        </div>
+        
+        <div class="form-group" style="text-align: left;">
+            <label>Ваш Email для зв'язку</label>
+            <input type="email" id="s-email" class="form-control" placeholder="example@mail.com" style="margin-bottom: 15px;">
+        </div>
+        
+        <div class="form-group" style="text-align: left;">
+            <label>Опишіть вашу проблему чи запит</label>
+            <textarea id="s-message" class="support-textarea" placeholder="Напишіть, що вас турбує або яке питання у вас виникло..."></textarea>
+        </div>
+        
+        <button class="btn" id="support-submit-btn" onclick="sendSupportMessage()" style="width: 100%;">Надіслати запит</button>
+    </div>
+</section>
+
+<footer>
+    <h2>MindGuard</h2><br>
+    <p>© 2026 MindGuard Project — Робимо світ спокійнішим 💙</p>
+</footer>
 
 <script>
-
 // --- СКРОЛЛ-АНІМАЦІЯ ---
 const reveals = document.querySelectorAll('.reveal');
-
 function scanElements() {
     reveals.forEach(el => {
         const windowHeight = window.innerHeight;
         const revealTop = el.getBoundingClientRect().top;
-
-        if (revealTop < windowHeight - 80) {
+        if(revealTop < windowHeight - 80){
             el.classList.add('active');
         }
     });
 }
-
 window.addEventListener('scroll', scanElements);
 window.addEventListener('load', scanElements);
 
-// --- ФОРМИ ---
 function toggleForm(formId) {
     const form = document.getElementById(formId);
-
-    form.style.display =
-        form.style.display === 'block'
-            ? 'none'
-            : 'block';
+    form.style.display = (form.style.display === 'block') ? 'none' : 'block';
 }
 
-// --- СЛАЙДЕРИ ---
+// --- НАДІЙНА ЛОГІКА РОБОТИ СЛАЙДЕРІВ ---
 function moveSlider(containerId, direction) {
-
-    const container =
-        document.getElementById(containerId);
-
-    const firstCard =
-        container.querySelector('.card');
-
+    const container = document.getElementById(containerId);
+    const firstCard = container.querySelector('.card');
     if (!firstCard) return;
-
-    const cardWidth =
-        firstCard.getBoundingClientRect().width;
-
-    const gap = 25;
-
+    
+    // Точна ширина однієї картки з урахуванням усіх відступів
+    const cardWidth = firstCard.getBoundingClientRect().width;
+    const gap = 25; 
     let step = cardWidth + gap;
-
+    
+    // Якщо це ПК екран (3 картки), крутимо одразу на всю довжину екрана (3 картки)
     if (window.innerWidth >= 1024) {
-        step *= 3;
+        step = step * 3; 
+    } else if (window.innerWidth >= 768) {
+        step = step * 2; // Планшет (2 картки)
     }
 
-    else if (window.innerWidth >= 768) {
-        step *= 2;
-    }
-
+    // Розраховуємо нове положення
+    const targetScroll = container.scrollLeft + (step * direction);
+    
+    // Плавне прокручування
     container.scrollTo({
-        left: container.scrollLeft + (step * direction),
+        left: targetScroll,
         behavior: 'smooth'
     });
 }
@@ -94,143 +888,67 @@ function moveSlider(containerId, direction) {
 let currentSelectedMood = '';
 
 function selectMood(mood, element) {
-
-    document.querySelectorAll('.mood-btn')
-        .forEach(btn => btn.classList.remove('selected'));
-
+    document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
     element.classList.add('selected');
-
     currentSelectedMood = mood;
-
-    document.getElementById(
-        'mood-input-container'
-    ).style.display = 'block';
+    document.getElementById('mood-input-container').style.display = 'block';
 }
 
 function saveMoodState() {
-
-    const note =
-        document.getElementById('mood-text')
-        .value
-        .trim();
-
+    const note = document.getElementById('mood-text').value.trim();
     if (!currentSelectedMood) return;
 
     const now = new Date();
+    const timeString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-    const timeString =
-        `${String(now.getDate()).padStart(2,'0')}.` +
-        `${String(now.getMonth()+1).padStart(2,'0')} ` +
-        `${String(now.getHours()).padStart(2,'0')}:` +
-        `${String(now.getMinutes()).padStart(2,'0')}`;
+    const moodEntry = { mood: currentSelectedMood, note: note || "Без коментаря", time: timeString };
 
-    const moodEntry = {
-        mood: currentSelectedMood,
-        note: note || "Без коментаря",
-        time: timeString
-    };
-
-    let history =
-        JSON.parse(
-            localStorage.getItem('mood_history') || '[]'
-        );
-
+    let history = JSON.parse(localStorage.getItem('mood_history') || '[]');
     history.unshift(moodEntry);
-
-    localStorage.setItem(
-        'mood_history',
-        JSON.stringify(history)
-    );
+    localStorage.setItem('mood_history', JSON.stringify(history));
 
     renderMoodHistory();
 
     document.getElementById('mood-text').value = '';
-
-    document.querySelectorAll('.mood-btn')
-        .forEach(btn => btn.classList.remove('selected'));
-
-    document.getElementById(
-        'mood-input-container'
-    ).style.display = 'none';
-
+    document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
+    document.getElementById('mood-input-container').style.display = 'none';
     currentSelectedMood = '';
 }
 
 function renderMoodHistory() {
-
-    const container =
-        document.getElementById('history-list');
-
-    const history =
-        JSON.parse(
-            localStorage.getItem('mood_history') || '[]'
-        );
-
-    if (history.length === 0) {
-
-        container.innerHTML = `
-            <p style="
-                font-size:0.8rem;
-                color:#94a3b8;
-                text-align:center;
-            ">
-                Тут будуть ваші записи
-            </p>
-        `;
-
+    const container = document.getElementById('history-list');
+    const history = JSON.parse(localStorage.getItem('mood_history') || '[]');
+    
+    if(history.length === 0) {
+        container.innerHTML = '<p style="font-size:0.8rem;color:#94a3b8;text-align:center;">Тут будуть ваші записи</p>';
         return;
     }
 
-    container.innerHTML =
-        history.map(item => `
-            <div class="history-item">
-                <strong>
-                    Почувався: ${item.mood}
-                </strong>
-                — ${item.note}
-
-                <span class="time">
-                    ${item.time}
-                </span>
-            </div>
-        `).join('');
+    container.innerHTML = history.map(item => `
+        <div class="history-item">
+            <strong>Почувався: ${item.mood}</strong> — ${item.note}
+            <span class="time">${item.time}</span>
+        </div>
+    `).join('');
 }
 
-// --- SUPPORT ---
+// --- ФУНКЦІОНАЛ ПІДТРИМКИ ---
 function sendSupportMessage() {
+    const emailInput = document.getElementById('s-email');
+    const messageInput = document.getElementById('s-message');
+    const submitBtn = document.getElementById('support-submit-btn');
+    const successMsg = document.getElementById('support-success');
 
-    const emailInput =
-        document.getElementById('s-email');
-
-    const messageInput =
-        document.getElementById('s-message');
-
-    const submitBtn =
-        document.getElementById('support-submit-btn');
-
-    const successMsg =
-        document.getElementById('support-success');
-
-    const email =
-        emailInput.value.trim();
-
-    const message =
-        messageInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
 
     if (!email || !message) {
-
-        alert("Заповніть всі поля!");
-
+        alert("Будь ласка, заповніть обидва поля (Email та повідомлення) для відправки запиту!");
         return;
     }
 
-    if (
-        !email.includes('@') ||
-        !email.includes('.')
-    ) {
-
-        alert("Введіть правильний Email!");
-
+    if (!email.includes('@') || !email.includes('.')) {
+        alert("Будь ласка, введіть коректну адресу електронної пошти!");
         return;
     }
 
@@ -238,12 +956,17 @@ function sendSupportMessage() {
     submitBtn.disabled = true;
 
     setTimeout(() => {
+        const now = new Date();
+        const timestamp = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+        const newTicket = { email, message, time: timestamp };
+        let tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
+        tickets.push(newTicket);
+        localStorage.setItem('support_tickets', JSON.stringify(tickets));
 
         emailInput.value = '';
         messageInput.value = '';
-
         successMsg.style.display = 'block';
-
         submitBtn.innerText = "Надіслати запит";
         submitBtn.disabled = false;
 
@@ -254,285 +977,113 @@ function sendSupportMessage() {
     }, 1200);
 }
 
-// --- ВІДЕО ---
-async function submitVideo() {
-
-    const url =
-        document.getElementById('v-url')
-        .value.trim();
-
-    const title =
-        document.getElementById('v-title')
-        .value.trim();
-
-    const desc =
-        document.getElementById('v-desc')
-        .value.trim();
+// --- ДОДАННЯ ВІДЕО (ОНОВЛЕНО З КРАСИВИМ СТИЛЕМ) ---
+function submitVideo() {
+    const url = document.getElementById('v-url').value.trim();
+    const title = document.getElementById('v-title').value.trim();
+    const desc = document.getElementById('v-desc').value.trim();
 
     if (!url || !title || !desc) {
-
-        alert("Заповніть усі поля!");
-
+        alert("Будь ласка, заповніть усі поля форми!");
         return;
     }
 
-    const video = { url, title, desc };
+    const newVideo = { url, title, desc };
+    let localVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
+    localVideos.push(newVideo);
+    localStorage.setItem('stored_vids', JSON.stringify(localVideos));
 
-    await addDoc(
-        collection(db, "videos"),
-        video
-    );
-
-    appendVideoCard(video);
+    appendVideoCard(newVideo);
 
     document.getElementById('v-url').value = '';
     document.getElementById('v-title').value = '';
     document.getElementById('v-desc').value = '';
-
     toggleForm('video-form');
 }
 
 function appendVideoCard(video) {
-
-    const container =
-        document.getElementById('videos-container');
-
-    const isFb =
-        video.url.includes('facebook.com') ||
-        video.url.includes('fb.watch');
-
-    let mediaContent = '';
-    let sourceName = '';
-    let iconLetter = '';
-    let iconBg = '';
-
-    // FACEBOOK
-    if (isFb) {
-
-        sourceName = 'Facebook';
-        iconLetter = 'f';
-        iconBg = '#4267B2';
-
-        mediaContent = `
-            <a href="${video.url}"
-               target="_blank"
-               class="btn">
-               Дивитися на Facebook
-            </a>
-        `;
-    }
-
-    // YOUTUBE
-    else {
-
-        sourceName = 'YouTube';
-        iconLetter = '▶';
-        iconBg = '#FF0000';
-
-        let youtubeId = '';
-
-        if (video.url.includes('watch?v=')) {
-
-            youtubeId =
-                video.url
-                .split('v=')[1]
-                .split('&')[0];
-        }
-
-        else if (
-            video.url.includes('youtu.be/')
-        ) {
-
-            youtubeId =
-                video.url
-                .split('youtu.be/')[1]
-                .split('?')[0];
-        }
-
-        mediaContent = `
-            <div style="margin-top:15px;">
-
-                <iframe
-                    width="100%"
-                    height="220"
-                    src="https://www.youtube.com/embed/${youtubeId}"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allowfullscreen
-                    style="border-radius:18px;">
-                </iframe>
-
-            </div>
-        `;
-    }
+    const container = document.getElementById('videos-container');
+    
+    const isFb = video.url.includes('facebook.com') || video.url.includes('fb.watch');
+    const iconLetter = isFb ? 'f' : '▶';
+    const iconBg = isFb ? '#4267B2' : '#FF0000';
+    const sourceName = isFb ? 'Facebook' : 'YouTube';
 
     const cardHtml = `
         <div class="card">
-
-            <div class="icon"
-                 style="
-                    background:${iconBg};
-                    color:white;
-                 ">
-                ${iconLetter}
-            </div>
-
+            <div class="icon" style="background: ${iconBg}; color: white;">${iconLetter}</div>
             <h3>${video.title}</h3>
-
             <p>${video.desc}</p>
-
-            <p style="
-                margin-top:15px;
-                font-size:0.8rem;
-                color:#667085;
-                line-height:1.4;
-            ">
-                <strong>Джерело:</strong>
-                ${sourceName}<br>
-
-                <strong>Автор відео:</strong>
-                Безбар'єрність<br>
-
-                <small>
-                    <em>
-                    *Матеріал використано
-                    з освітньою метою.
-                    </em>
-                </small>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                <strong>Джерело:</strong> ${sourceName}<br>
+                <strong>Автор відео:</strong> Безбар'єрність<br>
+                <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
             </p>
-
-            ${mediaContent}
-
+            <br>
+            <a href="${video.url}" target="_blank" class="btn">Дивитися на ${sourceName}</a>
         </div>
     `;
-
-    container.insertAdjacentHTML(
-        'beforeend',
-        cardHtml
-    );
+    container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
 // --- ВІДГУКИ ---
-async function submitReview() {
-
-    const name =
-        document.getElementById('r-name')
-        .value.trim();
-
-    const text =
-        document.getElementById('r-text')
-        .value.trim();
-
-    const ratingActive =
-        document.querySelector(
-            'input[name="rating"]:checked'
-        );
-
+function submitReview() {
+    const name = document.getElementById('r-name').value.trim();
+    const text = document.getElementById('r-text').value.trim();
+    const ratingActive = document.querySelector('input[name="rating"]:checked');
+    
     if (!name || !text || !ratingActive) {
-
-        alert("Заповніть форму!");
-
+        alert("Заповніть форму та виберіть зірочки!");
         return;
     }
 
-    const rating =
-        parseInt(ratingActive.value);
-
+    const ratingValue = parseInt(ratingActive.value);
     const now = new Date();
+    const dateString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
 
-    const review = {
-        name,
-        text,
-        rating,
-        date: now.toLocaleDateString('uk-UA')
-    };
+    const newReview = { name, text, rating: ratingValue, date: dateString };
+    let localReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+    localReviews.push(newReview);
+    localStorage.setItem('stored_revs', JSON.stringify(localReviews));
 
-    await addDoc(
-        collection(db, "reviews"),
-        review
-    );
-
-    appendReviewCard(review);
+    appendReviewCard(newReview);
 
     document.getElementById('r-name').value = '';
     document.getElementById('r-text').value = '';
-
     ratingActive.checked = false;
-
     toggleForm('review-form');
 }
 
 function appendReviewCard(review) {
-
-    const container =
-        document.getElementById('reviews-container');
-
+    const container = document.getElementById('reviews-container');
     let starsHtml = '';
-
-    for (let i = 1; i <= 5; i++) {
-
-        starsHtml +=
-            i <= review.rating
-                ? '★'
-                : '☆';
+    for(let i = 1; i <= 5; i++) {
+        starsHtml += (i <= review.rating) ? '★' : '☆';
     }
 
     const cardHtml = `
         <div class="card testimonial">
-
             <div class="avatar"></div>
-
-            <div class="review-stars">
-                ${starsHtml}
-            </div>
-
+            <div class="review-stars">${starsHtml}</div>
             <h3>${review.name}</h3>
-
-            <p>
-                “${review.text}”
-            </p>
-
-            <span class="review-date">
-                ${review.date}
-            </span>
-
+            <p>“${review.text}”</p>
+            <span class="review-date">${review.date || ''}</span>
         </div>
     `;
-
-    container.insertAdjacentHTML(
-        'beforeend',
-        cardHtml
-    );
+    container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- ЗАВАНТАЖЕННЯ ---
-window.addEventListener(
-    'DOMContentLoaded',
-    async () => {
+// ЗАВАНТАЖЕННЯ ДАНИХ
+window.addEventListener('DOMContentLoaded', () => {
+    renderMoodHistory();
 
-        renderMoodHistory();
+    const savedVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
+    savedVideos.forEach(appendVideoCard);
 
-        // VIDEOS
-        const videosSnapshot =
-            await getDocs(
-                collection(db, "videos")
-            );
-
-        videosSnapshot.forEach(doc => {
-            appendVideoCard(doc.data());
-        });
-
-        // REVIEWS
-        const reviewsSnapshot =
-            await getDocs(
-                collection(db, "reviews")
-            );
-
-        reviewsSnapshot.forEach(doc => {
-            appendReviewCard(doc.data());
-        });
-
-    }
-);
-
+    const savedReviews = JSON.parse(localStorage.getItem('stored_revs') || '[]');
+    savedReviews.forEach(appendReviewCard);
+});
 </script>
+
+</body>
+</html>
