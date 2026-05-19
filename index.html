@@ -15,6 +15,7 @@ body{
     color:#1f2937;
 }
 
+/* HEADER */
 header{
     text-align:center;
     padding:20px;
@@ -22,6 +23,7 @@ header{
     font-weight:700;
 }
 
+/* LAYOUT */
 section{
     padding:20px;
 }
@@ -31,6 +33,7 @@ section{
     gap:15px;
 }
 
+/* CARD */
 .card{
     background:white;
     padding:15px;
@@ -38,6 +41,7 @@ section{
     box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
 
+/* BUTTON */
 .btn{
     background:#7c9cff;
     color:white;
@@ -47,6 +51,7 @@ section{
     cursor:pointer;
 }
 
+/* INPUTS */
 input, textarea{
     width:100%;
     padding:10px;
@@ -55,7 +60,8 @@ input, textarea{
     border:1px solid #ddd;
 }
 
-a.video-btn{
+/* VIDEO LINK */
+.video-btn{
     display:inline-block;
     margin-top:10px;
     padding:10px 15px;
@@ -63,10 +69,14 @@ a.video-btn{
     color:white;
     border-radius:10px;
     text-decoration:none;
+    font-weight:500;
 }
 
-small{
-    color:#64748b;
+/* RESPONSIVE */
+@media (min-width: 768px){
+    .grid{
+        grid-template-columns: 1fr 1fr;
+    }
 }
 </style>
 </head>
@@ -81,9 +91,10 @@ small{
 
 <div class="grid">
 
+    <!-- VIDEO 1 -->
     <div class="card">
         <h3>Практика емоційного відновлення</h3>
-        <p>Техніка для стабілізації емоцій та зниження тривожності.</p>
+        <p>Техніка для стабілізації емоційного стану та зниження тривожності.</p>
 
         <a class="video-btn"
            href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr"
@@ -91,9 +102,12 @@ small{
             ▶ Відкрити відео у Facebook
         </a>
 
-        <small>Джерело: Facebook (публічний матеріал)</small>
+        <p style="font-size:12px;color:#64748b;margin-top:10px;">
+            Джерело: Facebook (публічний матеріал)
+        </p>
     </div>
 
+    <!-- VIDEO 2 -->
     <div class="card">
         <h3>Методи боротьби зі стресом</h3>
         <p>Базові психологічні техніки для щоденного життя.</p>
@@ -104,7 +118,9 @@ small{
             ▶ Відкрити відео у Facebook
         </a>
 
-        <small>Джерело: Facebook (публічний матеріал)</small>
+        <p style="font-size:12px;color:#64748b;margin-top:10px;">
+            Джерело: Facebook (публічний матеріал)
+        </p>
     </div>
 
 </div>
@@ -125,7 +141,7 @@ small{
 
 <script>
 
-// ===== ВІДГУКИ =====
+// ===== ВІДГУКИ (миттєве оновлення) =====
 
 function loadReviews(){
     let data = JSON.parse(localStorage.getItem("reviews") || "[]");
@@ -144,14 +160,14 @@ function loadReviews(){
 }
 
 function addReview(){
-    let name = document.getElementById("name").value;
-    let text = document.getElementById("text").value;
+    let name = document.getElementById("name").value.trim();
+    let text = document.getElementById("text").value.trim();
 
     if(!name || !text) return;
 
     let data = JSON.parse(localStorage.getItem("reviews") || "[]");
 
-    data.push({name,text});
+    data.push({name, text});
     localStorage.setItem("reviews", JSON.stringify(data));
 
     document.getElementById("name").value = "";
@@ -160,6 +176,7 @@ function addReview(){
     loadReviews();
 }
 
+// старт
 loadReviews();
 
 </script>
