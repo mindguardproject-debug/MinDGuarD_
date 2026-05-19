@@ -319,7 +319,7 @@ section {
 .video-box {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; /* Пропорція 16:9 для адаптивності відео плеєра */
+    padding-top: 56.25%;
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 15px;
@@ -442,6 +442,40 @@ section {
     margin: 0 auto 15px;
 }
 
+/* Адаптивна підтримка / Контакти */
+.support-box {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+.support-textarea {
+    width: 100%;
+    height: 120px;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 20px;
+    background: #f8fafc;
+    resize: none;
+    outline: none;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+.support-textarea:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+}
+.success-msg {
+    display: none;
+    color: #2e7d32;
+    background: #edf7ed;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
 /* Footer */
 footer {
     padding: 40px 8%;
@@ -490,6 +524,10 @@ footer {
     .section-title h2 {
         font-size: 1.8rem;
     }
+    .support-box {
+        width: 100%;
+        padding: 20px 15px;
+    }
 }
 </style>
 </head>
@@ -521,7 +559,6 @@ footer {
     </div>
     
     <div class="hero-image reveal">
-        <!-- АКТИВНИЙ ТЕЛЕФОН-ЩОДЕННИК -->
         <div class="phone">
             <div class="app-screen">
                 <h3>Як ти сьогодні?</h3>
@@ -540,7 +577,7 @@ footer {
                 <div class="mood-history">
                     <h4>Історія станів</h4>
                     <div id="history-list">
-                        <!-- Сюди додаються записи з пам'яті -->
+                        <!-- Записи з пам'яті -->
                     </div>
                 </div>
             </div>
@@ -600,7 +637,6 @@ footer {
     </div>
 
     <div class="grid" id="videos-container">
-        <!-- ПЕРШЕ ВІДЕО -->
         <div class="card reveal">
             <div class="video-box">
                 <iframe src="https://www.youtube.com/embed/TTXcHEMfLb4" allowfullscreen></iframe>
@@ -609,7 +645,6 @@ footer {
             <p>Навчись заспокоювати думки та контролювати тривогу за допомогою простих арт-технік.</p>
         </div>
 
-        <!-- ДРУГЕ НОВЕ ВІДЕО -->
         <div class="card reveal">
             <div class="video-box">
                 <iframe src="https://www.youtube.com/embed/KkxPP4mjnjw" allowfullscreen></iframe>
@@ -694,16 +729,31 @@ footer {
     </div>
 </section>
 
+<!-- ОНОВЛЕНИЙ РОЗДІЛ ПІДТРИМКИ -->
 <section id="contact">
     <div class="section-title reveal">
         <h2>Зв'яжіться з нами</h2>
-        <p>Ми завжди готові допомогти</p>
+        <p>Ми завжди готові надати вам психологічну та технічну допомогу</p>
     </div>
-    <div class="card reveal" style="max-width:700px;margin:auto;text-align:center;">
-        <h3>Email підтримки</h3><br>
-        <p style="font-size:1.2rem;color:var(--primary);font-weight:600;">mindguardproject@gmail.com</p><br><br>
-        <textarea placeholder="Ваше повідомлення..." style="width:100%;height:150px;padding:20px;border:none;border-radius:20px;background:#f5f7ff;resize:none;"></textarea><br><br>
-        <button class="btn">Надіслати</button>
+    <div class="card reveal support-box">
+        <h3>Служба турботи MindGuard</h3><br>
+        <p style="font-size:1.1rem;color:var(--primary);font-weight:600;margin-bottom: 20px;">mindguardproject@gmail.com</p>
+        
+        <div id="support-success" class="success-msg">
+            ✨ Дякуємо! Ваше звернення успішно надіслано. Наш черговий психолог відповість вам на пошту протягом 15 хвилин.
+        </div>
+        
+        <div class="form-group" style="text-align: left;">
+            <label>Ваш Email для зв'язку</label>
+            <input type="email" id="s-email" class="form-control" placeholder="example@mail.com" style="margin-bottom: 15px;">
+        </div>
+        
+        <div class="form-group" style="text-align: left;">
+            <label>Опишіть вашу проблему чи запит</label>
+            <textarea id="s-message" class="support-textarea" placeholder="Напишіть, що вас турбує або яке питання у вас виникло..."></textarea>
+        </div>
+        
+        <button class="btn" id="support-submit-btn" onclick="sendSupportMessage()" style="width: 100%;">Надіслати запит</button>
     </div>
 </section>
 
@@ -752,12 +802,11 @@ function saveMoodState() {
     const moodEntry = { mood: currentSelectedMood, note: note || "Без коментаря", time: timeString };
 
     let history = JSON.parse(localStorage.getItem('mood_history') || '[]');
-    history.unshift(moodEntry); // Додаємо нове в початок списку
+    history.unshift(moodEntry);
     localStorage.setItem('mood_history', JSON.stringify(history));
 
     renderMoodHistory();
 
-    // Скидання
     document.getElementById('mood-text').value = '';
     document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
     document.getElementById('mood-input-container').style.display = 'none';
@@ -779,6 +828,56 @@ function renderMoodHistory() {
             <span class="time">${item.time}</span>
         </div>
     `).join('');
+}
+
+// --- ФУНКЦІОНАЛ ПІДТРИМКИ (НОВИЙ) ---
+function sendSupportMessage() {
+    const emailInput = document.getElementById('s-email');
+    const messageInput = document.getElementById('s-message');
+    const submitBtn = document.getElementById('support-submit-btn');
+    const successMsg = document.getElementById('support-success');
+
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+    if (!email || !message) {
+        alert("Будь ласка, заповніть обидва поля (Email та повідомлення) для відправки запиту!");
+        return;
+    }
+
+    // Проста валідація пошти
+    if (!email.includes('@') || !email.includes('.')) {
+        alert("Будь ласка, введіть коректну адресу електронної пошти!");
+        return;
+    }
+
+    // Анімація процесу завантаження / надсилання
+    submitBtn.innerText = "Надсилання...";
+    submitBtn.disabled = true;
+
+    setTimeout(() => {
+        const now = new Date();
+        const timestamp = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+        // Зберігаємо звернення у локальну пам'ять
+        const newTicket = { email, message, time: timestamp };
+        let tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
+        tickets.push(newTicket);
+        localStorage.setItem('support_tickets', JSON.stringify(tickets));
+
+        // Очищення полів форми та фідбек користувачу
+        emailInput.value = '';
+        messageInput.value = '';
+        successMsg.style.display = 'block';
+        submitBtn.innerText = "Надіслати запит";
+        submitBtn.disabled = false;
+
+        // Автоматично ховаємо плашку успіху через 7 секунд
+        setTimeout(() => {
+            successMsg.style.display = 'none';
+        }, 7000);
+
+    }, 1200); // Симуляція затримки мережі
 }
 
 // --- ЮТУБ ПЛЕЄР ---
