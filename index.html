@@ -412,7 +412,8 @@ section {
 .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); margin-bottom: 10px; }
 /* Адаптивна підтримка / Контакти */
 .support-box { max-width: 600px; margin: auto; text-align: center; }
-.support-textarea { width: 100%; height: 120px; padding: 15px; border: 1px solid #cbd5e1; border-radius: 20px; background: #f8fafc; resize: none; outline: none; font-size: 0.95rem; margin-bottom: 15px; transition: 0.3s; }
+.support-textarea { width: 100%; height: 120px; padding: 15px; border: 1px solid #cbd5e1; border-radius: 20px; background: #f8fafc; resize: none; outline: none;
+font-size: 0.95rem; margin-bottom: 15px; transition: 0.3s; }
 .support-textarea:focus { border-color: var(--primary); background: #ffffff; }
 .success-msg { display: none; color: #2e7d32; background: #edf7ed; padding: 15px; border-radius: 15px; font-weight: 500; margin-bottom: 15px; font-size: 0.95rem; }
 /* Footer */
@@ -651,6 +652,182 @@ footer { padding: 40px 8%; text-align: center; background: #1d2433; color: white
 </div>
 </div>
 <div class="grid reveal" id="reviews-container" style="max-height: 800px; overflow-y: auto; padding-right: 10px;">
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">★★★★★</div>
+        <h3 style="text-align: left;">Марія</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Сервіс працює дуже швидко і без зайвого візуального шуму. Саме те, що треба для концентрації.”</p>
+        <span class="review-date" style="text-align: left;">19.05.2026</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>14</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box"></div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>
+
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">★★★★☆</div>
+        <h3 style="text-align: left;">Олексій</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Дуже чистий інтерфейс. Чи планується розширення функціоналу для командної роботи або спільних сесій?”</p>
+        <span class="review-date" style="text-align: left;">19.05.2026</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>5</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box">
+            <div class="reply-item"><span class="reply-author">Адміністратор:</span>Дякуємо! Так, ми розглядаємо таку можливість у майбутніх оновленнях.</div>
+        </div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>
+
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">★★★★★</div>
+        <h3 style="text-align: left;">Олена</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Спробувала відкрити і з телефону, і з ноутбука — адаптивність чудова. Мінімалізм у дизайні вельми тішить.”</p>
+        <span class="review-date" style="text-align: left;">18.05.2026</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>9</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box"></div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>
+
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">★★★★☆</div>
+        <h3 style="text-align: left;">Дмитро</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Хороший старт. Простий та зрозумілий інструмент. Чекаю на реліз повноцінного мобільного додатка.”</p>
+        <span class="review-date" style="text-align: left;">18.05.2026</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>3</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box"></div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>
+
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">★★★★★</div>
+        <h3 style="text-align: left;">Ірина</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Допомагає краще контролювати час і не відволікатися на нескінченний серфінг у мережі.”</p>
+        <span class="review-date" style="text-align: left;">17.05.2026</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>11</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box"></div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>
+
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">★★★★☆</div>
+        <h3 style="text-align: left;">Максим</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Класний проєкт. Хотілося б мати можливість детальніше налаштовувати профілі відпочинку під себе.”</p>
+        <span class="review-date" style="text-align: left;">16.05.2026</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>2</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box">
+            <div class="reply-item"><span class="reply-author">Розробник:</span>Чудова ідея, вже додали це завдання до нашого плану розробки!</div>
+        </div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>
+
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">★★★★★</div>
+        <h3 style="text-align: left;">Тетяна</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Чи буде додано темну тему інтерфейсу? Вночі з нею працювати набагато комфортніше.”</p>
+        <span class="review-date" style="text-align: left;">15.05.2026</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>8</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box">
+            <div class="reply-item"><span class="reply-author">Адміністратор:</span>Вітаємо! Так, темна тема з'явиться найближчим часом.</div>
+        </div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>
+
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">★★★★★</div>
+        <h3 style="text-align: left;">Юлія</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Дуже приємне оформлення, все інтуїтивно зрозуміло з перших секунд. Успіхів вашій команді!”</p>
+        <span class="review-date" style="text-align: left;">14.05.2026</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>4</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box"></div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>
+
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">★★★★★</div>
+        <h3 style="text-align: left;">Андрій</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Тестую вже кілька днів на різних пристроях. Все стабільно, лагів немає. Гарна робота.”</p>
+        <span class="review-date" style="text-align: left;">12.05.2026</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>6</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box"></div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>
 </div>
 </section>
 <section id="contact">
@@ -684,24 +861,6 @@ footer { padding: 40px 8%; text-align: center; background: #1d2433; color: white
 <p>© 2026 MindGuard Project — Робимо світ спокійнішим 💙</p>
 </footer>
 <script>
-// --- БЕЗПЕЧНА РОБОТА З LOCALSTORAGE ---
-function safeGetItem(key, defaultValue = '[]') {
-    try {
-        return localStorage.getItem(key) || defaultValue;
-    } catch (e) {
-        console.warn("LocalStorage заблоковано або недоступно:", e);
-        return defaultValue;
-    }
-}
-
-function safeSetItem(key, value) {
-    try {
-        localStorage.setItem(key, value);
-    } catch (e) {
-        console.warn("Не вдалося зберегти дані в LocalStorage:", e);
-    }
-}
-
 // --- СКРОЛЛ-АНІМАЦІЯ ---
 const reveals = document.querySelectorAll('.reveal');
 function scanElements() {
@@ -757,13 +916,20 @@ function saveMoodState() {
     
     let history = [];
     try {
-        history = JSON.parse(safeGetItem('mood_history', '[]'));
-    } catch(e) { history = []; }
+        history = JSON.parse(localStorage.getItem('mood_history') || '[]');
+    } catch(e) { 
+        history = []; 
+    }
     
     history.unshift(moodEntry);
-    safeSetItem('mood_history', JSON.stringify(history));
-    renderMoodHistory();
     
+    try {
+        localStorage.setItem('mood_history', JSON.stringify(history));
+    } catch(e) {
+        console.warn("LocalStorage недоступний.");
+    }
+    
+    renderMoodHistory();
     document.getElementById('mood-text').value = '';
     document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
     document.getElementById('mood-input-container').style.display = 'none';
@@ -773,14 +939,18 @@ function saveMoodState() {
 function renderMoodHistory() {
     const container = document.getElementById('history-list');
     let history = [];
+    
     try {
-        history = JSON.parse(safeGetItem('mood_history', '[]'));
-    } catch(e) { history = []; }
+        history = JSON.parse(localStorage.getItem('mood_history') || '[]');
+    } catch(e) { 
+        history = []; 
+    }
 
     if(history.length === 0) {
         container.innerHTML = '<p style="font-size:0.8rem;color:#94a3b8;text-align:center;">Тут будуть ваші записи</p>';
         return;
     }
+    
     container.innerHTML = history.map(item => `
         <div class="history-item">
             <strong>Почувався: ${item.mood}</strong> — ${item.note}
@@ -795,18 +965,23 @@ function sendSupportMessage() {
     const messageInput = document.getElementById('s-message');
     const submitBtn = document.getElementById('support-submit-btn');
     const successMsg = document.getElementById('support-success');
+    
     const email = emailInput.value.trim();
     const message = messageInput.value.trim();
+    
     if (!email || !message) {
         alert("Будь ласка, заповніть обидва поля (Email та повідомлення) для відправки запиту!");
         return;
     }
+    
     if (!email.includes('@') || !email.includes('.')) {
         alert("Будь ласка, введіть коректну адресу електронної пошти!");
         return;
     }
+    
     submitBtn.innerText = "Надсилання...";
     submitBtn.disabled = true;
+    
     setTimeout(() => {
         const now = new Date();
         const timestamp = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
@@ -814,17 +989,25 @@ function sendSupportMessage() {
         
         let tickets = [];
         try {
-            tickets = JSON.parse(safeGetItem('support_tickets', '[]'));
-        } catch(e) { tickets = []; }
+            tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
+        } catch(e) {
+            tickets = [];
+        }
         
         tickets.push(newTicket);
-        safeSetItem('support_tickets', JSON.stringify(tickets));
+        
+        try {
+            localStorage.setItem('support_tickets', JSON.stringify(tickets));
+        } catch(e) {
+            console.warn("LocalStorage недоступний.");
+        }
         
         emailInput.value = '';
         messageInput.value = '';
         successMsg.style.display = 'block';
         submitBtn.innerText = "Надіслати запит";
         submitBtn.disabled = false;
+        
         setTimeout(() => {
             successMsg.style.display = 'none';
         }, 7000);
@@ -849,19 +1032,29 @@ function submitVideo() {
     const url = document.getElementById('v-url').value.trim();
     const title = document.getElementById('v-title').value.trim();
     const desc = document.getElementById('v-desc').value.trim();
+    
     if (!url || !title || !desc) {
         alert("Будь ласка, заповніть усі поля форми!");
         return;
     }
-    const newVideo = { url, title, desc };
     
+    const newVideo = { url, title, desc };
     let localVideos = [];
+    
     try {
-        localVideos = JSON.parse(safeGetItem('stored_vids', '[]'));
-    } catch(e) { localVideos = []; }
+        localVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
+    } catch(e) {
+        localVideos = [];
+    }
     
     localVideos.push(newVideo);
-    safeSetItem('stored_vids', JSON.stringify(localVideos));
+    
+    try {
+        localStorage.setItem('stored_vids', JSON.stringify(localVideos));
+    } catch(e) {
+        console.warn("LocalStorage недоступний.");
+    }
+    
     appendVideoCard(newVideo);
     
     document.getElementById('v-url').value = '';
@@ -877,6 +1070,7 @@ function appendVideoCard(video) {
     const iconBg = isFb ? '#4267B2' : '#FF0000';
 
     let mediaContent = isFb ? `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на Facebook</a>` : (getYouTubeEmbedHtml(video.url) || `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на YouTube</a>`);
+    
     const cardHtml = `
         <div class="card">
             <div class="icon" style="background: ${iconBg}; color: white;">${iconLetter}</div>
@@ -892,101 +1086,41 @@ function appendVideoCard(video) {
     container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- СИСТЕМА ВІДГУКІВ ---
-const defaultReviews = [
-    { id: 1, author: "Марія", rating: 5, text: "Сервіс працює дуже швидко і без зайвого візуального шуму. Саме те, що треба для концентрації.", likes: 14, date: "19.05.2026", replies: [] },
-    { id: 2, author: "Олексій", rating: 4, text: "Дуже чистий інтерфейс. Чи планується розширення функціоналу для командної роботи або спільних сесій?", likes: 5, date: "19.05.2026", replies: [{ author: "Адміністратор", text: "Дякуємо! Так, мы розглядаємо таку можливість у майбутніх оновленнях." }] },
-    { id: 3, author: "Олена", rating: 5, text: "Спробувала відкрити і з телефону, і з ноутбука — адаптивність чудова. Мінімалізм у дизайні вельми тішить.", likes: 9, date: "18.05.2026", replies: [] },
-    { id: 4, author: "Дмитро", rating: 4, text: "Хороший старт. Простий та зрозумілий інструмент. Чекаю на реліз повноцінного мобільного додатка.", likes: 3, date: "18.05.2026", replies: [] },
-    { id: 5, author: "Ірина", rating: 5, text: "Допомагає краще контролювати час і не відволікатися на нескінченний серфінг у мережі.", likes: 11, date: "17.05.2026", replies: [] },
-    { id: 6, author: "Максим", rating: 4, text: "Класний проєкт. Хотілося б мати можливість детальніше налаштовувати профілі відпочинку під себе.", likes: 2, date: "16.05.2026", replies: [{ author: "Розробник", text: "Чудова ідея, вже додали це завдання до нашого плану розробки!" }] },
-    { id: 7, author: "Тетяна", rating: 5, text: "Чи буде додано темну тему інтерфейсу? Вночі з нею працювати набагато комфортніше.", likes: 8, date: "15.05.2026", replies: [{ author: "Адміністратор", text: "Вітаємо! Так, темна тема з'явиться найближчим часом." }] },
-    { id: 8, author: "Юлія", rating: 5, text: "Дуже приємне оформлення, все інтуїтивно зрозуміло з перших секунд. Успіхів вашій команді!", likes: 4, date: "14.05.2026", replies: [] },
-    { id: 9, author: "Андрій", rating: 5, text: "Тестую вже кілька днів на різних пристроях. Все стабільно, лагів немає. Гарна робота.", likes: 6, date: "12.05.2026", replies: [] }
-];
-
-let allReviews = [];
-
-function loadReviews() {
-    const stored = safeGetItem('mindguard_advanced_reviews', null);
-    if (stored) {
-        try {
-            allReviews = JSON.parse(stored);
-        } catch(e) {
-            allReviews = [];
-        }
-    }
-    if (!allReviews || allReviews.length === 0) {
-        allReviews = [...defaultReviews];
-        saveReviewsToLocal();
-    }
-    renderReviewsList();
-}
-
-function saveReviewsToLocal() {
-    safeSetItem('mindguard_advanced_reviews', JSON.stringify(allReviews));
-}
-
-function renderReviewsList() {
-    const container = document.getElementById('reviews-container');
-    if (!container) return;
-    container.innerHTML = '';
-    
-    // Створюємо копію масиву для сортування, щоб не мутувати оригінальні дані
-    const sortedReviews = [...allReviews].sort((a, b) => b.id - a.id);
-    
-    sortedReviews.forEach(r => {
-        let stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
-
-        let repliesHtml = '';
-        if (r.replies && r.replies.length > 0) {
-            repliesHtml = `<div class="replies-box">` + r.replies.map(rep => `<div class="reply-item"><span class="reply-author">${rep.author}:</span>${rep.text}</div>`).join('') + `</div>`;
-        }
-        const card = document.createElement('div');
-        card.className = 'card testimonial';
-        card.innerHTML = `
-            <div class="avatar" style="margin: 0 0 10px 0;"></div>
-            <div class="review-stars" style="text-align: left;">${stars}</div>
-            <h3 style="text-align: left;">${r.author}</h3>
-            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“${r.text}”</p>
-            <span class="review-date" style="text-align: left;">${r.date}</span>
-            <div class="review-actions">
-                <button onclick="likeReview(${r.id})">👍 ${r.likes || 0}</button>
-                <button onclick="toggleReply(${r.id})">💬 Відповісти</button>
-                <button class="delete-btn" onclick="deleteReview(${r.id})">🗑 Видалити</button>
-            </div>
-            ${repliesHtml}
-            <div class="reply-form" id="reply-form-${r.id}">
-                <input type="text" id="reply-name-${r.id}" class="form-control" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-                <input type="text" id="reply-text-${r.id}" class="form-control" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-                <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(${r.id})">Відправити відповідь</button>
-            </div>
-        `;
-        container.appendChild(card);
-    });
-}
-
+// --- НОВА СИСТЕМА ВІДГУКІВ (ЛОГІКА ДЛЯ HTML) ---
 function submitNewReview() {
     const name = document.getElementById('r-name').value.trim();
     const text = document.getElementById('r-text').value.trim();
     const ratingActive = document.querySelector('input[name="rating"]:checked');
-
+    
     if (!name || !text || !ratingActive) {
         alert("Заповніть форму та виберіть зірочки!");
         return;
     }
-    const newReview = {
-        id: Date.now(),
-        author: name,
-        text: text,
-        rating: parseInt(ratingActive.value),
-        likes: 0,
-        date: new Date().toLocaleDateString('uk-UA'),
-        replies: []
-    };
-    allReviews.push(newReview);
-    saveReviewsToLocal();
-    renderReviewsList();
+
+    let stars = '★'.repeat(ratingActive.value) + '☆'.repeat(5 - ratingActive.value);
+    const dateStr = new Date().toLocaleDateString('uk-UA');
+    
+    const cardHtml = `
+    <div class="card testimonial">
+        <div class="avatar" style="margin: 0 0 10px 0;"></div>
+        <div class="review-stars" style="text-align: left;">${stars}</div>
+        <h3 style="text-align: left;">${name}</h3>
+        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“${text}”</p>
+        <span class="review-date" style="text-align: left;">${dateStr}</span>
+        <div class="review-actions">
+            <button onclick="likeReview(this)">👍 <span>0</span></button>
+            <button onclick="toggleReply(this)">💬 Відповісти</button>
+            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        </div>
+        <div class="replies-box"></div>
+        <div class="reply-form">
+            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
+            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+        </div>
+    </div>`;
+    
+    document.getElementById('reviews-container').insertAdjacentHTML('afterbegin', cardHtml);
     
     document.getElementById('r-name').value = '';
     document.getElementById('r-text').value = '';
@@ -994,56 +1128,53 @@ function submitNewReview() {
     toggleForm('review-form');
 }
 
-function deleteReview(id) {
+function likeReview(btn) {
+    let span = btn.querySelector('span');
+    let currentLikes = parseInt(span.innerText);
+    span.innerText = currentLikes + 1;
+}
+
+function deleteReview(btn) {
     if (confirm('Ви впевнені, що хочете видалити цей відгук?')) {
-        allReviews = allReviews.filter(r => r.id !== id);
-        saveReviewsToLocal();
-        renderReviewsList();
+        btn.closest('.card').remove();
     }
 }
 
-function likeReview(id) {
-    const rev = allReviews.find(r => r.id === id);
-    if (rev) {
-        rev.likes = (rev.likes || 0) + 1;
-        saveReviewsToLocal();
-        renderReviewsList();
-    }
-}
-
-function toggleReply(id) {
-    const form = document.getElementById(`reply-form-${id}`);
+function toggleReply(btn) {
+    let form = btn.closest('.card').querySelector('.reply-form');
     form.style.display = (form.style.display === 'flex') ? 'none' : 'flex';
 }
 
-function submitReply(id) {
-    const nameInput = document.getElementById(`reply-name-${id}`);
-    const textInput = document.getElementById(`reply-text-${id}`);
-
-    let authorName = nameInput.value.trim() || 'Адміністратор';
-    if (textInput.value.trim() === '') {
+function submitReply(btn) {
+    let form = btn.closest('.reply-form');
+    let name = form.querySelector('.reply-name').value.trim() || 'Адміністратор';
+    let text = form.querySelector('.reply-text').value.trim();
+    
+    if (!text) {
         alert('Введіть текст відповіді!');
         return;
     }
-    const rev = allReviews.find(r => r.id === id);
-    if (rev) {
-        if (!rev.replies) rev.replies = [];
-        rev.replies.push({ author: authorName, text: textInput.value.trim() });
-        saveReviewsToLocal();
-        renderReviewsList();
-    }
+    
+    let box = btn.closest('.card').querySelector('.replies-box');
+    box.insertAdjacentHTML('beforeend', `<div class="reply-item"><span class="reply-author">${name}:</span>${text}</div>`);
+    
+    form.querySelector('.reply-name').value = '';
+    form.querySelector('.reply-text').value = '';
+    form.style.display = 'none';
 }
 
 // ЗАВАНТАЖЕННЯ ДАНИХ
 window.addEventListener('DOMContentLoaded', () => {
     renderMoodHistory();
     let savedVideos = [];
+    
     try {
-        savedVideos = JSON.parse(safeGetItem('stored_vids', '[]'));
-    } catch(e) { savedVideos = []; }
+        savedVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
+    } catch(e) {
+        savedVideos = [];
+    }
     
     savedVideos.forEach(appendVideoCard);
-    loadReviews(); // Запуск безпечної генерації 9 відгуків
 });
 </script>
 </body>
