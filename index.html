@@ -366,26 +366,16 @@ section {
 .stars-rating label:hover ~ label { color: var(--rating); }
 .review-stars { color: var(--rating); margin-bottom: 8px; }
 .review-date { display: block; font-size: 0.75rem; color: #94a3b8; margin-top: 10px; }
-/* НОВІ СТИЛІ ДЛЯ ВІДГУКІВ (Лайки, Відповіді, Видалення) */
 .review-actions {
     display: flex;
     gap: 12px;
     margin-top: 15px;
     font-size: 0.85rem;
 }
-.review-actions button {
-    background: none;
-    border: none;
+.review-actions span {
     color: #64748b;
-    cursor: pointer;
-    padding: 0;
     font-weight: 600;
-    transition: 0.2s;
-    font-family: inherit;
 }
-.review-actions button:hover { color: var(--primary); }
-.review-actions button.delete-btn { color: #ef4444; }
-.review-actions button.delete-btn:hover { color: #b91c1c; }
 .replies-box {
     margin-top: 15px;
     padding-left: 15px;
@@ -394,15 +384,7 @@ section {
 }
 .reply-item { margin-bottom: 8px; font-size: 0.85rem; color: #475569; }
 .reply-author { font-weight: 600; color: var(--dark); margin-right: 5px; }
-.reply-form {
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 12px;
-    background: rgba(255,255,255,0.5);
-    padding: 10px;
-    border-radius: 10px;
-}
+
 /* Premium */
 .premium { background: linear-gradient(135deg, #fff6df, #fffdf7); }
 .price { font-size: 1.8rem; color: #ff9800; font-weight: 700; margin: 10px 0; }
@@ -437,429 +419,364 @@ footer { padding: 40px 8%; text-align: center; background: #1d2433; color: white
 <div class="blur-circle circle1"></div>
 <div class="blur-circle circle2"></div>
 <header>
-<div class="logo">
-<div class="logo-circle"></div>
-<h2>MindGuard</h2>
-</div>
-<nav>
-<a href="#home">Головна</a>
-<a href="#features">Можливості</a>
-<a href="#videos">Відео</a>
-<a href="#premium" class="plus-link">Plus ✨</a>
-<a href="#reviews">Відгуки</a>
-<a href="#contact">Контакти</a>
-</nav>
+    <div class="logo">
+        <div class="logo-circle"></div>
+        <h2>MindGuard</h2>
+    </div>
+    <nav>
+        <a href="#home">Головна</a>
+        <a href="#features">Можливості</a>
+        <a href="#videos">Відео</a>
+        <a href="#premium" class="plus-link">Plus ✨</a>
+        <a href="#reviews">Відгуки</a>
+        <a href="#contact">Контакти</a>
+    </nav>
 </header>
+
 <section class="hero" id="home">
-<div class="hero-text reveal">
-<h1>Твій простір спокою та підтримки</h1>
-<p>MindGuard — сучасна платформа психологічної підтримки, яка допомагає контролювати емоційний стан, зменшувати тривогу та відновлювати внутрішній баланс.</p>
-<a href="#features" class="btn">Розпочати шлях</a>
-</div>
-
-<div class="hero-image reveal">
-<div class="phone">
-<div class="app-screen">
-<h3>Як ти сьогодні?</h3>
-<div class="mood-row">
-<button class="mood-btn" onclick="selectMood('😊', this)">😊</button>
-<button class="mood-btn" onclick="selectMood('😌', this)">😌</button>
-<button class="mood-btn" onclick="selectMood('😔', this)">😔</button>
-<button class="mood-btn" onclick="selectMood('😴', this)">😴</button>
-</div>
-
-<div class="mood-input-box" id="mood-input-container">
-<textarea id="mood-text" class="mood-note" placeholder="Що стало причиною такого настрою? (необов'язково)"></textarea>
-<button class="btn" style="width:100%; padding:8px;" onclick="saveMoodState()">Зберегти стан</button>
-</div>
-<div class="mood-history">
-<h4>Історія станів</h4>
-<div id="history-list"></div>
-</div>
-</div>
-</div>
-</div>
+    <div class="hero-text reveal">
+        <h1>Твій простір спокою та підтримки</h1>
+        <p>MindGuard — сучасна платформа психологічної підтримки, яка допомагає контролювати емоційний стан, зменшувати тривогу та відновлювати внутрішній баланс.</p>
+        <a href="#features" class="btn">Розпочати шлях</a>
+    </div>
+    <div class="hero-image reveal">
+        <div class="phone">
+            <div class="app-screen">
+                <h3>Як ти сьогодні?</h3>
+                <div class="mood-row">
+                    <button class="mood-btn" onclick="selectMood('😊', this)">😊</button>
+                    <button class="mood-btn" onclick="selectMood('😌', this)">😌</button>
+                    <button class="mood-btn" onclick="selectMood('😔', this)">😔</button>
+                    <button class="mood-btn" onclick="selectMood('😴', this)">😴</button>
+                </div>
+                <div class="mood-input-box" id="mood-input-container">
+                    <textarea id="mood-text" class="mood-note" placeholder="Що стало причиною такого настрою? (необов'язково)"></textarea>
+                    <button class="btn" style="width:100%; padding:8px;" onclick="saveMoodState()">Зберегти стан</button>
+                </div>
+                <div class="mood-history">
+                    <h4>Історія станів</h4>
+                    <div id="history-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <section id="features">
-<div class="section-title reveal">
-<h2>Можливості платформи</h2>
-<p>Все необхідне для психологічної підтримки в одному місці</p>
-</div>
-<div class="grid">
-<div class="card reveal">
-<div class="icon">🧠</div>
-<h3>Щоденник настрою</h3>
-<p>Відстежуй свій емоційний стан та аналізуй зміни настрою.</p>
-</div>
-<div class="card reveal">
-<div class="icon">🌿</div>
-<h3>Медитації</h3>
-<p>Практики дихання та розслаблення для боротьби зі стресом.</p>
-</div>
-<div class="card reveal">
-<div class="icon">💬</div>
-<h3>Підтримка фахівців</h3>
-<p>Онлайн-консультації з психологами та спеціалістами.</p>
-</div>
-</div>
+    <div class="section-title reveal">
+        <h2>Можливості платформи</h2>
+        <p>Все необхідне для психологічної підтримки в одному місці</p>
+    </div>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="icon">🧠</div>
+            <h3>Щоденник настрою</h3>
+            <p>Відстежуй свій емоційний стан та аналізуй зміни настрою.</p>
+        </div>
+        <div class="card reveal">
+            <div class="icon">🌿</div>
+            <h3>Медитації</h3>
+            <p>Практики дихання та розслаблення для боротьби зі стресом.</p>
+        </div>
+        <div class="card reveal">
+            <div class="icon">💬</div>
+            <h3>Підтримка фахівців</h3>
+            <p>Онлайн-консультації з психологами та спеціалістами.</p>
+        </div>
+    </div>
 </section>
+
 <section id="videos">
-<div class="section-title reveal">
-<h2>Відеокурси та ресурси</h2>
-<p>Короткі практичні заняття для психологічного відновлення</p>
-</div>
-<div class="add-container reveal">
-<button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео (Локально)</button>
-
-<div class="card form-card" id="video-form">
-<h3>Додати відео курс</h3><br>
-<div class="form-group">
-<label>Посилання на YouTube або Facebook відео</label>
-<input type="text" id="v-url" class="form-control" placeholder="https://youtu.be/...">
-</div>
-<div class="form-group">
-<label>Назва курсу</label>
-<input type="text" id="v-title" class="form-control" placeholder="Введіть назву...">
-</div>
-<div class="form-group">
-<label>Короткий опис</label>
-<textarea id="v-desc" class="form-control" placeholder="Про що це відео..."></textarea>
-</div>
-<button class="btn" onclick="submitVideo()">Опублікувати</button>
-</div>
-</div>
-<div class="slider-outer reveal">
-<button class="slider-arrow prev" onclick="moveSlider('videos-container', -1)">&#10094;</button>
-<div class="slider-container" id="videos-container">
-
-<div class="card">
-<div class="icon" style="background: #4267B2; color: white;">f</div>
-<h3>Практика ментального спокою</h3>
-<p>Корисні техніки для відновлення внутрішнього балансу та стабілізації емоційного фону.</p>
-<p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
-<strong>Джерело:</strong> Facebook<br>
-<strong>Автор відео:</strong> Безбар'єрність<br>
-<small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
-</p>
-<br>
-<a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
-</div>
-<div class="card">
-<div class="icon" style="background: #4267B2; color: white;">f</div>
-<h3>Техніки стабілізації</h3>
-<p>Практичні вправи та дієві поради від спеціалістів для подолання стресу в кризових ситуаціях.</p>
-<p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
-<strong>Джерело:</strong> Facebook<br>
-<strong>Автор відео:</strong> Безбар'єрність<br>
-<small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
-</p>
-<br>
-<a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
-</div>
-<div class="card">
-<div class="icon" style="background: #FF0000; color: white;">▶</div>
-<h3>Як позбутися тривожності, стресу та депресії?</h3>
-<p>Детальний розбір тілесних причин, які викликають і підтримують щоденний стрес та тривогу.</p>
-<div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
-<iframe width="100%" height="200" src="https://www.youtube.com/embed/TvDJKPuLZSE" frameborder="0" allowfullscreen></iframe>
-</div>
-<p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
-<strong>Джерело:</strong> YouTube<br>
-<strong>Автор відео:</strong> Безбар'єрність
-</p>
-</div>
-
-<div class="card">
-<div class="icon" style="background: #FF0000; color: white;">▶</div>
-<h3>Як допомогти собі при тривозі?</h3>
-<p>Дієві поради та вправи для швидкого заспокоєння нервової системи у складних ситуаціях.</p>
-<div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
-<iframe width="100%" height="200" src="https://www.youtube.com/embed/TTXcHEMfLb4" frameborder="0" allowfullscreen></iframe>
-</div>
-<p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
-<strong>Джерело:</strong> YouTube<br>
-<strong>Автор відео:</strong> Безбар'єрність
-</p>
-</div>
-
-<div class="card">
-<div class="icon" style="background: #FF0000; color: white;">▶</div>
-<h3>Що таке панічна атака і як з нею впоратися?</h3>
-<p>Практичні рекомендації від психологів щодо подолання гострих нападів паніки та відновлення.</p>
-<div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
-<iframe width="100%" height="200" src="https://www.youtube.com/embed/KkxPP4mjnjw" frameborder="0" allowfullscreen></iframe>
-</div>
-<p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
-<strong>Джерело:</strong> YouTube<br>
-<strong>Автор відео:</strong> Безбар'єрність
-</p>
-</div>
-</div>
-<button class="slider-arrow next" onclick="moveSlider('videos-container', 1)">&#10095;</button>
-</div>
+    <div class="section-title reveal">
+        <h2>Відеокурси та ресурси</h2>
+        <p>Короткі практичні заняття для психологічного відновлення</p>
+    </div>
+    <div class="add-container reveal">
+        <button class="btn" onclick="toggleForm('video-form')">+ Додати нове відео (Локально)</button>
+        <div class="card form-card" id="video-form">
+            <h3>Додати відео курс</h3><br>
+            <div class="form-group">
+                <label>Посилання на YouTube або Facebook відео</label>
+                <input type="text" id="v-url" class="form-control" placeholder="https://youtu.be/...">
+            </div>
+            <div class="form-group">
+                <label>Назва курсу</label>
+                <input type="text" id="v-title" class="form-control" placeholder="Введіть назву...">
+            </div>
+            <div class="form-group">
+                <label>Короткий опис</label>
+                <textarea id="v-desc" class="form-control" placeholder="Про що це відео..."></textarea>
+            </div>
+            <button class="btn" onclick="submitVideo()">Опублікувати</button>
+        </div>
+    </div>
+    <div class="slider-outer reveal">
+        <button class="slider-arrow prev" onclick="moveSlider('videos-container', -1)">&#10094;</button>
+        <div class="slider-container" id="videos-container">
+            <div class="card">
+                <div class="icon" style="background: #4267B2; color: white;">f</div>
+                <h3>Практика ментального спокою</h3>
+                <p>Корисні техніки для відновлення внутрішнього балансу та стабілізації емоційного фону.</p>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> Facebook<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                </p>
+                <br>
+                <a href="https://www.facebook.com/share/v/1Fs8cSjoD5/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
+            </div>
+            <div class="card">
+                <div class="icon" style="background: #4267B2; color: white;">f</div>
+                <h3>Техніки стабілізації</h3>
+                <p>Практичні вправи та дієві поради від спеціалістів для подолання стресу в кризових ситуаціях.</p>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> Facebook<br>
+                    <strong>Автор відео:</strong> Безбар'єрність<br>
+                    <small><em>*Матеріал використано з освітньою метою згідно з правилами академічної доброчесності.</em></small>
+                </p>
+                <br>
+                <a href="https://www.facebook.com/share/v/1CmZMfatTJ/?mibextid=wwXIfr" target="_blank" class="btn">Дивитися на Facebook</a>
+            </div>
+            <div class="card">
+                <div class="icon" style="background: #FF0000; color: white;">▶</div>
+                <h3>Як позбутися тривожності, стресу та депресії?</h3>
+                <p>Детальний розбір тілесних причин, які викликають і підтримують щоденний стрес та тривогу.</p>
+                <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/TvDJKPuLZSE" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> YouTube<br>
+                    <strong>Автор відео:</strong> Безбар'єрність
+                </p>
+            </div>
+            <div class="card">
+                <div class="icon" style="background: #FF0000; color: white;">▶</div>
+                <h3>Як допомогти собі при тривозі?</h3>
+                <p>Дієві поради та вправи для швидкого заспокоєння нервової системи у складних ситуаціях.</p>
+                <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/TTXcHEMfLb4" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> YouTube<br>
+                    <strong>Автор відео:</strong> Безбар'єрність
+                </p>
+            </div>
+            <div class="card">
+                <div class="icon" style="background: #FF0000; color: white;">▶</div>
+                <h3>Що таке панічна атака і як з нею впоратися?</h3>
+                <p>Практичні рекомендації від психологів щодо подолання гострих нападів паніки та відновлення.</p>
+                <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/KkxPP4mjnjw" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                    <strong>Джерело:</strong> YouTube<br>
+                    <strong>Автор відео:</strong> Безбар'єрність
+                </p>
+            </div>
+        </div>
+        <button class="slider-arrow next" onclick="moveSlider('videos-container', 1)">&#10095;</button>
+    </div>
 </section>
+
 <section id="premium" class="premium">
-<div class="section-title reveal">
-<h2>MindGuard Plus ✨</h2>
-<p>Розширені можливості та персональна підтримка</p>
-</div>
-<div class="grid">
-<div class="card reveal">
-<span class="badge">ІНДИВІДУАЛЬНО</span>
-<h3>Консультація психолога</h3>
-<div class="price">500 грн</div>
-<p>Особиста 60-хвилинна онлайн-сесія з фахівцем.</p>
-<br><a href="#contact" class="btn">Замовити</a>
-</div>
-<div class="card reveal">
-<span class="badge">ПІДПИСКА</span>
-<h3>Група підтримки</h3>
-<div class="price">250 грн/міс</div>
-<p>Вебінари, закритий чат та ексклюзивні практики.</p>
-<br><a href="#contact" class="btn">Приєднатися</a>
-</div>
-</div>
+    <div class="section-title reveal">
+        <h2>MindGuard Plus ✨</h2>
+        <p>Розширені можливості та персональна підтримка</p>
+    </div>
+    <div class="grid">
+        <div class="card reveal">
+            <span class="badge">ІНДИВІДУАЛЬНО</span>
+            <h3>Консультація психолога</h3>
+            <div class="price">500 грн</div>
+            <p>Особиста 60-хвилинна онлайн-сесія з фахівцем.</p>
+            <br><a href="#contact" class="btn">Замовити</a>
+        </div>
+        <div class="card reveal">
+            <span class="badge">ПІДПИСКА</span>
+            <h3>Група підтримки</h3>
+            <div class="price">250 грн/міс</div>
+            <p>Вебінари, закритий чат та ексклюзивні практики.</p>
+            <br><a href="#contact" class="btn">Приєднатися</a>
+        </div>
+    </div>
 </section>
+
 <section id="reviews">
-<div class="section-title reveal">
-<h2>Відгуки користувачів</h2>
-<p>MindGuard уже допомагає людям знаходити внутрішній спокій</p>
-</div>
-<div class="add-container reveal">
-<button class="btn" onclick="toggleForm('review-form')">+ Залишити свій відгук</button>
-
-<div class="card form-card" id="review-form">
-<h3>Ваш відгук</h3><br>
-<div class="form-group">
-<label>Ваше ім'я</label>
-<input type="text" id="r-name" class="form-control" placeholder="Як вас звати?">
-</div>
-<div class="form-group">
-<label>Ваша оцінка</label>
-<div class="stars-rating">
-<input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
-<input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-<input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-<input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-<input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-</div>
-</div>
-<div class="form-group">
-<label>Текст відгуку</label>
-<textarea id="r-text" class="form-control" placeholder="Поділіться вашими враженнями..."></textarea>
-</div>
-<button class="btn" onclick="submitNewReview()">Відправити відгук</button>
-</div>
-</div>
-<div class="grid reveal" id="reviews-container" style="max-height: 800px; overflow-y: auto; padding-right: 10px;">
-    <div class="card testimonial">
-        <div class="avatar" style="margin: 0 0 10px 0;"></div>
-        <div class="review-stars" style="text-align: left;">★★★★★</div>
-        <h3 style="text-align: left;">Марія</h3>
-        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Сервіс працює дуже швидко і без зайвого візуального шуму. Саме те, що треба для концентрації.”</p>
-        <span class="review-date" style="text-align: left;">19.05.2026</span>
-        <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>14</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
-        </div>
-        <div class="replies-box"></div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
+    <div class="section-title reveal">
+        <h2>Відгуки користувачів</h2>
+        <p>MindGuard уже допомагає людям знаходити внутрішній спокій</p>
+    </div>
+    <div class="add-container reveal">
+        <button class="btn" onclick="toggleForm('review-form')">+ Залишити свій відгук</button>
+        <div class="card form-card" id="review-form">
+            <h3>Ваш відгук</h3><br>
+            <div class="form-group">
+                <label>Ваше ім'я</label>
+                <input type="text" id="r-name" class="form-control" placeholder="Як вас звати?">
+            </div>
+            <div class="form-group">
+                <label>Ваша оцінка</label>
+                <div class="stars-rating">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Текст відгуку</label>
+                <textarea id="r-text" class="form-control" placeholder="Поділіться вашими враженнями..."></textarea>
+            </div>
+            <button class="btn" onclick="submitNewReview()">Відправити відгук</button>
         </div>
     </div>
+    
+    <div class="grid reveal" id="reviews-container" style="max-height: 800px; overflow-y: auto; padding-right: 10px;">
+        
+        <div class="card testimonial">
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">★★★★★</div>
+            <h3 style="text-align: left;">Марія</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Сервіс працює дуже швидко і без зайвого візуального шуму. Саме те, що треба для концентрації.”</p>
+            <span class="review-date" style="text-align: left;">19.05.2026</span>
+            <div class="review-actions">
+                <span>👍 14</span>
+            </div>
+        </div>
 
-    <div class="card testimonial">
-        <div class="avatar" style="margin: 0 0 10px 0;"></div>
-        <div class="review-stars" style="text-align: left;">★★★★☆</div>
-        <h3 style="text-align: left;">Олексій</h3>
-        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Дуже чистий інтерфейс. Чи планується розширення функціоналу для командної роботи або спільних сесій?”</p>
-        <span class="review-date" style="text-align: left;">19.05.2026</span>
-        <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>5</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        <div class="card testimonial">
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">★★★★☆</div>
+            <h3 style="text-align: left;">Олексій</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Дуже чистий інтерфейс. Чи планується розширення функціоналу для командної роботи або спільних сесій?”</p>
+            <span class="review-date" style="text-align: left;">19.05.2026</span>
+            <div class="review-actions">
+                <span>👍 5</span>
+            </div>
+            <div class="replies-box">
+                <div class="reply-item"><span class="reply-author">Адміністратор:</span> Дякуємо! Так, ми розглядаємо таку можливість у майбутніх оновленнях.</div>
+            </div>
         </div>
-        <div class="replies-box">
-            <div class="reply-item"><span class="reply-author">Адміністратор:</span>Дякуємо! Так, ми розглядаємо таку можливість у майбутніх оновленнях.</div>
-        </div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
-        </div>
-    </div>
 
-    <div class="card testimonial">
-        <div class="avatar" style="margin: 0 0 10px 0;"></div>
-        <div class="review-stars" style="text-align: left;">★★★★★</div>
-        <h3 style="text-align: left;">Олена</h3>
-        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Спробувала відкрити і з телефону, і з ноутбука — адаптивність чудова. Мінімалізм у дизайні вельми тішить.”</p>
-        <span class="review-date" style="text-align: left;">18.05.2026</span>
-        <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>9</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        <div class="card testimonial">
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">★★★★★</div>
+            <h3 style="text-align: left;">Олена</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Спробувала відкрити і з телефону, і з ноутбука — адаптивність чудова. Мінімалізм у дизайні вельми тішить.”</p>
+            <span class="review-date" style="text-align: left;">18.05.2026</span>
+            <div class="review-actions">
+                <span>👍 9</span>
+            </div>
         </div>
-        <div class="replies-box"></div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
-        </div>
-    </div>
 
-    <div class="card testimonial">
-        <div class="avatar" style="margin: 0 0 10px 0;"></div>
-        <div class="review-stars" style="text-align: left;">★★★★☆</div>
-        <h3 style="text-align: left;">Дмитро</h3>
-        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Хороший старт. Простий та зрозумілий інструмент. Чекаю на реліз повноцінного мобільного додатка.”</p>
-        <span class="review-date" style="text-align: left;">18.05.2026</span>
-        <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>3</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        <div class="card testimonial">
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">★★★★☆</div>
+            <h3 style="text-align: left;">Дмитро</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Хороший старт. Простий та зрозумілий інструмент. Чекаю на реліз повноцінного мобільного додатка.”</p>
+            <span class="review-date" style="text-align: left;">18.05.2026</span>
+            <div class="review-actions">
+                <span>👍 3</span>
+            </div>
         </div>
-        <div class="replies-box"></div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
-        </div>
-    </div>
 
-    <div class="card testimonial">
-        <div class="avatar" style="margin: 0 0 10px 0;"></div>
-        <div class="review-stars" style="text-align: left;">★★★★★</div>
-        <h3 style="text-align: left;">Ірина</h3>
-        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Допомагає краще контролювати час і не відволікатися на нескінченний серфінг у мережі.”</p>
-        <span class="review-date" style="text-align: left;">17.05.2026</span>
-        <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>11</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        <div class="card testimonial">
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">★★★★★</div>
+            <h3 style="text-align: left;">Ірина</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Допомагає краще контролювати час і не відволікатися на нескінченний серфінг у мережі.”</p>
+            <span class="review-date" style="text-align: left;">17.05.2026</span>
+            <div class="review-actions">
+                <span>👍 11</span>
+            </div>
         </div>
-        <div class="replies-box"></div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
-        </div>
-    </div>
 
-    <div class="card testimonial">
-        <div class="avatar" style="margin: 0 0 10px 0;"></div>
-        <div class="review-stars" style="text-align: left;">★★★★☆</div>
-        <h3 style="text-align: left;">Максим</h3>
-        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Класний проєкт. Хотілося б мати можливість детальніше налаштовувати профілі відпочинку під себе.”</p>
-        <span class="review-date" style="text-align: left;">16.05.2026</span>
-        <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>2</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        <div class="card testimonial">
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">★★★★☆</div>
+            <h3 style="text-align: left;">Максим</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Класний проєкт. Хотілося б мати можливість детальніше налаштовувати профілі відпочинку під себе.”</p>
+            <span class="review-date" style="text-align: left;">16.05.2026</span>
+            <div class="review-actions">
+                <span>👍 2</span>
+            </div>
+            <div class="replies-box">
+                <div class="reply-item"><span class="reply-author">Розробник:</span> Чудова ідея, вже додали це завдання до нашого плану розробки!</div>
+            </div>
         </div>
-        <div class="replies-box">
-            <div class="reply-item"><span class="reply-author">Розробник:</span>Чудова ідея, вже додали це завдання до нашого плану розробки!</div>
-        </div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
-        </div>
-    </div>
 
-    <div class="card testimonial">
-        <div class="avatar" style="margin: 0 0 10px 0;"></div>
-        <div class="review-stars" style="text-align: left;">★★★★★</div>
-        <h3 style="text-align: left;">Тетяна</h3>
-        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Чи буде додано темну тему інтерфейсу? Вночі з нею працювати набагато комфортніше.”</p>
-        <span class="review-date" style="text-align: left;">15.05.2026</span>
-        <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>8</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        <div class="card testimonial">
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">★★★★★</div>
+            <h3 style="text-align: left;">Тетяна</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Чи буде додано темну тему інтерфейсу? Вночі з нею працювати набагато комфортніше.”</p>
+            <span class="review-date" style="text-align: left;">15.05.2026</span>
+            <div class="review-actions">
+                <span>👍 8</span>
+            </div>
+            <div class="replies-box">
+                <div class="reply-item"><span class="reply-author">Адміністратор:</span> Вітаємо! Так, темна тема з'явиться найближчим часом.</div>
+            </div>
         </div>
-        <div class="replies-box">
-            <div class="reply-item"><span class="reply-author">Адміністратор:</span>Вітаємо! Так, темна тема з'явиться найближчим часом.</div>
-        </div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
-        </div>
-    </div>
 
-    <div class="card testimonial">
-        <div class="avatar" style="margin: 0 0 10px 0;"></div>
-        <div class="review-stars" style="text-align: left;">★★★★★</div>
-        <h3 style="text-align: left;">Юлія</h3>
-        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Дуже приємне оформлення, все інтуїтивно зрозуміло з перших секунд. Успіхів вашій команді!”</p>
-        <span class="review-date" style="text-align: left;">14.05.2026</span>
-        <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>4</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        <div class="card testimonial">
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">★★★★★</div>
+            <h3 style="text-align: left;">Юлія</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Дуже приємне оформлення, все інтуїтивно зрозуміло з перших секунд. Успіхів вашій команді!”</p>
+            <span class="review-date" style="text-align: left;">14.05.2026</span>
+            <div class="review-actions">
+                <span>👍 4</span>
+            </div>
         </div>
-        <div class="replies-box"></div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
-        </div>
-    </div>
 
-    <div class="card testimonial">
-        <div class="avatar" style="margin: 0 0 10px 0;"></div>
-        <div class="review-stars" style="text-align: left;">★★★★★</div>
-        <h3 style="text-align: left;">Андрій</h3>
-        <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Тестую вже кілька днів на різних пристроях. Все стабільно, лагів немає. Гарна робота.”</p>
-        <span class="review-date" style="text-align: left;">12.05.2026</span>
-        <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>6</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+        <div class="card testimonial">
+            <div class="avatar" style="margin: 0 0 10px 0;"></div>
+            <div class="review-stars" style="text-align: left;">★★★★★</div>
+            <h3 style="text-align: left;">Андрій</h3>
+            <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“Тестую вже кілька днів на різних пристроях. Все стабільно, лагів немає. Гарна робота.”</p>
+            <span class="review-date" style="text-align: left;">12.05.2026</span>
+            <div class="review-actions">
+                <span>👍 6</span>
+            </div>
         </div>
-        <div class="replies-box"></div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
-        </div>
+
     </div>
-</div>
 </section>
+
 <section id="contact">
-<div class="section-title reveal">
-<h2>Зв'яжіться з нами</h2>
-<p>Ми завжди готові надати вам психологічну та технічну допомогу</p>
-</div>
-<div class="card reveal support-box">
-<h3>Служба турботи MindGuard</h3><br>
-<p style="font-size:1.1rem;color:var(--primary);font-weight:600;margin-bottom: 20px;">mindguardproject@gmail.com</p>
-
-<div id="support-success" class="success-msg">
-✨ Дякуємо! Ваше звернення успішно надіслано. Наш черговий психолог відповість вам на пошту протягом 15 хвилин.
-</div>
-
-<div class="form-group" style="text-align: left;">
-<label>Ваш Email для зв'язку</label>
-<input type="email" id="s-email" class="form-control" placeholder="example@mail.com" style="margin-bottom: 15px;">
-</div>
-
-<div class="form-group" style="text-align: left;">
-<label>Опишіть вашу проблему чи запит</label>
-<textarea id="s-message" class="support-textarea" placeholder="Напишіть, що вас турбує або яке питання у вас виникло..."></textarea>
-</div>
-
-<button class="btn" id="support-submit-btn" onclick="sendSupportMessage()" style="width: 100%;">Надіслати запит</button>
-</div>
+    <div class="section-title reveal">
+        <h2>Зв'яжіться з нами</h2>
+        <p>Ми завжди готові надати вам психологічну та технічну допомогу</p>
+    </div>
+    <div class="card reveal support-box">
+        <h3>Служба турботи MindGuard</h3><br>
+        <p style="font-size:1.1rem;color:var(--primary);font-weight:600;margin-bottom: 20px;">mindguardproject@gmail.com</p>
+        
+        <div id="support-success" class="success-msg">
+            ✨ Дякуємо! Ваше звернення успішно надіслано. Наш черговий психолог відповість вам на пошту протягом 15 хвилин.
+        </div>
+        
+        <div class="form-group" style="text-align: left;">
+            <label>Ваш Email для зв'язку</label>
+            <input type="email" id="s-email" class="form-control" placeholder="example@mail.com" style="margin-bottom: 15px;">
+        </div>
+        
+        <div class="form-group" style="text-align: left;">
+            <label>Опишіть вашу проблему чи запит</label>
+            <textarea id="s-message" class="support-textarea" placeholder="Напишіть, що вас турбує або яке питання у вас виникло..."></textarea>
+        </div>
+        
+        <button class="btn" id="support-submit-btn" onclick="sendSupportMessage()" style="width: 100%;">Надіслати запит</button>
+    </div>
 </section>
+
 <footer>
-<h2>MindGuard</h2><br>
-<p>© 2026 MindGuard Project — Робимо світ спокійнішим 💙</p>
+    <h2>MindGuard</h2><br>
+    <p>© 2026 MindGuard Project — Робимо світ спокійнішим 💙</p>
 </footer>
+
 <script>
 // --- СКРОЛЛ-АНІМАЦІЯ ---
 const reveals = document.querySelectorAll('.reveal');
@@ -913,22 +830,9 @@ function saveMoodState() {
     const now = new Date();
     const timeString = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     const moodEntry = { mood: currentSelectedMood, note: note || "Без коментаря", time: timeString };
-    
-    let history = [];
-    try {
-        history = JSON.parse(localStorage.getItem('mood_history') || '[]');
-    } catch(e) { 
-        history = []; 
-    }
-    
+    let history = JSON.parse(localStorage.getItem('mood_history') || '[]');
     history.unshift(moodEntry);
-    
-    try {
-        localStorage.setItem('mood_history', JSON.stringify(history));
-    } catch(e) {
-        console.warn("LocalStorage недоступний.");
-    }
-    
+    localStorage.setItem('mood_history', JSON.stringify(history));
     renderMoodHistory();
     document.getElementById('mood-text').value = '';
     document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
@@ -938,19 +842,12 @@ function saveMoodState() {
 
 function renderMoodHistory() {
     const container = document.getElementById('history-list');
-    let history = [];
+    const history = JSON.parse(localStorage.getItem('mood_history') || '[]');
     
-    try {
-        history = JSON.parse(localStorage.getItem('mood_history') || '[]');
-    } catch(e) { 
-        history = []; 
-    }
-
     if(history.length === 0) {
         container.innerHTML = '<p style="font-size:0.8rem;color:#94a3b8;text-align:center;">Тут будуть ваші записи</p>';
         return;
     }
-    
     container.innerHTML = history.map(item => `
         <div class="history-item">
             <strong>Почувався: ${item.mood}</strong> — ${item.note}
@@ -973,7 +870,6 @@ function sendSupportMessage() {
         alert("Будь ласка, заповніть обидва поля (Email та повідомлення) для відправки запиту!");
         return;
     }
-    
     if (!email.includes('@') || !email.includes('.')) {
         alert("Будь ласка, введіть коректну адресу електронної пошти!");
         return;
@@ -987,23 +883,13 @@ function sendSupportMessage() {
         const timestamp = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
         const newTicket = { email, message, time: timestamp };
         
-        let tickets = [];
-        try {
-            tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
-        } catch(e) {
-            tickets = [];
-        }
-        
+        let tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
         tickets.push(newTicket);
-        
-        try {
-            localStorage.setItem('support_tickets', JSON.stringify(tickets));
-        } catch(e) {
-            console.warn("LocalStorage недоступний.");
-        }
+        localStorage.setItem('support_tickets', JSON.stringify(tickets));
         
         emailInput.value = '';
         messageInput.value = '';
+        
         successMsg.style.display = 'block';
         submitBtn.innerText = "Надіслати запит";
         submitBtn.disabled = false;
@@ -1019,7 +905,7 @@ function getYouTubeEmbedHtml(url) {
     let videoId = '';
     if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1].split('?')[0];
     else if (url.includes('v=')) videoId = url.split('v=')[1].split('&')[0];
-
+    
     if (videoId) {
         return `<div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
             <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
@@ -1039,21 +925,9 @@ function submitVideo() {
     }
     
     const newVideo = { url, title, desc };
-    let localVideos = [];
-    
-    try {
-        localVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
-    } catch(e) {
-        localVideos = [];
-    }
-    
+    let localVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
     localVideos.push(newVideo);
-    
-    try {
-        localStorage.setItem('stored_vids', JSON.stringify(localVideos));
-    } catch(e) {
-        console.warn("LocalStorage недоступний.");
-    }
+    localStorage.setItem('stored_vids', JSON.stringify(localVideos));
     
     appendVideoCard(newVideo);
     
@@ -1068,7 +942,7 @@ function appendVideoCard(video) {
     const isFb = video.url.includes('facebook.com') || video.url.includes('fb.watch');
     const iconLetter = isFb ? 'f' : '▶';
     const iconBg = isFb ? '#4267B2' : '#FF0000';
-
+    
     let mediaContent = isFb ? `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на Facebook</a>` : (getYouTubeEmbedHtml(video.url) || `<br><a href="${video.url}" target="_blank" class="btn">Дивитися на YouTube</a>`);
     
     const cardHtml = `
@@ -1086,7 +960,7 @@ function appendVideoCard(video) {
     container.insertAdjacentHTML('beforeend', cardHtml);
 }
 
-// --- НОВА СИСТЕМА ВІДГУКІВ (ЛОГІКА ДЛЯ HTML) ---
+// --- ДОДАННЯ НОВИХ ВІДГУКІВ ТІЛЬКИ НА ЧАС СЕСІЇ ---
 function submitNewReview() {
     const name = document.getElementById('r-name').value.trim();
     const text = document.getElementById('r-text').value.trim();
@@ -1096,84 +970,39 @@ function submitNewReview() {
         alert("Заповніть форму та виберіть зірочки!");
         return;
     }
-
-    let stars = '★'.repeat(ratingActive.value) + '☆'.repeat(5 - ratingActive.value);
-    const dateStr = new Date().toLocaleDateString('uk-UA');
     
-    const cardHtml = `
-    <div class="card testimonial">
+    const ratingValue = parseInt(ratingActive.value);
+    const date = new Date().toLocaleDateString('uk-UA');
+    const stars = '★'.repeat(ratingValue) + '☆'.repeat(5 - ratingValue);
+    
+    const card = document.createElement('div');
+    card.className = 'card testimonial';
+    card.innerHTML = `
         <div class="avatar" style="margin: 0 0 10px 0;"></div>
         <div class="review-stars" style="text-align: left;">${stars}</div>
         <h3 style="text-align: left;">${name}</h3>
         <p style="text-align: left; font-size: 0.95rem; margin-bottom: 5px;">“${text}”</p>
-        <span class="review-date" style="text-align: left;">${dateStr}</span>
+        <span class="review-date" style="text-align: left;">${date}</span>
         <div class="review-actions">
-            <button onclick="likeReview(this)">👍 <span>0</span></button>
-            <button onclick="toggleReply(this)">💬 Відповісти</button>
-            <button class="delete-btn" onclick="deleteReview(this)">🗑 Видалити</button>
+            <span>👍 0</span>
         </div>
-        <div class="replies-box"></div>
-        <div class="reply-form">
-            <input type="text" class="form-control reply-name" placeholder="Ваше ім'я (або Адмін)" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <input type="text" class="form-control reply-text" placeholder="Текст відповіді..." style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;">
-            <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; width: 100%;" onclick="submitReply(this)">Відправити відповідь</button>
-        </div>
-    </div>`;
+    `;
     
-    document.getElementById('reviews-container').insertAdjacentHTML('afterbegin', cardHtml);
+    // Додаємо новий відгук на самий початок списку
+    const container = document.getElementById('reviews-container');
+    container.prepend(card);
     
+    // Очищаємо форму
     document.getElementById('r-name').value = '';
     document.getElementById('r-text').value = '';
     ratingActive.checked = false;
     toggleForm('review-form');
 }
 
-function likeReview(btn) {
-    let span = btn.querySelector('span');
-    let currentLikes = parseInt(span.innerText);
-    span.innerText = currentLikes + 1;
-}
-
-function deleteReview(btn) {
-    if (confirm('Ви впевнені, що хочете видалити цей відгук?')) {
-        btn.closest('.card').remove();
-    }
-}
-
-function toggleReply(btn) {
-    let form = btn.closest('.card').querySelector('.reply-form');
-    form.style.display = (form.style.display === 'flex') ? 'none' : 'flex';
-}
-
-function submitReply(btn) {
-    let form = btn.closest('.reply-form');
-    let name = form.querySelector('.reply-name').value.trim() || 'Адміністратор';
-    let text = form.querySelector('.reply-text').value.trim();
-    
-    if (!text) {
-        alert('Введіть текст відповіді!');
-        return;
-    }
-    
-    let box = btn.closest('.card').querySelector('.replies-box');
-    box.insertAdjacentHTML('beforeend', `<div class="reply-item"><span class="reply-author">${name}:</span>${text}</div>`);
-    
-    form.querySelector('.reply-name').value = '';
-    form.querySelector('.reply-text').value = '';
-    form.style.display = 'none';
-}
-
-// ЗАВАНТАЖЕННЯ ДАНИХ
+// ЗАВАНТАЖЕННЯ ДАНИХ ПРИ ЗАПУСКУ
 window.addEventListener('DOMContentLoaded', () => {
     renderMoodHistory();
-    let savedVideos = [];
-    
-    try {
-        savedVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
-    } catch(e) {
-        savedVideos = [];
-    }
-    
+    const savedVideos = JSON.parse(localStorage.getItem('stored_vids') || '[]');
     savedVideos.forEach(appendVideoCard);
 });
 </script>
