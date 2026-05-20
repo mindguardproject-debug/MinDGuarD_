@@ -425,7 +425,8 @@ footer { padding: 40px 8%; text-align: center; background: #1d2433; color: white
     </div>
     <nav>
         <a href="#home">Головна</a>
-        <a href="#features">Можливості</a>
+        <a href="#features">Щоденник</a>
+        <a href="#meditations">Медитації</a>
         <a href="#videos">Відео</a>
         <a href="#premium" class="plus-link">Plus ✨</a>
         <a href="#reviews">Відгуки</a>
@@ -462,26 +463,68 @@ footer { padding: 40px 8%; text-align: center; background: #1d2433; color: white
     </div>
 </section>
 
-<section id="features">
-    <div class="section-title reveal">
-        <h2>Можливості платформи</h2>
-        <p>Все необхідне для психологічної підтримки в одному місці</p>
-    </div>
-    <div class="grid">
+<section id="features" style="padding-top: 40px; padding-bottom: 40px;">
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 800px; margin: 0 auto;">
+        
         <div class="card reveal">
             <div class="icon">🧠</div>
             <h3>Щоденник настрою</h3>
-            <p>Відстежуй свій емоційний стан та аналізуй зміни настрою.</p>
+            <p>Відстежуй свій емоційний стан, занотовуй думки та аналізуй зміни настрою щодня.</p>
         </div>
-        <div class="card reveal">
-            <div class="icon">🌿</div>
-            <h3>Медитації</h3>
-            <p>Практики дихання та розслаблення для боротьби зі стресом.</p>
-        </div>
+        
         <div class="card reveal">
             <div class="icon">💬</div>
             <h3>Підтримка фахівців</h3>
-            <p>Онлайн-консультації з психологами та спеціалістами.</p>
+            <p style="color: #ff9800; font-weight: 700; margin-top: 5px; font-size: 1.1rem;">Буде доступно згодом ⏳</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Ми працюємо над онлайн-консультаціями з психологами. Ця функція знаходиться на стадії розробки.</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="meditations" style="background: rgba(255,255,255,0.4);">
+    <div class="section-title reveal">
+        <h2>Медитації та розслаблення</h2>
+        <p>Практики дихання для боротьби зі стресом. Знайди свій дзен.</p>
+    </div>
+    <div class="grid reveal">
+        <div class="card">
+            <div class="icon" style="background: #8ee3c4; color: white;">🌿</div>
+            <h3>Здоров'я і зцілення</h3>
+            <p>Медитація для відновлення організму та зняття напруги.</p>
+            <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/DVXKigPVhvM" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                <strong>Джерело:</strong> YouTube<br>
+                <strong>Автор відео:</strong> Канал "Яна Шеремет - Медитації"
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon" style="background: #8ee3c4; color: white;">🌿</div>
+            <h3>Прийми свої емоції</h3>
+            <p>Практика для заспокоєння та прийняття себе (Адаптація CALM).</p>
+            <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/UIxMsJmLR-8" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                <strong>Джерело:</strong> YouTube<br>
+                <strong>Автор відео:</strong> Канал "Джефрі Воррен / Віктор Д."
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon" style="background: #8ee3c4; color: white;">🌿</div>
+            <h3>Заспокоєння розуму</h3>
+            <p>Коротка 10-хвилинна практика для пошуку внутрішньої тиші.</p>
+            <div style="margin-top: 15px; border-radius: 15px; overflow: hidden; background: #000;">
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/awxC44uT3Jc" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #667085; line-height: 1.4;">
+                <strong>Джерело:</strong> YouTube<br>
+                <strong>Автор відео:</strong> Канал "THE BODY TEMPLE"
+            </p>
         </div>
     </div>
 </section>
@@ -633,7 +676,6 @@ footer { padding: 40px 8%; text-align: center; background: #1d2433; color: white
     </div>
     
     <div class="grid reveal" id="reviews-container" style="max-height: 800px; overflow-y: auto; padding-right: 10px;">
-        
         <div class="card testimonial">
             <div class="avatar" style="margin: 0 0 10px 0;"></div>
             <div class="review-stars" style="text-align: left;">★★★★★</div>
@@ -741,7 +783,6 @@ footer { padding: 40px 8%; text-align: center; background: #1d2433; color: white
                 <span>👍 6</span>
             </div>
         </div>
-
     </div>
 </section>
 
